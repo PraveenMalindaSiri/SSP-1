@@ -12,17 +12,17 @@
     <header class="bg-gray-800 text-white pr-10 pl-10 pt-4 pb-4">
         <nav class="flex justify-between items-center mx-auto w-[90%]">
             <div>
-                <a href="">
+                <a href="../public/home.php">
                     <h1 class="text-3xl text-cyan-400 hover:text-white">GameNova</h1>
                 </a>
             </div>
             <div class="nav-links duration-500 absolute md:static md:min-h-fit md:w-auto bg-gray-800 w-full h-16 top-[-100%] left-0 min-h-[60vh] flex items-center">
                 <ul class="flex md:flex-row flex-col items-center justify-center md:items-center md:gap-[4vw] gap-10 w-full">
-                    <li><a href="" class="hover:text-cyan-400 text-xl">Home</a></li>
-                    <li><a href="" class="hover:text-cyan-400 text-xl">Products</a></li>
-                    <li><a href="" class="hover:text-cyan-400 text-xl">About</a></li>
-                    <li><a href="" class="hover:text-cyan-400 text-xl">Wishlist</a></li>
-                    <li><a href="" class="hover:text-cyan-400 text-xl">Cart</a></li>
+                    <li><a href="../public/home.php" class="hover:text-cyan-400 text-xl transition-colors duration-300">Home</a></li>
+                    <li><a href="../public/physicalproducts.php" class="hover:text-cyan-400 text-xl transition-colors duration-300">Products</a></li>
+                    <li><a href="../public/about.php" class="hover:text-cyan-400 text-xl transition-colors duration-300">About</a></li>
+                    <li><a href="../customer/wishlist.php" class="hover:text-cyan-400 text-xl transition-colors duration-300">Wishlist</a></li>
+                    <li><a href="../customer/cart.php" class="hover:text-cyan-400 text-xl transition-colors duration-300">Cart</a></li>
                 </ul>
             </div>
             <div class="flex items-center gap-10">
