@@ -12,24 +12,26 @@
     <header class="bg-gray-800 text-white pr-10 pl-10 pt-4 pb-4">
         <nav class="flex justify-between items-center mx-auto w-[90%]">
             <div>
-                <h1>GameNova</h1>
+                <a href="">
+                    <h1 class="text-3xl text-cyan-400 hover:text-white">GameNova</h1>
+                </a>
             </div>
-            <div class="absolute md:static md:min-h-fit md:w-auto bg-gray-800 w-full h-16 top-[9%] left-0 min-h-[60vh] flex item-center"></div>
-            <ul class="flex md:flex-row flex-col items-center md:gap-[4vw] gap-10">
-                <li><a href="">Home</a></li>
-                <li><a href="">Products</a></li>
-                <li><a href="">About</a></li>
-                <li><a href="">Wishlist</a></li>
-                <li><a href="">Cart</a></li>
-            </ul>
+            <div class="nav-links duration-500 absolute md:static md:min-h-fit md:w-auto bg-gray-800 w-full h-16 top-[-100%] left-0 min-h-[60vh] flex items-center">
+                <ul class="flex md:flex-row flex-col items-center justify-center md:items-center md:gap-[4vw] gap-10 w-full">
+                    <li><a href="" class="hover:text-cyan-400 text-xl">Home</a></li>
+                    <li><a href="" class="hover:text-cyan-400 text-xl">Products</a></li>
+                    <li><a href="" class="hover:text-cyan-400 text-xl">About</a></li>
+                    <li><a href="" class="hover:text-cyan-400 text-xl">Wishlist</a></li>
+                    <li><a href="" class="hover:text-cyan-400 text-xl">Cart</a></li>
+                </ul>
             </div>
-            <div>
-                <button>
-                    <img src="/cb008920/public/assets/images/main/avatar-white.png" alt="profile" class="w-7 h-7 ">
-                </button>
+            <div class="flex items-center gap-10">
+                <button><img src="/cb008920/public/assets/images/main/avatar-white.png" alt="profile" class="w-10 h-10 hover:-translate-y-1 transition ease-in-out delay-75"></button>
+                <button class="text-3xl cursor-pointer md:hidden w-7 h-7" id="menu-toggle" name="menu"><img id="menu-img" src="/cb008920/public/assets/images/main/menu.png" alt="menu"></button>
             </div>
         </nav>
     </header>
+    <script src="/cb008920/public/assets/js/navigation.js"></script>
 </body>
 
 </html>
