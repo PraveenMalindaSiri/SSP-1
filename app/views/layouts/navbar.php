@@ -9,6 +9,9 @@
 </head>
 
 <body>
+    <div class="p-2 bg-darkgray flex">
+        <a href="../public/login.php" class="font-semibold hover:text-skyblue">LOG IN</a>
+    </div>
     <header class="bg-gray-800 text-white pr-10 pl-10 pt-4 pb-4">
         <nav class="flex justify-between items-center mx-auto w-[90%]">
             <div>

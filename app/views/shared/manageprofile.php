@@ -12,11 +12,11 @@
             </div>
             <div>
                 <label for="address">Address</label><br>
-                <input class="my_input" type="address" id="address" name="address">
+                <input class="my_input" type="text" id="address" name="address">
             </div>
             <div>
                 <label for="phoneNum">Phone Number</label><br>
-                <input class="my_input" type="PhoneNum" id="PhoneNum" name="PhoneNum">
+                <input class="my_input" type="number" id="phoneNum" name="phoneNum">
             </div>
             <div>
                 <label for="email">Email</label><br>
@@ -31,15 +31,15 @@
         <form action="">
             <div>
                 <label for="cPassword">Current Password</label><br>
-                <input class="my_input" type="text" id="cPassword" name="cPassword" required>
+                <input class="my_input" type="password" id="cPassword" name="cPassword" required>
             </div>
             <div>
                 <label for="nPassword">New Password</label><br>
-                <input class="my_input" type="nPassword" id="nPassword" name="nPassword" required>
+                <input class="my_input" type="password" id="nPassword" name="nPassword" required>
             </div>
             <div>
                 <label for="conPassword">Confirm Password</label><br>
-                <input class="my_input" type="conPassword" id="conPassword" name="conPassword" required>
+                <input class="my_input" type="password" id="conPassword" name="conPassword" required>
             </div>
             <button type="submit" class="my_btn mt-5">CONFIRM</button>
         </form>
@@ -47,10 +47,10 @@
 
     <div class="my_form_div">
         <h1 class="text-2xl mb-5">Update Profile Picture</h1>
-        <form action="">
+        <form action="" enctype="multipart/form-data">
             <div>
-                <label for="cPassword">Current Password</label><br>
-                <input type="text" id="cPassword" name="cPassword" required>
+                <label for="picture">Profile Picture</label><br>
+                <input type="file" id="picture" name="picture" class="my_input" required>
             </div>
             <button type="submit" class="my_btn mt-5">SAVE</button>
         </form>

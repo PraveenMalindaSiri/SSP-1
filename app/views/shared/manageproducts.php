@@ -4,9 +4,8 @@
 
 
 
-<div>
-    <p>All products HERE</p>
-</div>
+<a href="../shared/updateproduct.php">update details</a><br>
+<a href="../shared/deleteproduct.php">delete</a>
 
 
 
