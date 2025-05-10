@@ -7,10 +7,6 @@
         <h1 class="text-2xl mb-5">Update Profile Details</h1>
         <form action="">
             <div>
-                <label for="username">Username</label><br>
-                <input class="my_input" type="text" id="username" name="username">
-            </div>
-            <div>
                 <label for="fullname">Fullname</label><br>
                 <input class="my_input" type="text" id="fullname" name="fullname">
             </div>
@@ -34,10 +30,6 @@
         <h1 class="text-2xl mb-5">Update Password</h1>
         <form action="">
             <div>
-                <label for="username">Username</label><br>
-                <input class="my_input" type="text" id="username" name="username">
-            </div>
-            <div>
                 <label for="cPassword">Current Password</label><br>
                 <input class="my_input" type="text" id="cPassword" name="cPassword" required>
             </div>
@@ -57,10 +49,10 @@
         <h1 class="text-2xl mb-5">Update Profile Picture</h1>
         <form action="">
             <div>
-                <label for="username">Username</label><br>
-                <input class="my_input" type="text" id="usernam e" name="username">
+                <label for="cPassword">Current Password</label><br>
+                <input type="text" id="cPassword" name="cPassword" required>
             </div>
-            <button type="submit" class="my_btn mt-5">DELETE</button>
+            <button type="submit" class="my_btn mt-5">SAVE</button>
         </form>
     </div>
 </div>

@@ -5,6 +5,14 @@
         @apply bg-[color:#1A1C1E] text-[color:#00FFC6] pl-4 pr-4 p-2 text-xl rounded-lg;
         @apply hover:text-white;
     }
+
+    .my_form_div{
+        @apply p-4 bg-gray-800 w-[99%] md:w-[50%] m-10 rounded-lg text-white;
+    }
+
+    .my_input{
+        @apply w-[100%] p-2 rounded-lg border bg-white text-black focus:outline-none mb-4;
+    }
 }
 
 @layer utilities {

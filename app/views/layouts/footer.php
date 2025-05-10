@@ -8,9 +8,9 @@
             </p>
             <a href="../public/physicalproducts.php" class="text-lg text-cyan-400 hover:text-white">See all games...</a>
         </section>
-        <div class="flex justify-between items-center mt-4 pr-10 pl-10">
+        <div class="flex justify-between flex-col md:flex-row items-center mt-4 pr-10 pl-10 gap-4">
             <a href="../public/about.php" class="text-xl text-cyan-400 hover:text-white">About Us</a>
-            <section class="flex flex-row items-center gap-10">
+            <section class="flex md:flex-row items-center gap-10">
                 <a href="https://www.facebook.com/" target="_blank"><img
                         src="/cb008920/public/assets/images/main/facebook.png" alt="facebook" class="w-7 h-7 transition ease-in-out delay-75 hover:-translate-y-1"></a>
                 <a href="https://www.youtube.com/" target="_blank"><img src="/cb008920/public/assets/images/main/youtube.png"

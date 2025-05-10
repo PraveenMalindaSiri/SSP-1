@@ -1,11 +1,10 @@
 <?php require_once("../../../public/index.php"); ?>
 <?php require_once(LAYOUT_PATH . "navbar.php"); ?>
-<?php require_once(LAYOUT_PATH . "navbar_manageproducts.php"); ?>
 
 
 
 <div>
-    <p>All products HERE</p>
+    <h1>Update HERE</h1>
 </div>
 
 
