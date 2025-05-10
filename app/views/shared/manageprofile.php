@@ -2,6 +2,14 @@
 <?php require_once(LAYOUT_PATH . "navbar.php"); ?>
 
 
+
+<div class="flex justify-center">
+    <button class="flex mt-5 my_btn">
+        <a href="../public/login.php">LOG IN</a>
+        <img src="/cb008920/public/assets/images/main/power-switch.png" alt="" class="w-7 h-7 pl-4">
+    </button>
+</div>
+
 <div class="flex flex-col items-center justify-center">
     <div class="my_form_div">
         <h1 class="text-2xl mb-5">Update Profile Details</h1>
