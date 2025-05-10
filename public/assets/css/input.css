@@ -1,2 +1,20 @@
 @import "tailwindcss";
 
+@layer components {
+    .my_btn {
+        @apply bg-[color:#1A1C1E] text-[color:#00FFC6] pl-4 pr-4 p-2 text-xl rounded-lg;
+        @apply hover:text-white;
+    }
+}
+
+@layer utilities {
+    .text-color-skyblue {
+        color: #1F8EFD;
+    }
+}
+
+@theme{
+    --color-neon: #00FFC6;
+    --color-skyblue: #1F8EFD;
+    --color-darkgray: #1A1C1E;
+}

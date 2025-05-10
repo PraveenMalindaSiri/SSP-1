@@ -28,7 +28,16 @@
     </div>
     <!-- Products -->
     <div class="overflow-x-auto whitespace-nowrap px-4 py-6 pl-10 pr-10">
-        <div>
+        <div class="flex justify-between">
+            <a href="">
+                <div class="inline-block w-60 mr-4 bg-gray-800 text-white rounded-xl shadow-lg p-4">
+                    <img src="/images/game1.jpg" alt="Game 1" class="w-full h-40 object-cover rounded-lg mb-3">
+                    <h2 class="text-lg font-semibold">Game Title 1</h2>
+                    <p class="text-sm text-gray-300">Digital / Physical</p>
+                    <p class="text-yellow-400 font-bold mt-2">$29.99</p>
+                </div>
+            </a>
+
             <a href="">
                 <div class="inline-block w-60 mr-4 bg-gray-800 text-white rounded-xl shadow-lg p-4">
                     <img src="/images/game1.jpg" alt="Game 1" class="w-full h-40 object-cover rounded-lg mb-3">
@@ -57,7 +66,7 @@
     </div>
     <!-- Products -->
     <div class="overflow-x-auto whitespace-nowrap px-4 py-6 pl-10 pr-10">
-        <div>
+        <div class="flex justify-between">
             <a href="">
                 <div class="inline-block w-60 mr-4 bg-gray-800 text-white rounded-xl shadow-lg p-4">
                     <img src="/images/game1.jpg" alt="Game 1" class="w-full h-40 object-cover rounded-lg mb-3">
@@ -67,6 +76,15 @@
                 </div>
             </a>
             
+            <a href="">
+                <div class="inline-block w-60 mr-4 bg-gray-800 text-white rounded-xl shadow-lg p-4">
+                    <img src="/images/game1.jpg" alt="Game 1" class="w-full h-40 object-cover rounded-lg mb-3">
+                    <h2 class="text-lg font-semibold">Game Title 1</h2>
+                    <p class="text-sm text-gray-300">Digital / Physical</p>
+                    <p class="text-yellow-400 font-bold mt-2">$29.99</p>
+                </div>
+            </a>
+
             <a href="">
                 <div class="inline-block w-60 mr-4 bg-gray-800 text-white rounded-xl shadow-lg p-4">
                     <img src="/images/game1.jpg" alt="Game 1" class="w-full h-40 object-cover rounded-lg mb-3">
