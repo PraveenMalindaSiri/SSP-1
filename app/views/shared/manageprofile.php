@@ -1,11 +1,10 @@
-<?php require_once("../../../public/index.php"); ?>
 <?php require_once(LAYOUT_PATH . "navbar.php"); ?>
 
 
 
 <div class="flex justify-center">
     <button class="flex mt-5 my_btn">
-        <a href="../public/login.php">LOG IN</a>
+        <a href="cb008920/public/login">LOG IN</a>
         <img src="/cb008920/public/assets/images/main/power-switch.png" alt="" class="w-7 h-7 pl-4">
     </button>
 </div>

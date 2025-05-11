@@ -1,4 +1,3 @@
-<?php require_once("../../../public/index.php"); ?>
 <?php require_once(LAYOUT_PATH . "navbar.php"); ?>
 
 
@@ -16,7 +15,7 @@
             <button type="submit" class="my_btn mt-5">LOG IN</button>
         </form>
     </div>
-    <a href="../public/register.php" class="text-2xl font-semibold hover:text-skyblue p-4">Click To Register...</a>
+    <a href="cb008920/public/register" class="text-2xl font-semibold hover:text-skyblue p-4">Click To Register...</a>
 </div>
 
 
