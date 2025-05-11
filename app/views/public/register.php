@@ -29,6 +29,20 @@
                 <label for="email">Email</label><br>
                 <input class="my_input" type="email" id="email" name="email" required>
             </div>
+
+            <div class="w-[50%]">
+                <label>Select Role</label>
+                <div class="flex items-center space-x-4 justify-between mt-5">
+                    <div>
+                        <input type="radio" id="seller" name="role" value="seller" required>
+                        <label for="seller" class="p-4">Seller</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="seller" name="role" value="customer" required>
+                        <label for="customer" class="p-4">Customer</label>
+                    </div>
+                </div>
+            </div>
             <button type="submit" class="my_btn mt-5">REGISTER</button>
         </form>
     </div>
