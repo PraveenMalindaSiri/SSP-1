@@ -26,4 +26,13 @@ class Database
         $statement->bind_param("sssssss", $data['username'], $data['password'], $data['fullname'], $data['email'], $data['address'], $data['dob'], $data['role']);
         return $statement->execute();
     }
+    
+    public function getUserByUsername($username)
+    {
+        $conn = self::getConnection();
+        $stmt = $conn->prepare("SELECT password, role, date_of_birth FROM users WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
 }

@@ -133,6 +133,12 @@ class Validator{
         );
     }
 
+    public static function validateLoginForm(){
+        return array_merge_recursive(
+            self::hasValue(),
+        );
+    }
+
     public static function sanitize($data = [])
     {
         $sanitizedData = [];

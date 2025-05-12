@@ -10,17 +10,18 @@ $routes = [
     '/physicalproducts' => ['view' => 'public/physicalproducts.php'],
     '/digitalproducts' => ['view' => 'public/digitalproducts.php'],
     '/about' => ['view' => 'public/about.php'],
-    '/login' => ['view' => 'public/login.php'],
     '/cart' => ['view' => 'customer/cart.php'],
     '/wishlist' => ['view' => 'customer/wishlist.php'],
     '/manageprofile' => ['view' => 'shared/manageprofile.php'],
-
+    '/manageproducts' => ['view' => 'shared/manageproducts.php'],
+    '/manageusers' => ['view' => 'admin/manageusers.php'],
+    '/createproduct' => ['view' => 'shared/createproduct.php'],
 
     '/register' => [
         'controller' => 'UserController',
         'method' => 'register'
     ],
-    '/login/submit' => [
+    '/login' => [
         'controller' => 'UserController',
         'method' => 'login'
     ],

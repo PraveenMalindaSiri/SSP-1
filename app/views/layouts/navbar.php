@@ -1,3 +1,9 @@
+<?php
+require_once APP_PATH . 'core/Session.php';
+$session = new Session();
+$session->start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,8 +27,19 @@
                     <li><a href="/cb008920/public/home" class="hover:text-cyan-400 text-xl transition-colors duration-300">Home</a></li>
                     <li><a href="/cb008920/public/physicalproducts" class="hover:text-cyan-400 text-xl transition-colors duration-300">Products</a></li>
                     <li><a href="/cb008920/public/about" class="hover:text-cyan-400 text-xl transition-colors duration-300">About</a></li>
-                    <li><a href="/cb008920/public/wishlist" class="hover:text-cyan-400 text-xl transition-colors duration-300">Wishlist</a></li>
-                    <li><a href="/cb008920/public/cart" class="hover:text-cyan-400 text-xl transition-colors duration-300">Cart</a></li>
+                    <?php
+                    if ($session->isLoggedIn() && $session->isCustomer()) {
+                        echo '                    <li><a href="/cb008920/public/wishlist" class="hover:text-cyan-400 text-xl transition-colors duration-300">Wishlist</a></li>
+                    <li><a href="/cb008920/public/cart" class="hover:text-cyan-400 text-xl transition-colors duration-300">Cart</a></li>';
+                    }
+                    if ($session->isLoggedIn() && $session->isAdmin()) {
+                        echo '<li><a href="/cb008920/public/manageproducts" class="hover:text-cyan-400 text-xl transition-colors duration-300">Manage Products</a></li>
+                        <li><a href="/cb008920/public/manageusers" class="hover:text-cyan-400 text-xl transition-colors duration-300">Manage Users</a></li>';
+                    }
+                    if ($session->isLoggedIn() && $session->isSeller()) {
+                        echo '<li><a href="/cb008920/public/manageproducts" class="hover:text-cyan-400 text-xl transition-colors duration-300">Manage Products</a></li>';
+                    }
+                    ?>
                 </ul>
             </div>
             <div class="flex items-center gap-10">
