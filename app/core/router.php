@@ -15,7 +15,6 @@ $routes = [
     '/manageprofile' => ['view' => 'shared/manageprofile.php'],
     '/manageproducts' => ['view' => 'shared/manageproducts.php'],
     '/manageusers' => ['view' => 'admin/manageusers.php'],
-    '/createproduct' => ['view' => 'shared/createproduct.php'],
 
     '/update-profile' => [
         'controller' => 'UserController',
@@ -40,6 +39,18 @@ $routes = [
     '/logout' => [
         'controller' => 'UserController',
         'method' => 'logout'
+    ],
+    '/createproduct' => [
+        'controller' => 'ProductController',
+        'method' => 'createProduct'
+    ],
+    '/updateproduct' => [
+        'controller' => 'ProductController',
+        'method' => 'updateProduct'
+    ],
+    '/deleteproduct' => [
+        'controller' => 'ProductController',
+        'method' => 'deleteProduct'
     ],
 ];
 

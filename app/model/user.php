@@ -1,6 +1,6 @@
 <?php
 
-abstract class User
+class User
 {
     private $fullname;
     private $username;
@@ -10,17 +10,17 @@ abstract class User
     private $dob;
     private $role;
 
-    public function __construct($fullname, $username, $email, $password, $dob, $role, $address)
-    {
-        $this->fullname = $fullname;
-        $this->username = $username;
-        $this->email = $email;
-        $this->password = $password;
-        $this->dob = $dob;
-        $this->role = $role;
-        $this->address = $address;
-    }
+    public function __construct() {}
 
+    public function loadFromArray($data = [])
+    {
+        foreach ($data as $key => $value) {
+            $setter = 'set' . ucfirst($key);
+            if (method_exists($this, $setter)) {
+                $this->$setter($value);
+            }
+        }
+    }
     public function register()
     {
         require_once APP_PATH . 'core/Database.php';
@@ -29,31 +29,78 @@ abstract class User
             'fullname' => $this->fullname,
             'username' => $this->username,
             'email' => $this->email,
-            'password' => password_hash($this->password, PASSWORD_BCRYPT),
+            'password' => $this->password,
             'dob' => $this->dob,
             'role' => $this->role,
             'address' => $this->address
         ]);
     }
 
-    public function login()
+    public function login($username, $password)
     {
-        return true;
+        require_once APP_PATH . 'core/Database.php';
+        $db = new Database();
+        $user = $db->getUserByUsername($username);
+
+        if ($user && password_verify($password, $user['password'])) {
+            require_once APP_PATH . 'core/Session.php';
+            $session = new Session();
+            $session->start();
+            $session->unsetUser();
+            $age = $this->currentAge();
+            $session->setUser($username, $user['role'], $age);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function currentAge()
+    {
+        $dob = new DateTime($this->dob);
+        $now = new DateTime();
+        return $now->diff($dob)->y;
     }
 
     public function logout()
     {
-        return true;
+        require_once APP_PATH . 'core/Session.php';
+        $session = new Session();
+        if($session->isLoggedIn()){
+            $session->start();
+            $session->unsetUser();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function updateProfile()
     {
-        return true;
+       require_once APP_PATH . 'core/Database.php';
+        $db = new Database();
+
+        return $db->updateUser([
+            'fullname' => $this->fullname,
+            'email' => $this->email,
+            'address' => $this->address,
+            'username' => $this->username
+        ]);
     }
 
-    public function updatePassword()
+    public function updatePassword($currentPassword, $newPassword)
     {
-        return true;
+        require_once APP_PATH . 'core/Database.php';
+        $db = new Database();
+        $user = $db->getUserByUsername($this->username);
+
+        if($user && password_verify($currentPassword, $user['password'])) {
+            $newPasswordHashed = password_hash($newPassword, PASSWORD_BCRYPT);
+            return $db->updatePassword($this->username, $newPasswordHashed);
+        } else {
+            return false;
+
+        }
     }
 
     public function uploadPicture()
@@ -76,7 +123,7 @@ abstract class User
     }
     public function setPassword($password)
     {
-        $this->password = $password;
+        $this->password = password_hash($password, PASSWORD_BCRYPT);
     }
     public function setDob($dob)
     {

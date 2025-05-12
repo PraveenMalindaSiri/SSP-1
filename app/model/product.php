@@ -3,7 +3,7 @@
 class Product
 {
     private $name;
-    private $type;
+    private $edition;
     private $genre;
     private $duration;
     private $platform;
@@ -13,30 +13,47 @@ class Product
     private $size;
     private $image;
     private $description;
+    private $company;
 
-    public function __construct($name, $type, $genre, $duration, $platform, $price, $releaseDate, $age, $size, $image, $description)
+    public function __construct() {}
+    public function loadFromArray($data = [])
     {
-        $this->name = $name;
-        $this->type = $type;
-        $this->genre = $genre;
-        $this->duration = $duration;
-        $this->platform = $platform;
-        $this->price = $price;
-        $this->releaseDate = $releaseDate;
-        $this->age = $age;
-        $this->size = $size;
-        $this->image = $image;
-        $this->description = $description;
-
+        foreach ($data as $key => $value) {
+            $setter = 'set' . ucfirst($key);
+            if (method_exists($this, $setter)) {
+                $this->$setter($value);
+            }
+        }
     }
+
+    public function create() {
+        require_once APP_PATH . 'core/Database.php';
+        $db = new Database();
+        return $db->insertProduct([
+            'name' => $this->name,
+            'edition' => $this->edition,
+            'genre' => $this->genre,
+            'duration' => $this->duration,
+            'platform' => $this->platform,
+            'price' => $this->price,
+            'releaseDate' => $this->releaseDate,
+            'age_rating' => $this->age,
+            'size' => $this->size,
+            'image' => $this->image,
+            'description' => $this->description,
+            'company' => $_SESSION['user']['username']
+        ]);
+    }
+    public function update() {}
+    public function delete() {}
 
     public function getName()
     {
         return $this->name;
     }
-    public function getType()
+    public function getEdition()
     {
-        return $this->type;
+        return $this->edition;
     }
     public function getGenre()
     {
@@ -74,13 +91,17 @@ class Product
     {
         return $this->description;
     }
+    public function getCompany()
+    {
+        return $this->company;
+    }
     public function setName($name)
     {
         $this->name = $name;
     }
-    public function setType($type)
+    public function setEdition($edition)
     {
-        $this->type = $type;
+        $this->edition = $edition;
     }
     public function setGenre($genre)
     {
@@ -118,16 +139,8 @@ class Product
     {
         $this->description = $description;
     }
-    public function productCreate()
+    public function setCompany($company)
     {
-        return true;
-    }
-    public function productUpdate()
-    {
-        return true;
-    }
-    public function productDelete()
-    {
-        return true;
+        $this->company = $company;
     }
 }

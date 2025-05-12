@@ -10,7 +10,7 @@ $session->start();
 $success = $_SESSION['success'] ?? [];
 $errors = $_SESSION['errors'] ?? [];
 $old = $_SESSION['old'] ?? [];
-unset($_SESSION['errors'], $_SESSION['old']);
+unset($_SESSION['errors'], $_SESSION['old'], $_SESSION['success']);
 ?>
 
 
@@ -71,6 +71,7 @@ unset($_SESSION['errors'], $_SESSION['old']);
                 <label for="conPassword">Confirm Password</label><br>
                 <input class="my_input" type="password" id="conPassword" name="conPassword" required value="<?= htmlspecialchars($old['conPassword'] ?? '') ?>">
                 <p class="text-red"><?= $errors['conPassword'] ?? ''  ?></p>
+                <p class="text-red"><?= $errors['Passwords'] ?? ''  ?></p>
             </div>
             <?php if ($session->isLoggedIn())
                 echo '<button type="submit" class="my_btn mt-5">CONFIRM</button>'

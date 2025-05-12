@@ -23,15 +23,104 @@ class Database
     {
         $conn = self::getConnection();
         $statement = $conn->prepare("INSERT INTO users (username, password, fullname, email, address, date_of_birth, role) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $statement->bind_param("sssssss", $data['username'], $data['password'], $data['fullname'], $data['email'], $data['address'], $data['dob'], $data['role']);
+        $statement->bind_param(
+            "sssssss",
+            $data['username'],
+            $data['password'],
+            $data['fullname'],
+            $data['email'],
+            $data['address'],
+            $data['dob'],
+            $data['role']
+        );
         return $statement->execute();
     }
-    
+
     public function getUserByUsername($username)
     {
         $conn = self::getConnection();
         $stmt = $conn->prepare("SELECT password, role, date_of_birth FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function updateUser($data = [])
+    {
+        $conn = self::getConnection();
+
+        $sql = "UPDATE users SET ";
+        $updates = [];
+        $params = [];
+        $types = "";
+
+        if (!empty($data['fullname'])) {
+            $updates[] = "fullname = ?";
+            $params[] = $data['fullname'];
+            $types .= "s";
+        }
+
+        if (!empty($data['email'])) {
+            $updates[] = "email = ?";
+            $params[] = $data['email'];
+            $types .= "s";
+        }
+
+        if (!empty($data['address'])) {
+            $updates[] = "address = ?";
+            $params[] = $data['address'];
+            $types .= "s";
+        }
+
+        if (empty($updates)) {
+            return false; // nothing to update
+        }
+
+        $sql .= implode(", ", $updates) . " WHERE username = ?";
+        $params[] = $data['username'];
+        $types .= "s";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param($types, ...$params);
+        return $stmt->execute();
+    }
+
+    public function updatePassword($username, $newPassword)
+    {
+        $conn = self::getConnection();
+        $stmt = $conn->prepare("UPDATE users SET password = ? WHERE username = ?");
+        $stmt->bind_param("ss", $newPassword, $username);
+        return $stmt->execute();
+    }
+
+    public function insertProduct($data = [])
+    {
+        $conn = self::getConnection();
+        $statement = $conn->prepare("INSERT INTO products (name, type, genre, duration, platform, price, released_date, age_rating, size, description, img_path, company) 
+                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $statement->bind_param(
+            "sssisdssdsss",
+            $data['name'],
+            $data['edition'],
+            $data['genre'],
+            $data['duration'],
+            $data['platform'],
+            $data['price'],
+            $data['releaseDate'],
+            $data['age_rating'],
+            $data['size'],
+            $data['description'],
+            $data['image'],
+            $data['company']
+        );
+        return $statement->execute();
+    }
+
+    public function getProductById($id)
+    {
+        $conn = self::getConnection();
+        $stmt = $conn->prepare("SELECT name FROM products WHERE pid = ?");
+        $stmt->bind_param("i", $id);
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
     }
