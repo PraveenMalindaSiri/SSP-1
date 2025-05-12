@@ -17,6 +17,18 @@ $routes = [
     '/manageusers' => ['view' => 'admin/manageusers.php'],
     '/createproduct' => ['view' => 'shared/createproduct.php'],
 
+    '/update-profile' => [
+        'controller' => 'UserController',
+        'method' => 'updateProfile'
+    ],
+    '/update-password' => [
+        'controller' => 'UserController',
+        'method' => 'updatePassword'
+    ],
+    '/upload-picture' => [
+        'controller' => 'UserController',
+        'method' => 'uploadPicture'
+    ],
     '/register' => [
         'controller' => 'UserController',
         'method' => 'register'
@@ -25,12 +37,17 @@ $routes = [
         'controller' => 'UserController',
         'method' => 'login'
     ],
+    '/logout' => [
+        'controller' => 'UserController',
+        'method' => 'logout'
+    ],
 ];
 
 echo "REQUEST_URI: " . $_SERVER['REQUEST_URI'] . "<br>";
 echo "Parsed URI: " . $uri . "<br>";
 
-function loadController($uri, $routes) {
+function loadController($uri, $routes)
+{
     if (array_key_exists($uri, $routes)) {
         $route = $routes[$uri];
 
@@ -38,7 +55,7 @@ function loadController($uri, $routes) {
             require_once APP_PATH . 'controller/' . $route['controller'] . '.php';
             $controllerInstance = new $route['controller']();
             $method = $route['method'];
-            $controllerInstance-> $method();
+            $controllerInstance->$method();
         } else {
             require_once APP_PATH . 'views/' . $route['view'];
         }
