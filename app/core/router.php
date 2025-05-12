@@ -11,13 +11,12 @@ $routes = [
     '/digitalproducts' => ['view' => 'public/digitalproducts.php'],
     '/about' => ['view' => 'public/about.php'],
     '/login' => ['view' => 'public/login.php'],
-    '/register' => ['view' => 'public/register.php'],
     '/cart' => ['view' => 'customer/cart.php'],
     '/wishlist' => ['view' => 'customer/wishlist.php'],
     '/manageprofile' => ['view' => 'shared/manageprofile.php'],
 
 
-    '/register/submit' => [
+    '/register' => [
         'controller' => 'UserController',
         'method' => 'register'
     ],
