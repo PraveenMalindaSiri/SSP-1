@@ -6,24 +6,34 @@ abstract class User
     private $username;
     private $email;
     private $password;
-    private $phone;
+    private $address;
     private $dob;
     private $role;
 
-    public function __construct($fullname, $username, $email, $password, $phone, $dob, $role)
+    public function __construct($fullname, $username, $email, $password, $dob, $role, $address)
     {
         $this->fullname = $fullname;
         $this->username = $username;
         $this->email = $email;
         $this->password = $password;
-        $this->phone = $phone;
         $this->dob = $dob;
         $this->role = $role;
+        $this->address = $address;
     }
 
     public function register()
     {
-        return true;
+        require_once APP_PATH . 'core/Database.php';
+        $db = new Database();
+        return $db->insertUser([
+            'fullname' => $this->fullname,
+            'username' => $this->username,
+            'email' => $this->email,
+            'password' => password_hash($this->password, PASSWORD_BCRYPT),
+            'dob' => $this->dob,
+            'role' => $this->role,
+            'address' => $this->address
+        ]);
     }
 
     public function login()
@@ -68,10 +78,6 @@ abstract class User
     {
         $this->password = $password;
     }
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
-    }
     public function setDob($dob)
     {
         $this->dob = $dob;
@@ -79,6 +85,10 @@ abstract class User
     public function setRole($role)
     {
         $this->role = $role;
+    }
+    public function setAddress($address)
+    {
+        $this->address = $address;
     }
 
     // Getters
@@ -102,11 +112,6 @@ abstract class User
         return $this->password;
     }
 
-    public function getPhone()
-    {
-        return $this->phone;
-    }
-
     public function getDob()
     {
         return $this->dob;
@@ -114,5 +119,9 @@ abstract class User
     public function getRole()
     {
         return $this->role;
+    }
+    public function getAddress()
+    {
+        return $this->address;
     }
 }
