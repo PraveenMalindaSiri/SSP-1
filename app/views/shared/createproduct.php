@@ -35,23 +35,23 @@ unset($_SESSION['errors'], $_SESSION['old'], $_SESSION['success']);
             </div>
             <div>
                 <label for="duration">Duration</label><br>
-                <input class="my_input" type="number" id="duration" name="duration"value="<?= htmlspecialchars($old['duration'] ?? '') ?>">
+                <input class="my_input" type="number" id="duration" name="duration" value="<?= htmlspecialchars($old['duration'] ?? '') ?>">
                 <p class="text-red"><?= $errors['duration'] ?? '' ?></p>
             </div>
             <div>
                 <label for="platform">Platform</label><br>
-                <input class="my_input" type="text" id="platform" name="platform"value="<?= htmlspecialchars($old['platform'] ?? '') ?>">
+                <input class="my_input" type="text" id="platform" name="platform" value="<?= htmlspecialchars($old['platform'] ?? '') ?>">
                 <p class="text-red"><?= $errors['platform'] ?? '' ?></p>
             </div>
             <div>
                 <label for="price">Price</label><br>
-                <input class="my_input" type="number" id="price" name="price"value="<?= htmlspecialchars($old['price'] ?? '') ?>">
+                <input class="my_input" type="number" id="price" name="price" value="<?= htmlspecialchars($old['price'] ?? '') ?>">
                 <p class="text-red"><?= $errors['price'] ?? '' ?></p>
             </div>
             <div>
-                <label for="releasedDate">Released Date</label><br>
-                <input class="my_input" type="date" id="releasedDate" name="releasedDate"value="<?= htmlspecialchars($old['releasedDate'] ?? '') ?>">
-                <p class="text-red"><?= $errors['releasedDate'] ?? '' ?></p>
+                <label for="released_date">Released Date</label><br>
+                <input class="my_input" type="date" id="released_date" name="released_date" value="<?= htmlspecialchars($old['released_date'] ?? '') ?>">
+                <p class="text-red"><?= $errors['released_date'] ?? '' ?></p>
             </div>
             <div>
                 <label for="age">Age</label><br>

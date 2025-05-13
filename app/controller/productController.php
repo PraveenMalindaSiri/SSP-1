@@ -1,5 +1,6 @@
 <?php
 require_once APP_PATH . 'core/Validator.php';
+ob_start();
 
 class ProductController
 {
@@ -23,35 +24,43 @@ class ProductController
             }
 
             require_once APP_PATH . 'model/Product.php';
+            require_once APP_PATH . 'model/Seller.php';
 
-            $product = new Product();
-            $product->loadFromArray($_POST);
-            $product->setCompany($_SESSION['user']['username']);
-            
+            $seller = new Seller();
+
+            $product = $seller->createProducts($_POST);
+
 
             $edition = strtolower($_POST['edition']);
 
             if ($edition != "physical" && $edition != "digital") {
                 $_SESSION['errors'] = ['edition' => 'Edition must be either physical or digital.'];
-                header("Location: /cb008920/public/createproduct");
+                //header("Location: /cb008920/public/createproduct");
                 exit;
             }
 
-            $uploadDir = APP_PATH . "public/assets/images/products/$edition/";
-            $webPathPrefix = "assets/images/products/$edition/";
+            $uploadDir = $_SERVER['DOCUMENT_ROOT'] . "/cb008920/public/assets/images/products/$edition/";
 
             if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
             }
+            if (!is_writable($uploadDir)) {
+                $_SESSION['errors'] = ['productImage' => 'Upload folder is not writable.'];
+                exit;
+            }
+
+            $webPathPrefix = "assets/images/products/$edition/";
 
             $pic = $_FILES['productImage'];
             $extension = pathinfo($pic['name'], PATHINFO_EXTENSION);
-            $filename = uniqid('product_', true) . '.' . $extension;
+            $productName = strtolower(preg_replace('/[^a-zA-Z0-9]/', '_', $_POST['name']));
+            $filename = $productName . '.' . $extension;
+
             $uploadPath = $uploadDir . $filename;
 
             if (!move_uploaded_file($pic['tmp_name'], $uploadPath)) {
                 $_SESSION['errors'] = ['productImage' => 'Failed to upload image.'];
-                header("Location: /cb008920/public/createproduct");
+                //header("Location: /cb008920/public/createproduct");
                 exit;
             }
 

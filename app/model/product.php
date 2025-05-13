@@ -36,10 +36,10 @@ class Product
             'duration' => $this->duration,
             'platform' => $this->platform,
             'price' => $this->price,
-            'releaseDate' => $this->releaseDate,
+            'released_date' => $this->releaseDate,
             'age_rating' => $this->age,
             'size' => $this->size,
-            'image' => $this->image,
+            'img_path' => $this->image,
             'description' => $this->description,
             'company' => $_SESSION['user']['username']
         ]);

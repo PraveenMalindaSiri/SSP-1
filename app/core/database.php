@@ -106,11 +106,11 @@ class Database
             $data['duration'],
             $data['platform'],
             $data['price'],
-            $data['releaseDate'],
+            $data['released_date'],
             $data['age_rating'],
             $data['size'],
             $data['description'],
-            $data['image'],
+            $data['img_path'],
             $data['company']
         );
         return $statement->execute();
