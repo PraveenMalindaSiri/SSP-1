@@ -49,9 +49,9 @@ unset($_SESSION['errors'], $_SESSION['old'], $_SESSION['success']);
                 <p class="text-red"><?= $errors['price'] ?? '' ?></p>
             </div>
             <div>
-                <label for="released_date">Released Date</label><br>
-                <input class="my_input" type="date" id="released_date" name="released_date" value="<?= htmlspecialchars($old['released_date'] ?? '') ?>">
-                <p class="text-red"><?= $errors['released_date'] ?? '' ?></p>
+                <label for="ReleaseDate">Released Date</label><br>
+                <input class="my_input" type="date" id="ReleaseDate" name="ReleaseDate" value="<?= htmlspecialchars($old['ReleaseDate'] ?? '') ?>">
+                <p class="text-red"><?= $errors['ReleaseDate'] ?? '' ?></p>
             </div>
             <div>
                 <label for="age">Age</label><br>
