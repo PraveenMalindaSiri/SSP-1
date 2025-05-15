@@ -9,6 +9,9 @@ $session->start();
     require_once(LAYOUT_PATH . "navbar_manageproducts.php");
 ?>
 
+<pre><?php print_r($products); ?></pre>
+<?= $_SESSION['user']['username'], $_SESSION['user']['role']  ?>
+
 <table>
     <thead>
         <tr>
@@ -26,8 +29,8 @@ $session->start();
             <td><?= htmlspecialchars($product['type']) ?></td>
             <td><?= htmlspecialchars($product['price']) ?></td>
             <td>
-                <a href="/cb008920/public/product/update?id=<?= $product['id'] ?>">Update</a> |
-                <a href="/cb008920/public/product/delete?id=<?= $product['id'] ?>">Delete</a>
+                <a href="/cb008920/public/updateproduct?id=<?= $product['pid'] ?>">Update</a> |
+                <a href="/cb008920/public/deleteproduct?id=<?= $product['pid'] ?>">Delete</a>
             </td>
         </tr>
         <?php endforeach; ?>
