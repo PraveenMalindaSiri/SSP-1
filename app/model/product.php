@@ -1,4 +1,5 @@
 <?php
+require_once APP_PATH . 'core/Database.php';
 
 class Product
 {
@@ -19,15 +20,15 @@ class Product
     public function loadFromArray($data = [])
     {
         foreach ($data as $key => $value) {
-            $setter = 'set' . ucfirst($key);
+            $setter = 'set' . ucfirst(string: $key);
             if (method_exists($this, $setter)) {
                 $this->$setter($value);
             }
         }
     }
 
-    public function create() {
-        require_once APP_PATH . 'core/Database.php';
+    public function create()
+    {
         $db = new Database();
         return $db->insertProduct([
             'name' => $this->name,
@@ -46,6 +47,16 @@ class Product
     }
     public function update() {}
     public function delete() {}
+
+    public function getAllProducts() {
+        $db = new Database();
+        return $db->getProducts();
+    }
+
+    public function getProductsByOwner() {
+        $db = new Database();
+        return $db->getProductsBySeller($this->company);
+    }
 
     public function getName()
     {

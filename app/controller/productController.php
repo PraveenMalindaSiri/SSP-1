@@ -1,6 +1,10 @@
 <?php
 require_once APP_PATH . 'core/Validator.php';
-ob_start();
+require_once APP_PATH . 'core/Session.php';
+require_once APP_PATH . 'model/Product.php';
+require_once APP_PATH . 'model/Seller.php';
+require_once APP_PATH . 'model/Admin.php';
+
 
 class ProductController
 {
@@ -23,9 +27,6 @@ class ProductController
                 exit;
             }
 
-            require_once APP_PATH . 'model/Product.php';
-            require_once APP_PATH . 'model/Seller.php';
-
             $seller = new Seller();
 
             $product = $seller->createProducts($_POST);
@@ -35,21 +36,16 @@ class ProductController
 
             if ($edition != "physical" && $edition != "digital") {
                 $_SESSION['errors'] = ['edition' => 'Edition must be either physical or digital.'];
-                //header("Location: /cb008920/public/createproduct");
+                header("Location: /cb008920/public/createproduct");
                 exit;
             }
 
             $uploadDir = $_SERVER['DOCUMENT_ROOT'] . "/cb008920/public/assets/images/products/$edition/";
+            $webPathPrefix = "assets/images/products/$edition/";
 
             if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
             }
-            if (!is_writable($uploadDir)) {
-                $_SESSION['errors'] = ['productImage' => 'Upload folder is not writable.'];
-                exit;
-            }
-
-            $webPathPrefix = "assets/images/products/$edition/";
 
             $pic = $_FILES['productImage'];
             $extension = pathinfo($pic['name'], PATHINFO_EXTENSION);
@@ -60,7 +56,7 @@ class ProductController
 
             if (!move_uploaded_file($pic['tmp_name'], $uploadPath)) {
                 $_SESSION['errors'] = ['productImage' => 'Failed to upload image.'];
-                //header("Location: /cb008920/public/createproduct");
+                header("Location: /cb008920/public/createproduct");
                 exit;
             }
 
@@ -79,5 +75,37 @@ class ProductController
             // If not a POST request, show the create product form
             require_once APP_PATH . 'views/shared/createproduct.php';
         }
+    }
+
+    public function getAllProducts()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+
+
+        $errors = [];
+
+        if (!empty($errors)) {
+            $_SESSION['errors'] = $errors;
+            header("Location: /cb008920/public/createproduct");
+            exit;
+        }
+
+        $session = new Session();
+
+        if (!$session->isAdmin() && !$session->isSeller()) {
+            $errors['error'] = ['manageproducts' => 'Invalid User!!!'];
+        } elseif ($session->isAdmin()) {
+            $admin = new Admin();
+            $products = $admin->getProducts();
+        } elseif (!$session->isSeller()) {
+            $seller = new Seller();
+            $products = $seller->getMyProducts();
+        }
+
+
+        require_once APP_PATH . 'views/shared/manageproducts.php';
     }
 }

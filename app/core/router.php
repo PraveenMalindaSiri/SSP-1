@@ -13,7 +13,6 @@ $routes = [
     '/cart' => ['view' => 'customer/cart.php'],
     '/wishlist' => ['view' => 'customer/wishlist.php'],
     '/manageprofile' => ['view' => 'shared/manageprofile.php'],
-    '/manageproducts' => ['view' => 'shared/manageproducts.php'],
     '/manageusers' => ['view' => 'admin/manageusers.php'],
 
     '/update-profile' => [
@@ -43,6 +42,10 @@ $routes = [
     '/createproduct' => [
         'controller' => 'ProductController',
         'method' => 'createProduct'
+    ],
+    '/manageproducts' => [
+        'controller' => 'ProductController',
+        'method' => 'getAllProducts'
     ],
     '/updateproduct' => [
         'controller' => 'ProductController',

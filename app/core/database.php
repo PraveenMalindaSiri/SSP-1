@@ -116,6 +116,25 @@ class Database
         return $statement->execute();
     }
 
+    public function getProductsBySeller($seller)
+    {
+        $conn = self::getConnection();
+        $statement = $conn->prepare("SELECT id, name, type, price FROM products WHERE company = ?");
+        $statement->bind_param('s', $seller);
+        $statement->execute();
+        return $statement->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+
+    public function getProducts()
+    {
+        $conn = self::getConnection();
+        $statement = $conn->prepare("SELECT id, name, type, price FROM products");
+        $statement->execute();
+        $result = $statement->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getProductById($id)
     {
         $conn = self::getConnection();

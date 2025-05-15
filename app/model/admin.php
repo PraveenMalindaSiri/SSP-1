@@ -1,5 +1,6 @@
 <?php
 require_once APP_PATH . 'model/User.php';
+require_once APP_PATH . 'model/Product.php';
 
 class Admin extends User
 {
@@ -20,6 +21,11 @@ class Admin extends User
     public function deleteUsers()
     {
         return true;
+    }
+
+    public function getProducts(){
+        $product = new Product();
+        return $product->getAllProducts();
     }
 
     public function updateProducts()
