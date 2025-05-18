@@ -74,7 +74,7 @@ unset($_SESSION['errors'], $_SESSION['old'], $_SESSION['success']);
                 <p class="text-red"><?= $errors['productImage'] ?? '' ?></p>
             </div>
             <p class="text-red"><?= $errors['productcreate'] ?? ''  ?></p>
-            <p class="text-red"><?= $success['productcreate'] ?? ''  ?></p>
+            <p class="text-green"><?= $success['productcreate'] ?? ''  ?></p>
             <button type="submit" class="my_btn mt-5">CREATE</button>
         </form>
     </div>

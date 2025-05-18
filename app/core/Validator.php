@@ -292,24 +292,24 @@ class Validator
     {
         $errors = [];
 
-        if (self::$inputs['price']) {
-            if (!is_numeric(self::$inputs['price']) || self::$inputs['price'] < 0) {
+        if (trim(self::$inputs['price']) !== '') {
+            if (!is_numeric(self::$inputs['price']) || self::$inputs['price'] <= 0) {
                 $errors['price'] = "Price must be a positive number.";
             }
         }
 
-        if (self::$inputs['duration']) {
-            if (!is_numeric(self::$inputs['duration']) || self::$inputs['duration'] < 0) {
+        if (trim(self::$inputs['duration']) !== '') {
+            if (!is_numeric(self::$inputs['duration']) || self::$inputs['duration'] <= 0) {
                 $errors['duration'] = "Duration must be positive a number.";
             }
         }
-        if (self::$inputs['age']) {
-            if (!is_numeric(self::$inputs['age']) || self::$inputs['age'] < 0) {
+        if (trim(self::$inputs['age']) !== '') {
+            if (!is_numeric(self::$inputs['age']) || self::$inputs['age'] <= 0) {
                 $errors['age'] = "Age must be a positive number.";
             }
         }
-        if (self::$inputs['size']) {
-            if (!is_numeric(self::$inputs['size']) || self::$inputs['size'] < 0) {
+        if (trim(self::$inputs['size']) !== '') {
+            if (!is_numeric(self::$inputs['size']) || self::$inputs['size'] <= 0) {
                 $errors['size'] = "Size must be a positive number.";
             }
         }
@@ -322,7 +322,17 @@ class Validator
         $errors = [];
 
         if (!isset(self::$inputs['pid']) || !is_numeric(self::$inputs['pid'])) {
-            $error['pid'] = 'Please provide a valid Product ID';
+            $errors['pid'] = 'Please provide a valid Product ID';
+        }
+
+        $conn = Database::getConnection();
+
+        $stmt = $conn->prepare("SELECT * FROM products WHERE pid = ?");
+        $stmt->bind_param("i", self::$inputs['pid']);
+        $stmt->execute();
+        $stmt->store_result();
+        if ($stmt->num_rows === 0) {
+            $errors['pid'] = "Product ID wrong";
         }
 
         return $errors;
@@ -334,9 +344,11 @@ class Validator
         $db = new Database();
         $results = $db->getProductById(self::$inputs['pid']);
 
-        if($results['company'] == $sellerName){
+        if($results['company'] != $sellerName){
             $errors['pid'] = "You are not the owner of this product.";
         }
+
+        return $errors;
     }
 
     public static function validateCreateProductForm()
@@ -353,13 +365,18 @@ class Validator
 
     public static function validateUpdateProductsForm()
     {
-        return array_merge_recursive(
+        $errors = [];
+        $session = new Session();
+        if($session->isSeller()){
+            $errors = array_merge_recursive($errors, self::isTheProductOwner($_SESSION['user']['username']));
+        }
+        return array_merge(
+            $errors,
             self::hasPID(),
             self::validNumbers(),
             self::isUniqueProductName(),
             self::validPdctDetails(),
-            self::validPlatform(),
-            self::validEdition()
+            self::validPlatform()
         );
     }
 }

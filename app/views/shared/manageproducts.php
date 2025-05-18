@@ -9,8 +9,8 @@ $session->start();
     require_once(LAYOUT_PATH . "navbar_manageproducts.php");
 ?>
 
-<pre><?php print_r($products); ?></pre>
-<?= $_SESSION['user']['username'], $_SESSION['user']['role']  ?>
+<!-- <pre><?php print_r($products); ?></pre> -->
+<!-- <?= $_SESSION['user']['username'], $_SESSION['user']['role']  ?> -->
 
 <table>
     <thead>
