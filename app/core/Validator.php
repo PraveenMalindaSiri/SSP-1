@@ -379,4 +379,16 @@ class Validator
             self::validPlatform()
         );
     }
+
+    public static function validateDeleteProductForm(){
+        $errors = [];
+        $session = new Session();
+        if($session->isSeller()){
+            $errors = array_merge_recursive($errors, self::isTheProductOwner($_SESSION['user']['username']));
+        }
+        return array_merge_recursive(
+            $errors,
+            self::hasPID(),
+        );
+    }
 }
