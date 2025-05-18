@@ -317,12 +317,46 @@ class Validator
         return $errors;
     }
 
+    public static function hasPID()
+    {
+        $errors = [];
+
+        if (!isset(self::$inputs['pid']) || !is_numeric(self::$inputs['pid'])) {
+            $error['pid'] = 'Please provide a valid Product ID';
+        }
+
+        return $errors;
+    }
+
+    public static function isTheProductOwner($sellerName){
+        $errors = [];
+
+        $db = new Database();
+        $results = $db->getProductById(self::$inputs['pid']);
+
+        if($results['company'] == $sellerName){
+            $errors['pid'] = "You are not the owner of this product.";
+        }
+    }
+
     public static function validateCreateProductForm()
     {
         return array_merge_recursive(
             self::hasValue(),
             self::isUniqueProductName(),
             self::validNumbers(),
+            self::validPdctDetails(),
+            self::validPlatform(),
+            self::validEdition()
+        );
+    }
+
+    public static function validateUpdateProductsForm()
+    {
+        return array_merge_recursive(
+            self::hasPID(),
+            self::validNumbers(),
+            self::isUniqueProductName(),
             self::validPdctDetails(),
             self::validPlatform(),
             self::validEdition()

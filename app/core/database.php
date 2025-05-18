@@ -119,7 +119,7 @@ class Database
     public function getProductsBySeller($seller)
     {
         $conn = self::getConnection();
-        $statement = $conn->prepare("SELECT id, name, type, price FROM products WHERE company = ?");
+        $statement = $conn->prepare("SELECT pid, name, type, price FROM products WHERE company = ?");
         $statement->bind_param('s', $seller);
         $statement->execute();
         return $statement->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -129,7 +129,7 @@ class Database
     public function getProducts()
     {
         $conn = self::getConnection();
-        $statement = $conn->prepare("SELECT id, name, type, price FROM products");
+        $statement = $conn->prepare("SELECT pid, name, type, price FROM products");
         $statement->execute();
         $result = $statement->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
@@ -138,9 +138,13 @@ class Database
     public function getProductById($id)
     {
         $conn = self::getConnection();
-        $stmt = $conn->prepare("SELECT name FROM products WHERE pid = ?");
+        $stmt = $conn->prepare("SELECT pid,name,company FROM products WHERE pid = ?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function updateProduct($id){
+
     }
 }

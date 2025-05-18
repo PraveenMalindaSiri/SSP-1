@@ -1,5 +1,7 @@
 <?php require_once(LAYOUT_PATH . "navbar.php"); ?>
-
+<?php 
+$id = $_GET['id'];
+?>
 
 
 <div class="flex flex-col items-center justify-center">
@@ -8,7 +10,7 @@
         <form action="" method="POST">
             <div>
                 <label for="pid">Product ID</label><br>
-                <input class="my_input" type="number" id="pid" name="pid" required>
+                <input class="my_input" type="number" id="pid" name="pid" required value="<?= $id ?>">
             </div>
             <button type="submit" class="my_btn mt-5">DELETE</button>
         </form>

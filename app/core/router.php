@@ -49,11 +49,11 @@ $routes = [
     ],
     '/updateproduct' => [
         'controller' => 'ProductController',
-        'method' => 'updateProduct'
+        'method' => 'updateProducts'
     ],
     '/deleteproduct' => [
         'controller' => 'ProductController',
-        'method' => 'deleteProduct'
+        'method' => 'deleteProducts'
     ],
 ];
 

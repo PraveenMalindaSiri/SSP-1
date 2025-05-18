@@ -83,29 +83,81 @@ class ProductController
             session_start();
         }
 
+        $session = new Session();
+        $products = [];
 
-
-        $errors = [];
-
-        if (!empty($errors)) {
-            $_SESSION['errors'] = $errors;
-            header("Location: /cb008920/public/createproduct");
+        if (!$session->isAdmin() && !$session->isSeller()) {
+            header("Location: /cb008920/public");
             exit;
         }
 
-        $session = new Session();
-
-        if (!$session->isAdmin() && !$session->isSeller()) {
-            $errors['error'] = ['manageproducts' => 'Invalid User!!!'];
-        } elseif ($session->isAdmin()) {
+        if ($session->isAdmin()) {
             $admin = new Admin();
             $products = $admin->getProducts();
-        } elseif (!$session->isSeller()) {
+        } elseif ($session->isSeller()) {
             $seller = new Seller();
             $products = $seller->getMyProducts();
         }
 
 
         require_once APP_PATH . 'views/shared/manageproducts.php';
+    }
+
+    public function updateProducts()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_POST = Validator::sanitize($_POST);
+            Validator::$inputs = $_POST;
+            $errors = Validator::validateUpdateProductsForm();
+
+            if (!empty($errors)) {
+                $_SESSION['errors'] = $errors;
+                $_SESSION['old'] = $_POST;
+                header("Location: /cb008920/public/createproduct");
+                exit;
+            }
+
+            $session = new Session();
+            if (!$session->isAdmin() && !$session->isSeller()) {
+                header("Location: /cb008920/public");
+                exit;
+            }
+
+            if ($session->isAdmin()) {
+            } elseif ($session->isSeller()) {
+            }
+        } else {
+            // If not a POST request, show the create product form
+            require_once APP_PATH . 'views/shared/updateproduct.php';
+        }
+    }
+
+    public function deleteProducts()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_POST = Validator::sanitize($_POST);
+            Validator::$inputs = $_POST;
+
+            $session = new Session();
+            if (!$session->isAdmin() && !$session->isSeller()) {
+                header("Location: /cb008920/public");
+                exit;
+            }
+
+            if ($session->isAdmin()) {
+            } elseif ($session->isSeller()) {
+            }
+        } else {
+            // If not a POST request, show the create product form
+            require_once APP_PATH . 'views/shared/deleteproduct.php';
+        }
     }
 }

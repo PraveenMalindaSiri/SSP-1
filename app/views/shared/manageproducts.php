@@ -15,6 +15,7 @@ $session->start();
 <table>
     <thead>
         <tr>
+            <th>P-ID</th>
             <th>Name</th>
             <th>Edition</th>
             <th>Price</th>
@@ -25,6 +26,7 @@ $session->start();
         <?php if (isset($products) && is_array($products) && count($products) > 0): ?>
         <?php foreach ($products as $product): ?>
         <tr>
+            <td><?= htmlspecialchars($product['pid']) ?></td>
             <td><?= htmlspecialchars($product['name']) ?></td>
             <td><?= htmlspecialchars($product['type']) ?></td>
             <td><?= htmlspecialchars($product['price']) ?></td>
