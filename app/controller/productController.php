@@ -108,7 +108,10 @@ class ProductController
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-        
+        // if (empty($_POST)) {
+        //     header("Location: /cb008920/public/manageprofile");
+        //     exit();
+        // }
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = Validator::sanitize($_POST);
             Validator::$inputs = $_POST;
@@ -117,7 +120,7 @@ class ProductController
             if (!empty($errors)) {
                 $_SESSION['errors'] = $errors;
                 $_SESSION['old'] = $_POST;
-                header("Location: /cb008920/public/createproduct");
+                header("Location: /cb008920/public/updateproduct?id=" . $_POST['pid']);
                 exit;
             }
 
@@ -128,7 +131,24 @@ class ProductController
             }
 
             if ($session->isAdmin()) {
+                $admin = new Admin();
+                $product = $admin->updateProducts($_POST);
+                $result = $product->update($_POST['pid']);
             } elseif ($session->isSeller()) {
+                $seller = new Seller();
+                $product = $seller->updateProducts($_POST);
+                $result = $product->update($_POST['pid']);
+            }
+
+            if ($result) {
+                // Product creation successful
+                $_SESSION['success'] = ['productupdate' => 'Product updated successfully.'];
+                header("Location: /cb008920/public/updateproduct?id=" . $_POST['pid']);
+                exit;
+            } else {
+                // Product creation failed
+                $_SESSION['errors'] = ['productupdate' => 'Product updating failed. Please try again.'];
+                header("Location: /cb008920/public/updateproduct?id=" . $_POST['pid']);
             }
         } else {
             // If not a POST request, show the create product form
@@ -145,7 +165,14 @@ class ProductController
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = Validator::sanitize($_POST);
             Validator::$inputs = $_POST;
+            $errors = Validator::validateUpdateProductsForm();
 
+            if (!empty($errors)) {
+                $_SESSION['errors'] = $errors;
+                $_SESSION['old'] = $_POST;
+                header("Location: /cb008920/public/deleteproduct?id=" . $_POST['pid']);
+                exit;
+            }
             $session = new Session();
             if (!$session->isAdmin() && !$session->isSeller()) {
                 header("Location: /cb008920/public");
@@ -153,11 +180,51 @@ class ProductController
             }
 
             if ($session->isAdmin()) {
+                $admin = new Admin();
+                $product = $admin->deleteProducts();
+                $result = $product->delete($_POST['pid']);
             } elseif ($session->isSeller()) {
+                $seller = new Seller();
+                $product = $seller->deleteProducts();
+                $result = $product->delete($_POST['pid']);
+            }
+
+            if ($result) {
+                // Product creation successful
+                header("Location: /cb008920/public/manageproducts");
+                exit;
+            } else {
+                // Product creation failed
+                $_SESSION['errors'] = ['productdelete' => 'Product deleting failed. Please try again.'];
+                header("Location: /cb008920/public/deleteproduct?id=" . $_POST['pid']);
             }
         } else {
             // If not a POST request, show the create product form
             require_once APP_PATH . 'views/shared/deleteproduct.php';
+        }
+    }
+
+    public function showProducts()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $products = [];
+
+        $user = new User();
+        $product = $user->viewProducts();
+
+        $products = $product->showProducts();
+
+
+        // get url and check if it has physicalproducts or digitalproducts in it
+        $currentPage = $_SERVER['REQUEST_URI'];
+
+        if (strpos($currentPage, 'physicalproducts') !== false) {
+            require_once APP_PATH . 'views/public/physicalproducts.php';
+        } elseif (strpos($currentPage, 'digitalproducts') !== false) {
+            require_once APP_PATH . 'views/public/digitalproducts.php';
         }
     }
 }

@@ -23,19 +23,23 @@ class Admin extends User
         return true;
     }
 
-    public function getProducts(){
+    public function getProducts()
+    {
         $product = new Product();
         return $product->getAllProducts();
     }
 
-    public function updateProducts()
+    public function updateProducts($data)
     {
-        return true;
+        $product = new Product();
+        $product->loadFromArray($data);
+        return $product;
     }
 
     public function deleteProducts()
     {
-        return true;
+        $product = new Product();
+        return $product;
     }
 
     public function viewUsersOrders()

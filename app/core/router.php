@@ -7,14 +7,21 @@ $uri = rtrim($uri, '/');
 $routes = [
     '' => ['view' => 'public/home.php'],
     '/home' => ['view' => 'public/home.php'],
-    '/physicalproducts' => ['view' => 'public/physicalproducts.php'],
-    '/digitalproducts' => ['view' => 'public/digitalproducts.php'],
     '/about' => ['view' => 'public/about.php'],
     '/cart' => ['view' => 'customer/cart.php'],
     '/wishlist' => ['view' => 'customer/wishlist.php'],
     '/manageprofile' => ['view' => 'shared/manageprofile.php'],
     '/manageusers' => ['view' => 'admin/manageusers.php'],
 
+
+    '/physicalproducts' => [
+        'controller' => 'ProductController',
+        'method' => 'showProducts'
+    ],
+    '/digitalproducts' => [
+        'controller' => 'ProductController',
+        'method' => 'showProducts'
+    ],
     '/update-profile' => [
         'controller' => 'UserController',
         'method' => 'updateProfile'

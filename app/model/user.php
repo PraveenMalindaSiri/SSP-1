@@ -1,4 +1,5 @@
 <?php
+require_once APP_PATH . 'model/Product.php';
 
 class User
 {
@@ -66,7 +67,7 @@ class User
     {
         require_once APP_PATH . 'core/Session.php';
         $session = new Session();
-        if($session->isLoggedIn()){
+        if ($session->isLoggedIn()) {
             $session->start();
             $session->unsetUser();
             return true;
@@ -77,7 +78,7 @@ class User
 
     public function updateProfile()
     {
-       require_once APP_PATH . 'core/Database.php';
+        require_once APP_PATH . 'core/Database.php';
         $db = new Database();
 
         return $db->updateUser([
@@ -94,18 +95,23 @@ class User
         $db = new Database();
         $user = $db->getUserByUsername($this->username);
 
-        if($user && password_verify($currentPassword, $user['password'])) {
+        if ($user && password_verify($currentPassword, $user['password'])) {
             $newPasswordHashed = password_hash($newPassword, PASSWORD_BCRYPT);
             return $db->updatePassword($this->username, $newPasswordHashed);
         } else {
             return false;
-
         }
     }
 
     public function uploadPicture()
     {
         return true;
+    }
+
+    public function viewProducts()
+    {
+        $product = new Product();
+        return $product;
     }
 
     // setters

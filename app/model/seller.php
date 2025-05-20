@@ -17,19 +17,23 @@ class Seller extends User
         return $product;
     }
 
-    public function getMyProducts() {
+    public function getMyProducts()
+    {
         $product = new Product();
         $product->setCompany($_SESSION['user']['username']);
         return $product->getProductsByOwner();
     }
 
-    public function updateProducts()
+    public function updateProducts($data)
     {
-        return true;
+        $product = new Product();
+        $product->loadFromArray($data);
+        return $product;
     }
 
     public function deleteProducts()
     {
-        return true;
+        $product = new Product();
+        return $product;
     }
 }

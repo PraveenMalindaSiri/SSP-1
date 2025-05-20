@@ -32,10 +32,10 @@ class Product
         $db = new Database();
         return $db->insertProduct([
             'name' => $this->name,
-            'edition' => $this->edition,
-            'genre' => $this->genre,
+            'edition' => strtolower($this->edition),
+            'genre' => strtolower($this->genre),
             'duration' => $this->duration,
-            'platform' => $this->platform,
+            'platform' => strtolower($this->platform),
             'price' => $this->price,
             'released_date' => $this->releaseDate,
             'age_rating' => $this->age,
@@ -45,19 +45,47 @@ class Product
             'company' => $_SESSION['user']['username']
         ]);
     }
-    public function update() {}
-    public function delete() {}
+    public function update($pid)
+    {
+        $db = new Database();
+        return $db->updateProduct(
+            [
+                'pid' => $pid,
+                'name' => $this->name,
+                'genre' => strtolower($this->genre),
+                'duration' => $this->duration,
+                'platform' => strtolower($this->platform),
+                'price' => $this->price,
+                'released_date' => $this->releaseDate,
+                'age_rating' => $this->age,
+                'size' => $this->size,
+                'description' => $this->description,
+            ]
+        );
+    }
+    public function delete($pid) {
+        $db = new Database();
+        return $db->deleteProduct($pid);
+    }
 
-    public function getAllProducts() {
+    public function getAllProducts()
+    {
         $db = new Database();
         return $db->getProducts();
     }
 
-    public function getProductsByOwner() {
+    public function getProductsByOwner()
+    {
         $db = new Database();
         return $db->getProductsBySeller($this->company);
     }
 
+    public function showProducts(){
+        $db = new Database();
+        return $db->getProducts();
+    }
+
+    // getters and setters
     public function getName()
     {
         return $this->name;
