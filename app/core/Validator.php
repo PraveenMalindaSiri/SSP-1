@@ -391,4 +391,26 @@ class Validator
             self::hasPID(),
         );
     }
+
+    public static function validAmount(){
+        $errors = [];
+
+        if (trim(self::$inputs['amount']) !== '') {
+            if (!is_numeric(self::$inputs['amount']) || self::$inputs['amount'] <= 0) {
+                $errors['amount'] = "Amount must be positive a number.";
+            }
+            if(self::$inputs['type'] === 'digital' && self::$inputs['amount'] > 1){
+                $errors['amount'] = "Digital products amount cannot be higher than 1.";
+            }
+        }
+
+        return $errors;
+    }
+
+    public static function validateProductDetailsForm(){
+        return array_merge_recursive(
+            self::hasPID(),
+            self::validAmount()
+        );
+    }
 }

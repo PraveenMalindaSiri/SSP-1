@@ -64,14 +64,14 @@ $routes = [
         'controller' => 'ProductController',
         'method' => 'deleteProducts'
     ],
-
+    // product details and wishlist, cart
     '/productview' => [
         'controller' => 'ProductController',
         'method' => 'productDetails'
     ],
     '/productview-submit' => [
-        'controller' => 'ProductController',
-        'method' => 'deleteProducts'
+        'controller' => 'CustomerController',
+        'method' => 'customerSelection'
     ],
 ];
 

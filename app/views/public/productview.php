@@ -1,12 +1,5 @@
 <?php require_once(LAYOUT_PATH . "navbar.php"); ?>
-<?php
-require_once APP_PATH . 'core/Session.php';
-$session = new Session();
-$session->start();
 
-$errors = $_SESSION['errors'] ?? [];
-unset($_SESSION['errors']);
-?>
 
 <div>
     <p class="text-white">a</p>
@@ -49,9 +42,11 @@ unset($_SESSION['errors']);
                             </div>
                         </div>
                     <?php endif; ?>
+                    <input type="hidden" name="pid" value="<?= htmlspecialchars($product['pid']) ?>">
+                    <input type="hidden" name="type" value="<?= htmlspecialchars($product['type']) ?>">
                     <div class="flex flex-row items-center gap-4">
-                        <button class="my_btn" type="submit" value="wishlist">Add to Wishlist</button>
-                        <button class="my_btn" type="submit" value="cart">Add to Cart</button>
+                        <button class="my_btn" type="submit" name="action" value="wishlist">Add to Wishlist</button>
+                        <button class="my_btn" type="submit" name="action" value="cart">Add to Cart</button>
                     </div>
                 </div>
             </div>
@@ -62,7 +57,7 @@ unset($_SESSION['errors']);
         <p class="text-white">adc</p>
     </div>
 <?php else: ?>
-    <p class="text-white"><?= $errors['pid'] ?? ''  ?></p>
+    <p class="text-white">No Item</p>
 <?php endif; ?>
 
 
