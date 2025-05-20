@@ -6,7 +6,7 @@
 </div>
 
 <?php if (isset($product) && is_array($product) && count($product) > 0): ?>
-    <form action="/cb008920/public/productview-submit">
+    <form action="/cb008920/public/productview-submit" method="post">
         <div class="flex justify-center">
             <div class="flex flex-col w-[90%] items-center bg-gray-700 text-white rounded-xl shadow-lg">
                 <div class="flex md:flex-row flex-col mt-10 items-center">
@@ -44,6 +44,7 @@
                     <?php endif; ?>
                     <input type="hidden" name="pid" value="<?= htmlspecialchars($product['pid']) ?>">
                     <input type="hidden" name="type" value="<?= htmlspecialchars($product['type']) ?>">
+                    <input type="hidden" name="age" value="<?= htmlspecialchars($product['age_rating']) ?>">
                     <div class="flex flex-row items-center gap-4">
                         <button class="my_btn" type="submit" name="action" value="wishlist">Add to Wishlist</button>
                         <button class="my_btn" type="submit" name="action" value="cart">Add to Cart</button>

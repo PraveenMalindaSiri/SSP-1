@@ -1,6 +1,7 @@
 <?php
 
 require_once APP_PATH . 'core/Database.php';
+require_once APP_PATH . 'core/Session.php';
 
 class Validator
 {
@@ -338,13 +339,14 @@ class Validator
         return $errors;
     }
 
-    public static function isTheProductOwner($sellerName){
+    public static function isTheProductOwner($sellerName)
+    {
         $errors = [];
 
         $db = new Database();
         $results = $db->getProductById(self::$inputs['pid']);
 
-        if($results['company'] != $sellerName){
+        if ($results['company'] != $sellerName) {
             $errors['pid'] = "You are not the owner of this product.";
         }
 
@@ -367,7 +369,7 @@ class Validator
     {
         $errors = [];
         $session = new Session();
-        if($session->isSeller()){
+        if ($session->isSeller()) {
             $errors = array_merge_recursive($errors, self::isTheProductOwner($_SESSION['user']['username']));
         }
         return array_merge(
@@ -380,10 +382,11 @@ class Validator
         );
     }
 
-    public static function validateDeleteProductForm(){
+    public static function validateDeleteProductForm()
+    {
         $errors = [];
         $session = new Session();
-        if($session->isSeller()){
+        if ($session->isSeller()) {
             $errors = array_merge_recursive($errors, self::isTheProductOwner($_SESSION['user']['username']));
         }
         return array_merge_recursive(
@@ -392,25 +395,46 @@ class Validator
         );
     }
 
-    public static function validAmount(){
+    public static function validAmount()
+    {
         $errors = [];
 
-        if (trim(self::$inputs['amount']) !== '') {
-            if (!is_numeric(self::$inputs['amount']) || self::$inputs['amount'] <= 0) {
-                $errors['amount'] = "Amount must be positive a number.";
-            }
-            if(self::$inputs['type'] === 'digital' && self::$inputs['amount'] > 1){
-                $errors['amount'] = "Digital products amount cannot be higher than 1.";
-            }
+        if (!isset(self::$inputs['amount']) || trim(self::$inputs['amount']) === '') {
+            $errors['amount'] = "Amount is required.";
+            return $errors;
+        }
+
+        $amount = (int) self::$inputs['amount'];
+        $type = strtolower(trim(self::$inputs['type'] ?? ''));
+
+        if (!is_numeric($amount) || $amount <= 0) {
+            $errors['amount'] = "Amount must be positive a number.";
+        }
+        if ($type === 'digital' && $amount > 1) {
+            $errors['amount'] = "Digital products amount cannot be higher than 1.";
+        }
+        return $errors;
+    }
+
+    public static function validAge()
+    {
+        $errors = [];
+
+        $userAge = (int) $_SESSION['user']['age'];
+        $ageRating = (int) self::$inputs['age'];
+        if ($userAge < $ageRating) {
+            $errors['age'] = "Age rating does not match";
         }
 
         return $errors;
     }
 
-    public static function validateProductDetailsForm(){
+    public static function validateProductDetailsForm()
+    {
         return array_merge_recursive(
             self::hasPID(),
-            self::validAmount()
+            self::validAmount(),
+            self::validAge()
         );
     }
 }
