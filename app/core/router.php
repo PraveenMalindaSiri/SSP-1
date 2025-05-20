@@ -13,7 +13,6 @@ $routes = [
     '/manageprofile' => ['view' => 'shared/manageprofile.php'],
     '/manageusers' => ['view' => 'admin/manageusers.php'],
 
-
     '/physicalproducts' => [
         'controller' => 'ProductController',
         'method' => 'showProducts'
@@ -22,6 +21,7 @@ $routes = [
         'controller' => 'ProductController',
         'method' => 'showProducts'
     ],
+    // profile settings
     '/update-profile' => [
         'controller' => 'UserController',
         'method' => 'updateProfile'
@@ -34,6 +34,7 @@ $routes = [
         'controller' => 'UserController',
         'method' => 'uploadPicture'
     ],
+    // authentication
     '/register' => [
         'controller' => 'UserController',
         'method' => 'register'
@@ -46,6 +47,7 @@ $routes = [
         'controller' => 'UserController',
         'method' => 'logout'
     ],
+    // product management
     '/createproduct' => [
         'controller' => 'ProductController',
         'method' => 'createProduct'
@@ -59,6 +61,15 @@ $routes = [
         'method' => 'updateProducts'
     ],
     '/deleteproduct' => [
+        'controller' => 'ProductController',
+        'method' => 'deleteProducts'
+    ],
+
+    '/productview' => [
+        'controller' => 'ProductController',
+        'method' => 'productDetails'
+    ],
+    '/productview-submit' => [
         'controller' => 'ProductController',
         'method' => 'deleteProducts'
     ],

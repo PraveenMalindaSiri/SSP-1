@@ -1,8 +1,5 @@
 <?php require_once(LAYOUT_PATH . "navbar.php"); ?>
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
 require_once APP_PATH . 'core/Session.php';
 $session = new Session();
 $session->start();
