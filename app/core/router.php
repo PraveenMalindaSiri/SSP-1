@@ -8,8 +8,6 @@ $routes = [
     '' => ['view' => 'public/home.php'],
     '/home' => ['view' => 'public/home.php'],
     '/about' => ['view' => 'public/about.php'],
-    '/cart' => ['view' => 'customer/cart.php'],
-    '/wishlist' => ['view' => 'customer/wishlist.php'],
     '/manageprofile' => ['view' => 'shared/manageprofile.php'],
     '/manageusers' => ['view' => 'admin/manageusers.php'],
 
@@ -72,6 +70,22 @@ $routes = [
     '/productview-submit' => [
         'controller' => 'CustomerController',
         'method' => 'customerSelection'
+    ],
+    '/wishlist' => [
+        'controller' => 'CustomerController',
+        'method' => 'showWishlistItems'
+    ],
+    '/wishlist-submit' => [
+        'controller' => 'CustomerController',
+        'method' => 'showWishlistItems'
+    ],
+    '/cart' => [
+        'controller' => 'CustomerController',
+        'method' => 'showCartItems'
+    ],
+    '/cart-submit' => [
+        'controller' => 'CustomerController',
+        'method' => 'showCartItems'
     ],
 ];
 
