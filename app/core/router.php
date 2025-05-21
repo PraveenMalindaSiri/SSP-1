@@ -62,7 +62,7 @@ $routes = [
         'controller' => 'ProductController',
         'method' => 'deleteProducts'
     ],
-    // product details and wishlist, cart
+    // product details
     '/productview' => [
         'controller' => 'ProductController',
         'method' => 'productDetails'
@@ -71,21 +71,23 @@ $routes = [
         'controller' => 'CustomerController',
         'method' => 'customerSelection'
     ],
+    // wishlist
     '/wishlist' => [
         'controller' => 'CustomerController',
         'method' => 'showWishlistItems'
     ],
     '/wishlist-submit' => [
         'controller' => 'CustomerController',
-        'method' => 'showWishlistItems'
+        'method' => 'wishlistSelection'
     ],
+    // cart
     '/cart' => [
         'controller' => 'CustomerController',
         'method' => 'showCartItems'
     ],
     '/cart-submit' => [
         'controller' => 'CustomerController',
-        'method' => 'showCartItems'
+        'method' => 'cartSelection'
     ],
 ];
 

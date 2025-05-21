@@ -8,10 +8,6 @@ class Session
             session_start();
         }
     }
-    public function unsetUser()
-    {
-        unset($_SESSION['user']);
-    }
     public function setUser($username, $role, $age)
     {
         $_SESSION['user'] = [
@@ -19,6 +15,10 @@ class Session
             'role' => $role,
             'age' => $age
         ];
+    }
+    public function unsetUser()
+    {
+        unset($_SESSION['user']);
     }
     public function setCartItems($pid, $amount, $username)
     {
@@ -38,6 +38,13 @@ class Session
             $_SESSION['cart'][$username][$pid] = $amount + $Currentamount;
         }
         return true;
+    }
+    public function unsetCartItem($username, $pid){
+        if(isset($_SESSION['cart'][$username][$pid])){
+            unset($_SESSION['cart'][$username][$pid]);
+            return true;
+        }
+        return false;
     }
     public function isLoggedIn()
     {

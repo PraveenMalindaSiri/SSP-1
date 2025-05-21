@@ -64,6 +64,8 @@ unset($_SESSION['errors']);
         <p class="text-red"><?= $errors['age'] ?? ''  ?></p>
         <p class="text-red"><?= $errors['amount'] ?? ''  ?></p>
         <p class="text-red"><?= $errors['pid'] ?? ''  ?></p>
+        <p class="text-red"><?= $errors['wishlist'] ?? ''  ?></p>
+        <p class="text-red"><?= $errors['cart'] ?? ''  ?></p>
     </div>
 <?php else: ?>
     <p class="text-xl">No Item</p>
