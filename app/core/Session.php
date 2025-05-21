@@ -20,6 +20,25 @@ class Session
             'age' => $age
         ];
     }
+    public function setCartItems($pid, $amount, $username)
+    {
+        if (!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = [];
+        }
+
+        if (!isset($_SESSION['cart'][$username])) {
+            $_SESSION['cart'][$username] = [];
+        }
+
+        $Currentamount = $_SESSION['cart'][$username][$pid] ?? 0;
+        if($Currentamount == 0){
+            $_SESSION['cart'][$username][$pid] = $amount;
+        }
+        else{
+            $_SESSION['cart'][$username][$pid] = $amount + $Currentamount;
+        }
+        return true;
+    }
     public function isLoggedIn()
     {
         return isset($_SESSION['user']);
@@ -29,7 +48,7 @@ class Session
     {
         return isset($_SESSION['user']) && $_SESSION['user']['role'] == 'admin';
     }
-    
+
     public function isCustomer()
     {
         return isset($_SESSION['user']) && $_SESSION['user']['role'] == 'customer';

@@ -416,7 +416,7 @@ class Validator
         return $errors;
     }
 
-    public static function isAddingDigitalItems()
+    public static function isAddingDigitalItemsToWishlist()
     {
         $errors = [];
 
@@ -430,7 +430,27 @@ class Validator
             $stmt->execute();
             $stmt->store_result();
             if ($stmt->num_rows > 0) {
-                $errors['pid'] = "Item already exists in the Wishlist. Can't order more than 1 Digital item at a time.";
+                $errors['pid'] = "Item already exists in Wishlist. Can't order more than 1 Digital item at a time.";
+            }
+        }
+
+        return $errors;
+    }
+
+    public static function isAddingDigitalItemsToCart()
+    {
+        $errors = [];
+
+        $type = strtolower(trim(self::$inputs['type'] ?? ''));
+        $username = $_SESSION['user']['username'];
+        $pid = self::$inputs['pid'];
+
+        if ($type === 'digital') {
+
+            $Currentamount = $_SESSION['cart'][$username][$pid] ?? 0;
+
+            if($Currentamount >= 1){
+                $errors['pid'] = "Item already exists in Cart. Can't order more than 1 Digital item at a time.";
             }
         }
 
@@ -450,13 +470,23 @@ class Validator
         return $errors;
     }
 
-    public static function validateProductDetailsForm()
+    public static function validateProductDetailsFormWishlist()
     {
         return array_merge_recursive(
             self::hasPID(),
             self::validAmount(),
             //self::validAge(),
-            self::isAddingDigitalItems()
+            self::isAddingDigitalItemsToWishlist()
+        );
+    }
+
+    public static function validateProductDetailsFormCart()
+    {
+        return array_merge_recursive(
+            self::hasPID(),
+            self::validAmount(),
+            //self::validAge(),
+            self::isAddingDigitalItemsToCart()
         );
     }
 }

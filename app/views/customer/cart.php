@@ -1,5 +1,6 @@
 <?php require_once(LAYOUT_PATH . "navbar.php"); ?>
 
+<pre><?php print_r($_SESSION['cart'] ?? []); ?></pre>
 
 
 <div class="mt-5 flex flex-col items-center">
