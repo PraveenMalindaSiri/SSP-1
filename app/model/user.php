@@ -114,6 +114,12 @@ class User
         return $product;
     }
 
+    public function viewProductDetails($productID)
+    {
+        $product = new Product();
+        return $product->showProductDetails($productID);
+    }
+
     // setters
     public function setFullname($fullname)
     {

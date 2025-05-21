@@ -220,11 +220,37 @@ class Database
         return $stmt->execute();
     }
 
-    public function deleteProduct($pid){
+    public function deleteProduct($pid)
+    {
         $conn = self::getConnection();
 
         $stmt = $conn->prepare("DELETE FROM products WHERE pid = ? LIMIT 1");
         $stmt->bind_param("i", $pid);
         return $stmt->execute() && $stmt->affected_rows > 0;
+    }
+
+    public function AddWishlistItem($pid, $UserAmount, $user)
+    {
+        $conn = self::getConnection();
+
+        $stmt = $conn->prepare("SELECT amount FROM wishlist WHERE pid = ? AND username = ?");
+        $stmt->bind_param("is", $pid, $user);
+        $stmt->execute();
+        $stmt->store_result();
+
+        if ($stmt->num_rows > 0) {
+            $stmt->bind_result($amount);
+            $stmt->fetch();
+
+            $newAmount = $amount + $UserAmount;
+
+            $statement = $conn->prepare("UPDATE wishlist SET amount = ? WHERE pid = ? AND username = ?");
+            $statement->bind_param('iis', $newAmount, $pid, $user);
+            return $statement->execute();
+        } else {
+            $statement = $conn->prepare("INSERT INTO wishlist (pid, username, amount) VALUES (?, ?, ?)");
+            $statement->bind_param('isi', $pid, $user, $UserAmount);
+            return $statement->execute();
+        }
     }
 }

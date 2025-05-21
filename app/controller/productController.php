@@ -14,6 +14,12 @@ class ProductController
             session_start();
         }
 
+        $session = new Session();
+        if (!$session->isSeller()) {
+            header("Location: /cb008920/public/home");
+            exit;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = Validator::sanitize($_POST);
             Validator::$inputs = $_POST;
@@ -226,5 +232,29 @@ class ProductController
         } elseif (strpos($currentPage, 'digitalproducts') !== false) {
             require_once APP_PATH . 'views/public/digitalproducts.php';
         }
+    }
+
+    public function productDetails()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $pid = $_GET['pid'];
+        Validator::$inputs = ["pid" => $pid];
+        $errors = Validator::hasPID();
+
+        if (!empty($errors)) {
+            $_SESSION['errors'] = $errors;
+            header("Location: /cb008920/public/physicalproducts");
+            exit;
+        }
+
+        $product = [];
+
+        $user = new User();
+        $product =  $user->viewProductDetails($pid);
+
+        require_once APP_PATH . 'views/public/productview.php';
     }
 }

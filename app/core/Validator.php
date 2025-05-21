@@ -416,6 +416,27 @@ class Validator
         return $errors;
     }
 
+    public static function isAddingDigitalItems()
+    {
+        $errors = [];
+
+        $type = strtolower(trim(self::$inputs['type'] ?? ''));
+
+        if ($type === 'digital') {
+            $conn = Database::getConnection();
+
+            $stmt = $conn->prepare("SELECT * FROM wishlist WHERE pid = ? AND username = ?");
+            $stmt->bind_param("is", self::$inputs['pid'], $_SESSION['user']['username']);
+            $stmt->execute();
+            $stmt->store_result();
+            if ($stmt->num_rows > 0) {
+                $errors['pid'] = "Item already exists in the Wishlist. Can't order more than 1 Digital item at a time.";
+            }
+        }
+
+        return $errors;
+    }
+
     public static function validAge()
     {
         $errors = [];
@@ -434,7 +455,8 @@ class Validator
         return array_merge_recursive(
             self::hasPID(),
             self::validAmount(),
-            self::validAge()
+            //self::validAge(),
+            self::isAddingDigitalItems()
         );
     }
 }

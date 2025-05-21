@@ -1,5 +1,12 @@
 <?php require_once(LAYOUT_PATH . "navbar.php"); ?>
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
+$errors = $_SESSION['errors'] ?? [];
+unset($_SESSION['errors']);
+?>
 
 <div>
     <p class="text-white">a</p>
@@ -53,13 +60,16 @@
             </div>
         </div>
     </form>
-
-    <div>
-        <p class="text-white">adc</p>
+    <div class="text-center text-xl border-2">
+        <p class="text-red"><?= $errors['age'] ?? ''  ?></p>
+        <p class="text-red"><?= $errors['amount'] ?? ''  ?></p>
+        <p class="text-red"><?= $errors['pid'] ?? ''  ?></p>
     </div>
 <?php else: ?>
-    <p class="text-white">No Item</p>
+    <p class="text-xl">No Item</p>
 <?php endif; ?>
-
+<div>
+    <p class="text-white">adc</p>
+</div>
 
 <?php require_once(LAYOUT_PATH . "footer.php"); ?>

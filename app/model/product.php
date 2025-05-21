@@ -85,6 +85,11 @@ class Product
         return $db->getProducts();
     }
 
+    public function showProductDetails($productID){
+        $db = new Database();
+        return $db->getProductById($productID);
+    }
+
     // getters and setters
     public function getName()
     {

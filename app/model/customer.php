@@ -1,5 +1,6 @@
 <?php
 require_once APP_PATH . 'model/User.php';
+require_once APP_PATH . 'core/Database.php';
 
 class Customer extends User
 {
@@ -13,9 +14,10 @@ class Customer extends User
         return true;
     }
 
-    public function addToWishlist()
+    public function addToWishlist($pid, $amount, $user)
     {
-        return true;
+        $db = new Database();
+        return $db->AddWishlistItem($pid, $amount, $user);
     }
 
     public function addToCart()
