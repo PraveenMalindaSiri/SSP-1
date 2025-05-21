@@ -39,7 +39,7 @@ class Validator
         if (!isset(self::$inputs['role'])) {
             $errors['role'] = "Role is required.";
         } else {
-            if (self::$inputs['role'] != 'customer' && self::$inputs['role'] != 'seller') {
+            if (self::$inputs['role'] != 'customer' && self::$inputs['role'] != 'seller' && self::$inputs['role'] != 'admin') {
                 $errors['role'] = "Invalid role.";
             }
         }
@@ -79,6 +79,20 @@ class Validator
             // }
         }
 
+        return $errors;
+    }
+
+    public static function validCurrentPassword()
+    {
+        $errors = [];
+
+        if (self::$inputs['cPassword']) {
+            $db = new Database();
+            $user = $db->getUserByUsername(self::$inputs['username']);
+            if (!password_verify(self::$inputs['cPassword'], $user['password'])) {
+                $errors['cPassword'] = "Current password is incorrect.";
+            }
+        }
         return $errors;
     }
 
@@ -211,7 +225,44 @@ class Validator
             self::hasValue(),
             self::validPassword('nPassword'),
             self::validPassword('conPassword'),
-            self::matchingPassword()
+            self::matchingPassword(),
+            self::validCurrentPassword()
+        );
+    }
+
+    public static function isValidUser()
+    {
+        $errors = [];
+
+        $conn = Database::getConnection();
+        $statment = $conn->prepare("SELECT * FROM users WHERE username = ?");
+        $statment->bind_param('s', self::$inputs['username']);
+        $statment->execute();
+        $statment->store_result();
+        if ($statment->num_rows === 0) {
+            $errors['username'] = "Username does exists.";
+        }
+        if ($_SESSION['user']['username'] === self::$inputs['username']) {
+            $errors['username'] = "You can't delete yourself.";
+        }
+
+
+        return $errors;
+    }
+
+    public static function validateUpdateProfileFormAdmin()
+    {
+        return array_merge_recursive(
+            self::validateUpdateProfileForm(),
+            self::isValidUser()
+        );
+    }
+
+    public static function validateUpdatePasswordFormAdmin()
+    {
+        return array_merge_recursive(
+            self::validateUpdatePasswordForm(),
+            self::isValidUser()
         );
     }
 
@@ -449,7 +500,7 @@ class Validator
 
             $Currentamount = $_SESSION['cart'][$username][$pid] ?? 0;
 
-            if($Currentamount >= 1){
+            if ($Currentamount >= 1) {
                 $errors['pid'] = "Item already exists in Cart. Can't order more than 1 Digital item at a time.";
             }
         }

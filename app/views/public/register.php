@@ -55,6 +55,10 @@ unset($_SESSION['errors'], $_SESSION['old']);
                         <input type="radio" id="customer" name="role" value="customer" >
                         <label for="customer" class="p-4">Customer</label>
                     </div>
+                    <div>
+                        <input type="radio" id="admin" name="role" value="admin" >
+                        <label for="admin" class="p-4">Admin</label>
+                    </div>
                 </div>
                 <p class="text-red"><?= $errors['role'] ?? ''  ?></p>
             </div>

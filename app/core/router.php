@@ -9,7 +9,6 @@ $routes = [
     '/home' => ['view' => 'public/home.php'],
     '/about' => ['view' => 'public/about.php'],
     '/manageprofile' => ['view' => 'shared/manageprofile.php'],
-    '/manageusers' => ['view' => 'admin/manageusers.php'],
 
     '/physicalproducts' => [
         'controller' => 'ProductController',
@@ -19,7 +18,7 @@ $routes = [
         'controller' => 'ProductController',
         'method' => 'showProducts'
     ],
-    // profile settings
+    // profile settings ============================================
     '/update-profile' => [
         'controller' => 'UserController',
         'method' => 'updateProfile'
@@ -32,7 +31,7 @@ $routes = [
         'controller' => 'UserController',
         'method' => 'uploadPicture'
     ],
-    // authentication
+    // authentication ============================================
     '/register' => [
         'controller' => 'UserController',
         'method' => 'register'
@@ -45,7 +44,7 @@ $routes = [
         'controller' => 'UserController',
         'method' => 'logout'
     ],
-    // product management
+    // product management ============================================
     '/createproduct' => [
         'controller' => 'ProductController',
         'method' => 'createProduct'
@@ -62,7 +61,7 @@ $routes = [
         'controller' => 'ProductController',
         'method' => 'deleteProducts'
     ],
-    // product details
+    // product details ============================================
     '/productview' => [
         'controller' => 'ProductController',
         'method' => 'productDetails'
@@ -71,7 +70,7 @@ $routes = [
         'controller' => 'CustomerController',
         'method' => 'customerSelection'
     ],
-    // wishlist
+    // wishlist ============================================
     '/wishlist' => [
         'controller' => 'CustomerController',
         'method' => 'showWishlistItems'
@@ -80,7 +79,7 @@ $routes = [
         'controller' => 'CustomerController',
         'method' => 'wishlistSelection'
     ],
-    // cart
+    // cart ============================================
     '/cart' => [
         'controller' => 'CustomerController',
         'method' => 'showCartItems'
@@ -88,6 +87,23 @@ $routes = [
     '/cart-submit' => [
         'controller' => 'CustomerController',
         'method' => 'cartSelection'
+    ],
+    // ADMIN ++++++++++++++++++++++++++++++++++++++++++++
+    '/manageusers' => [
+        'controller' => 'AdminController',
+        'method' => 'getAllUsers'
+    ],
+    '/updateuserpassword' => [
+        'controller' => 'AdminController',
+        'method' => 'updateUserPassword'
+    ],
+    '/updateuserdetails' => [
+        'controller' => 'AdminController',
+        'method' => 'updateUserDetails'
+    ],
+    '/deleteuser' => [
+        'controller' => 'AdminController',
+        'method' => 'deleteUser'
     ],
 ];
 
