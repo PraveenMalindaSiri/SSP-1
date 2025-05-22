@@ -38,6 +38,11 @@ class Session
         }
         return true;
     }
+    public function setCartTotal($totalp, $user)
+    {
+        $_SESSION['cart_total'][$user] = $totalp;
+        return true;
+    }
     public function unsetCartItem($username, $pid)
     {
         if (isset($_SESSION['cart'][$username][$pid])) {
@@ -50,6 +55,14 @@ class Session
     {
         if (isset($_SESSION['cart'][$username])) {
             unset($_SESSION['cart'][$username]);
+            return true;
+        }
+        return false;
+    }
+        public function unsetCartTotal($username)
+    {
+        if (isset($_SESSION['cart_total'][$username])) {
+            unset($_SESSION['cart_total'][$username]);
             return true;
         }
         return false;

@@ -561,4 +561,53 @@ class Validator
             self::isAddingDigitalItemsToCart()
         );
     }
+
+    public static function validateCartCheckout(){
+        $errors = [];
+
+        if(empty(self::$inputs['totalprice']) || self::$inputs['totalprice'] == 0){
+            $errors['totalprice'] = "Total Price cannot be 0";
+        }
+        if(empty(self::$inputs['terms'])){
+            $errors['terms'] = "Please agree with Terms before proceed to Payments.";
+        }
+
+        return $errors;
+    }
+
+    public static function validCard(){
+        $errors = [];
+
+        if(self::$inputs['cname']){
+            if (strlen(self::$inputs['cname']) < 3) {
+                $errors['cname'] = "Card Name must be at least 3 characters.";
+            }
+            if (strlen(self::$inputs['cname']) > 50) {
+                $errors['cname'] = "Card Name must be less than 50 characters.";
+            }
+            if (!preg_match("/^[a-zA-Z ]*$/", self::$inputs['cname'])) {
+                $errors['cname'] = "Only letters and white space allowed in Card Name.";
+            }
+        }
+        if(self::$inputs['cnum']){
+            if(!ctype_digit(self::$inputs['cnum']) || strlen(self::$inputs['cnum']) < 12 || strlen(self::$inputs['cnum']) > 19){
+                $errors['cbum'] = "Card Number is not valid.";
+            }
+        }
+        if(self::$inputs['secnum']){
+            if(!ctype_digit(self::$inputs['secnum']) || strlen(self::$inputs['secnum']) !== 3){
+                $errors['secnum'] = "Security Number is not valid.";
+            }
+        }
+
+        return $errors;
+    }
+
+    public static function validateCheckoutForm(){
+        return array_merge_recursive(
+            self::hasValue(),
+            self::validCard()
+        );
+    }
+
 }

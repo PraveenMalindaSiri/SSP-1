@@ -106,9 +106,17 @@ $routes = [
         'method' => 'deleteUser'
     ],
     // customer ==========================================
+    '/cart-checkout' => [
+        'controller' => 'CustomerController',
+        'method' => 'checkout'
+    ],
     '/checkout' => [
         'controller' => 'CustomerController',
-        'method' => 'ckeckout'
+        'method' => 'payment'
+    ],
+    '/thank' => [
+        'controller' => 'CustomerController',
+        'method' => 'thank'
     ],
 ];
 

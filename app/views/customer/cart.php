@@ -1,5 +1,13 @@
 <?php require_once(LAYOUT_PATH . "navbar.php"); ?>
-<?php $totalprice = 0 ?>
+<?php $totalprice = 0; 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$errors = $_SESSION['errors'] ?? [];
+$old = $_SESSION['old'] ?? [];
+unset($_SESSION['errors'], $_SESSION['old']);
+?>
 <pre><?php print_r($_SESSION['cart'] ?? []); ?></pre>
 
 <?php if (isset($products) && is_array($products) && count($products) > 0): ?>
@@ -32,10 +40,10 @@
     <?php endforeach; ?>
 
     <div class="flex flex-col items-center m-10 gap-x-10">
-        <form action="/cb008920/public/checkout" method="post">
+        <form action="/cb008920/public/cart-checkout" method="post">
             <div class="flex flex-row items-center">
                 <div>
-                    <input type="checkbox">
+                    <input type="checkbox" value="1" name="terms">
                     <label for="" class="text-xl">Click Here to Agree with terms</label>
                 </div>
                 <div class="ml-10">
@@ -46,6 +54,9 @@
             <div class="flex flex-col items-center">
                 <button class="my_btn" type="submit" name="action" value="checkout">Checkout</button>
             </div>
+                <p class="text-red"><?= $errors['totalprice'] ?? ''  ?></p>
+                <p class="text-red"><?= $errors['terms'] ?? ''  ?></p>
+                <p class="text-red"><?= $errors['checkout'] ?? ''  ?></p>
         </form>
     </div>
 <?php else: ?>
