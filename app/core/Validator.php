@@ -591,7 +591,7 @@ class Validator
         }
         if(self::$inputs['cnum']){
             if(!ctype_digit(self::$inputs['cnum']) || strlen(self::$inputs['cnum']) < 12 || strlen(self::$inputs['cnum']) > 19){
-                $errors['cbum'] = "Card Number is not valid.";
+                $errors['cnum'] = "Card Number is not valid.";
             }
         }
         if(self::$inputs['secnum']){

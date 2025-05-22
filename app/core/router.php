@@ -114,10 +114,11 @@ $routes = [
         'controller' => 'CustomerController',
         'method' => 'payment'
     ],
-    '/thank' => [
-        'controller' => 'CustomerController',
-        'method' => 'thank'
-    ],
+    // '/thank' => [
+    //     'controller' => 'CustomerController',
+    //     'method' => 'thank'
+    // ],
+    '/thank' => ['view' => 'customer/thank.php']
 ];
 
 echo "REQUEST_URI: " . $_SERVER['REQUEST_URI'] . "<br>";
