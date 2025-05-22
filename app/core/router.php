@@ -105,6 +105,11 @@ $routes = [
         'controller' => 'AdminController',
         'method' => 'deleteUser'
     ],
+    // customer ==========================================
+    '/checkout' => [
+        'controller' => 'CustomerController',
+        'method' => 'ckeckout'
+    ],
 ];
 
 echo "REQUEST_URI: " . $_SERVER['REQUEST_URI'] . "<br>";
