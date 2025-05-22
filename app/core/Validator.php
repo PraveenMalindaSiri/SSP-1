@@ -86,12 +86,17 @@ class Validator
     {
         $errors = [];
 
-        if (self::$inputs['cPassword']) {
+        if (!empty(self::$inputs['cPassword']) && !empty(self::$inputs['username'])) {
             $db = new Database();
             $user = $db->getUserByUsername(self::$inputs['username']);
-            if (!password_verify(self::$inputs['cPassword'], $user['password'])) {
+
+            if (!$user || !isset($user['password'])) {
+                $errors['cPassword'] = "User not found.";
+            } elseif (!password_verify(self::$inputs['cPassword'], $user['password'])) {
                 $errors['cPassword'] = "Current password is incorrect.";
             }
+        } else {
+            $errors['cPassword'] = "Current password is required.";
         }
         return $errors;
     }
@@ -231,6 +236,22 @@ class Validator
     }
 
     public static function isValidUser()
+    {
+        $errors = [];
+
+        $conn = Database::getConnection();
+        $statment = $conn->prepare("SELECT * FROM users WHERE username = ?");
+        $statment->bind_param('s', self::$inputs['username']);
+        $statment->execute();
+        $statment->store_result();
+        if ($statment->num_rows === 0) {
+            $errors['username'] = "Username does exists.";
+        }
+
+        return $errors;
+    }
+
+    public static function isDeletingYourself()
     {
         $errors = [];
 
