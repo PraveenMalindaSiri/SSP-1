@@ -31,17 +31,25 @@ class Session
         }
 
         $Currentamount = $_SESSION['cart'][$username][$pid] ?? 0;
-        if($Currentamount == 0){
+        if ($Currentamount == 0) {
             $_SESSION['cart'][$username][$pid] = $amount;
-        }
-        else{
+        } else {
             $_SESSION['cart'][$username][$pid] = $amount + $Currentamount;
         }
         return true;
     }
-    public function unsetCartItem($username, $pid){
-        if(isset($_SESSION['cart'][$username][$pid])){
+    public function unsetCartItem($username, $pid)
+    {
+        if (isset($_SESSION['cart'][$username][$pid])) {
             unset($_SESSION['cart'][$username][$pid]);
+            return true;
+        }
+        return false;
+    }
+    public function unsetCart($username)
+    {
+        if (isset($_SESSION['cart'][$username])) {
+            unset($_SESSION['cart'][$username]);
             return true;
         }
         return false;
