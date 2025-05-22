@@ -93,6 +93,23 @@ class Database
         return $stmt->execute();
     }
 
+    public function getAllUsers(){
+        $conn = self::getConnection();
+
+        $stmt = $conn->prepare("SELECT * FROM users");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function removeUser($username){
+        $conn = self::getConnection();
+
+        $statment = $conn->prepare("DELETE FROM users WHERE username = ? LIMIT 1");
+        $statment->bind_param('s', $username);
+        return $statment->execute() && $statment->affected_rows > 0;
+    }
+
     public function insertProduct($data = [])
     {
         $conn = self::getConnection();
@@ -252,5 +269,39 @@ class Database
             $statement->bind_param('isi', $pid, $user, $UserAmount);
             return $statement->execute();
         }
+    }
+
+    public function getWishlistItems($username)
+    {
+        $conn = self::getConnection();
+
+        $stmt = $conn->prepare(
+            "
+            SELECT p.*, w.amount
+            FROM wishlist w
+            JOIN products p ON w.pid = p.pid
+            WHERE w.username = ? ORDER BY p.pid ASC"
+        );
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $wishlistItems = [];
+
+        // iterate until the last row and add detaild to the list 
+        while ($row = $result->fetch_assoc()) {
+            $wishlistItems[] = $row;
+        }
+
+        return $wishlistItems;
+    }
+
+    public function deleteWishlistItems($username, $pid)
+    {
+        $conn = self::getConnection();
+
+        $statement = $conn->prepare("DELETE FROM wishlist WHERE pid = ? AND username = ? LIMIT 1");
+        $statement->bind_param("is", $pid, $username);
+        return $statement->execute() && $statement->affected_rows > 0;
     }
 }

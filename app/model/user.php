@@ -93,14 +93,9 @@ class User
     {
         require_once APP_PATH . 'core/Database.php';
         $db = new Database();
-        $user = $db->getUserByUsername($this->username);
 
-        if ($user && password_verify($currentPassword, $user['password'])) {
-            $newPasswordHashed = password_hash($newPassword, PASSWORD_BCRYPT);
-            return $db->updatePassword($this->username, $newPasswordHashed);
-        } else {
-            return false;
-        }
+        $newPasswordHashed = password_hash($newPassword, PASSWORD_BCRYPT);
+        return $db->updatePassword($this->username, $newPasswordHashed);
     }
 
     public function uploadPicture()

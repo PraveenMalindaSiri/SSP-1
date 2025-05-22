@@ -30,6 +30,9 @@ class UserController
             } elseif ($role == 'customer') {
                 require_once APP_PATH . 'model/customer.php';
                 $user = new Customer();
+            } elseif ($role == 'admin') {
+                require_once APP_PATH . 'model/admin.php';
+                $user = new Admin();
             }
 
             $user->loadFromArray($_POST);
@@ -114,7 +117,7 @@ class UserController
         }
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $noInput = empty($_POST['fullname']) && empty($_POST['email']) && empty($_POST['address']);
-            if($noInput){
+            if ($noInput) {
                 header("Location: /cb008920/public/manageprofile");
                 exit();
             }

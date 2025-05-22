@@ -10,17 +10,30 @@ class Admin extends User
     }
 
 
-    public function updateUsersDetails()
+    public function getUsers()
     {
-        return true;
+        $db = new Database();
+        return $db->getAllUsers();
     }
-    public function updateUsersPassword()
+
+    public function updateUsersDetails($data = [])
     {
-        return true;
+        $user = new User();
+        $user->loadFromArray($data);
+        $user->setUsername($data['username']);
+        return  $user->updateProfile();
     }
-    public function deleteUsers()
+    public function updateUsersPassword($data = [])
     {
-        return true;
+        $user = new User();
+        $user->loadFromArray($data);
+        $user->setUsername($data['username']);
+        return $user->updatePassword($data['cPassword'], $data['nPassword']);
+    }
+    public function deleteUsers($user)
+    {
+        $db = new Database();
+        return $db->removeUser($user);
     }
 
     public function getProducts()
