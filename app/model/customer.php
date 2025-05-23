@@ -12,7 +12,27 @@ class Customer extends User
 
     public function viewMyOrders()
     {
-        return true;
+        $db = new Database();
+        return $db->getCustomerOrders($_SESSION['user']['username']);
+    }
+
+    public function viewMyOrderDetails($orderID){
+        $db = new Database();
+        $orderPS = $db->getOrderPS($orderID);
+        $orderDetails = [];
+
+        
+        foreach ($orderPS as $OrderP) {
+            $rawProduct = $db->getProductById($OrderP['pid']);
+            $rawProduct['amount'] = $OrderP['amount'] ?? 1;
+            $rawProduct['code'] = $OrderP['digitalcode'] ?? null;
+            $rawProduct['orderid'] = $OrderP['orderid'];
+            $rawProduct['is_Digital'] = $OrderP['is_digital'];
+
+            $orderDetails[] = $rawProduct;
+        }
+
+        return $orderDetails;
     }
 
     public function addToWishlist($pid, $amount, $user)
@@ -80,6 +100,7 @@ class Customer extends User
 
         if ($O_ID) {
             $result = $this->OrderProducts($O_ID, $user);
+            $_SESSION['last_oid'] = $O_ID;
             if ($result) {
                 return true;
             } else {
@@ -126,6 +147,29 @@ class Customer extends User
 
     public function codeGenerator($pid, $username)
     {
-        return "$pid.$username".time();
+        return "$pid.$username." . time();
+    }
+
+    public function thank()
+    {
+        $orderID = $_SESSION['last_oid'] ?? null;
+        $db = new Database();
+        $orderPS = $db->getOrderPS($orderID);
+        $products = [];
+
+        foreach ($orderPS as $OrderP) {
+            $rawProduct = $db->getProductById($OrderP['pid']);
+            $rawProduct['amount'] = $OrderP['amount'] ?? 1;
+            $rawProduct['code'] = $OrderP['digitalcode'] ?? null;
+            $rawProduct['orderid'] = $OrderP['orderid'];
+            $rawProduct['is_Digital'] = $OrderP['is_digital'];
+
+            $products[] = $rawProduct;
+        }
+
+        $user = $db->getUserByUsername($_SESSION['user']['username']);
+        $_SESSION['address'] = $user['address'];
+
+        return $products;
     }
 }

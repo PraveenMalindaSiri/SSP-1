@@ -250,6 +250,8 @@ class CustomerController
             $result = $customer->payment($username, $_SESSION['cart_total'][$username]);
 
             if ($result) {
+                $session->unsetCart($username);
+                $session->unsetCartTotal($username);
                 header("Location: /cb008920/public/thank");
             } else {
                 $_SESSION['errors'] = ['payment' => 'Payment failed. Please try again.'];
@@ -282,14 +284,11 @@ class CustomerController
             exit;
         }
 
+        $products = [];
+
         $customer = new Customer();
+        $products = $customer->thank();
 
-        $result = 0;
-
-        if ($result) {
-            header("Location: /cb008920/public/checkout");
-        } else {
-            $_SESSION['errors'] = ['delete' => 'Product did not delete from Cart successfully. Please try again'];
-        }
+        require_once APP_PATH . 'views/customer/thank.php';
     }
 }

@@ -57,6 +57,13 @@ class Admin extends User
 
     public function viewUsersOrders()
     {
-        return true;
+        $db = new Database();
+        return $db->getAllOrders();
+    }
+
+    public function viewOrderDetails($orderID)
+    {
+        $customer = new Customer();
+        return $customer->viewMyOrderDetails($orderID);
     }
 }

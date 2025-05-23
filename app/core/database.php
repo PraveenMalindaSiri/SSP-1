@@ -39,7 +39,7 @@ class Database
     public function getUserByUsername($username)
     {
         $conn = self::getConnection();
-        $stmt = $conn->prepare("SELECT password, role, date_of_birth FROM users WHERE username = ?");
+        $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
@@ -333,5 +333,46 @@ class Database
             $data['is_Digital']
         );
         return $stmt->execute();
+    }
+
+    public function getOrderPS($orderID)
+    {
+        $conn = self::getConnection();
+        $stmt = $conn->prepare("SELECT * FROM orderproducts WHERE orderid = ?");
+        $stmt->bind_param('i', $orderID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $orderPS = [];
+        while ($row = $result->fetch_assoc()) {
+            $orderPS[] = $row;
+        }
+
+        return $orderPS;
+    }
+
+    public function getOrderByID($id, $username)
+    {
+        $conn = self::getConnection();
+        $stmt = $conn->prepare("SELECT * FROM orders WHERE orderid = ? AND username = ?");
+        $stmt->bind_param('is', $id, $username);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function getCustomerOrders($customer)
+    {
+        $conn = self::getConnection();
+        $statement = $conn->prepare("SELECT * FROM orders WHERE username = ?");
+        $statement->bind_param("s", $customer);
+        $statement->execute();
+        return $statement->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getAllOrders()
+    {
+        $conn = self::getConnection();
+        $statement = $conn->prepare("SELECT * FROM orders");
+        $statement->execute();
+        return $statement->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 }

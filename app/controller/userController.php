@@ -1,6 +1,10 @@
 <?php
 
 require_once APP_PATH . 'core/Validator.php';
+require_once APP_PATH . 'model/customer.php';
+require_once APP_PATH . 'model/admin.php';
+require_once APP_PATH . 'model/seller.php';
+
 class UserController
 {
     public function register()
@@ -25,13 +29,10 @@ class UserController
             $role = $_POST['role'];
 
             if ($role == 'seller') {
-                require_once APP_PATH . 'model/seller.php';
                 $user = new Seller();
             } elseif ($role == 'customer') {
-                require_once APP_PATH . 'model/customer.php';
                 $user = new Customer();
             } elseif ($role == 'admin') {
-                require_once APP_PATH . 'model/admin.php';
                 $user = new Admin();
             }
 
@@ -190,5 +191,66 @@ class UserController
             // If not a POST request, show the update password form
             require_once APP_PATH . 'views/shared/manageprofile.php';
         }
+    }
+
+    public function orders()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $session = new Session();
+        $orders = [];
+
+        if (!$session->isAdmin() && !$session->isCustomer()) {
+            header("Location: /cb008920/public");
+            exit;
+        }
+
+        if ($session->isAdmin()) {
+            $admin = new Admin();
+            $orders = $admin->viewUsersOrders();
+        } elseif ($session->isCustomer()) {
+            $customer = new Customer();
+            $orders = $customer->viewMyOrders();
+        }
+
+        require_once APP_PATH . 'views/shared/orders.php';
+    }
+
+    public function orderDetails()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $orderID = Validator::sanitize(['id' => $_GET['id']]);
+        Validator::$inputs = $orderID;
+        $errors = Validator::validateOrderDetailsView();
+
+        if (!empty($errors)) {
+            $_SESSION['errors'] = $errors;
+            $_SESSION['old'] = $_POST;
+            header("Location: /cb008920/public/orders");
+            exit;
+        }
+
+        $session = new Session();
+        if (!$session->isAdmin() && !$session->isCustomer()) {
+            header("Location: /cb008920/public");
+            exit;
+        }
+
+        $orderDetails = [];
+
+        if ($session->isCustomer()) {
+            $customer = new Customer();
+            $orderDetails = $customer->viewMyOrderDetails($orderID['id']);
+        } elseif ($session->isAdmin()) {
+            $admin = new Admin();
+            $orderDetails = $admin->viewOrderDetails($orderID['id']);
+        }
+
+        require_once APP_PATH . 'views/shared/orderdetails.php';
     }
 }
