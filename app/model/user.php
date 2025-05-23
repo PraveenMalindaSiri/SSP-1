@@ -69,6 +69,7 @@ class User
         $session = new Session();
         if ($session->isLoggedIn()) {
             $session->start();
+            $session->unsetCart($_SESSION['user']['username']);
             $session->unsetUser();
             return true;
         } else {

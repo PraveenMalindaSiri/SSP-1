@@ -76,6 +76,8 @@ class AdminController
             Validator::$inputs = $_POST;
             $errors = Validator::validateUpdatePasswordFormAdmin();
 
+            // var_dump($_POST);
+            // exit;
             if (!empty($errors)) {
                 $_SESSION['errors'] = $errors;
                 $_SESSION['old'] = $_POST;
@@ -115,7 +117,7 @@ class AdminController
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = Validator::sanitize($_POST);
             Validator::$inputs = $_POST;
-            $errors = Validator::isValidUser();
+            $errors = Validator::isDeletingYourself();
 
             if (!empty($errors)) {
                 $_SESSION['errors'] = $errors;
@@ -138,7 +140,7 @@ class AdminController
                 exit;
             }
             else{
-                $_SESSION['errors'] = ['deleteuser' => 'Delete failed. Please try again.'];
+                $_SESSION['errors'] = ['deleteuser' => 'Delete   failed. Please try again.'];
             }
         } else {
             require_once APP_PATH . 'views/admin/deleteuser.php';

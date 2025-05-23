@@ -159,6 +159,7 @@ class UserController
             session_start();
         }
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_POST['username'] = $_SESSION['user']['username'];
             $_POST = Validator::sanitize($_POST);
             Validator::$inputs = $_POST;
             $errors = Validator::validateUpdatePasswordForm();

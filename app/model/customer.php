@@ -24,7 +24,6 @@ class Customer extends User
     public function addToCart($pid, $amount, $user)
     {
         $session = new Session();
-
         return $session->setCartItems($pid, $amount, $user);
     }
 
@@ -38,6 +37,10 @@ class Customer extends User
     {
         $cartItems = [];
         $db = new Database();
+
+        if (!isset($_SESSION['cart'][$username]) || !is_array($_SESSION['cart'][$username])) {
+            return false;
+        }
 
         foreach ($_SESSION['cart'][$username] as $pid => $amount) {
             // iterate through each key,value in cart and get p details and add the relevant amount to details
@@ -57,8 +60,72 @@ class Customer extends User
         return $db->deleteWishlistItems($username, $pid);
     }
 
-    public function deleteCartItem($username, $pid) {
+    public function deleteCartItem($username, $pid)
+    {
         $session = new Session();
         return $session->unsetCartItem($username, $pid);
+    }
+
+    public function checkout($totalP, $user)
+    {
+
+        $session = new Session();
+        return $session->setCartTotal($totalP, $user);
+    }
+
+    public function payment($user, $totalprice)
+    {
+        $db = new Database();
+        $O_ID = $db->addOrder($user, $totalprice);
+
+        if ($O_ID) {
+            $result = $this->OrderProducts($O_ID, $user);
+            if ($result) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public function OrderProducts($orderID, $user)
+    {
+        $db = new Database();
+        $pids = $_SESSION['cart'][$user];
+        $list = [];
+        $result = [];
+
+        foreach ($pids as $pid => $amount) {
+            $product = $db->getProductById($pid);
+            if (strtolower($product['type']) === 'digital') {
+                $code = $this->codeGenerator($pid, $user);
+                $product['code'] = $code;
+                $product['is_Digital'] = 1;
+            } else {
+                $product['code'] = null;
+                $product['is_Digital'] = 0;
+            }
+            $product['amount'] = $amount;
+            $product['orderID'] = $orderID;
+            $list[] = $product;
+        }
+
+        foreach ($list as $item) {
+            $added = $db->addOrderProduct($item);
+            $result[] = $added;
+        }
+
+        if (!in_array(false, $result, true)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function codeGenerator($pid, $username)
+    {
+        return "$pid.$username".time();
     }
 }

@@ -93,7 +93,8 @@ class Database
         return $stmt->execute();
     }
 
-    public function getAllUsers(){
+    public function getAllUsers()
+    {
         $conn = self::getConnection();
 
         $stmt = $conn->prepare("SELECT * FROM users");
@@ -102,7 +103,8 @@ class Database
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function removeUser($username){
+    public function removeUser($username)
+    {
         $conn = self::getConnection();
 
         $statment = $conn->prepare("DELETE FROM users WHERE username = ? LIMIT 1");
@@ -303,5 +305,33 @@ class Database
         $statement = $conn->prepare("DELETE FROM wishlist WHERE pid = ? AND username = ? LIMIT 1");
         $statement->bind_param("is", $pid, $username);
         return $statement->execute() && $statement->affected_rows > 0;
+    }
+
+    public function addOrder($user, $totalprice)
+    {
+        $conn = self::getConnection();
+        $stmt = $conn->prepare("INSERT INTO orders (username, totalprice) VALUES (?,?)");
+        $stmt->bind_param('si', $user, $totalprice);
+        if ($stmt->execute()) {
+            return $conn->insert_id;
+        } else {
+            return false;
+        }
+    }
+
+    public function addOrderProduct($data = [])
+    {
+        $conn = self::getConnection();
+        $stmt = $conn->prepare("INSERT INTO orderproducts (orderid, pid, amount, price, digitalcode, is_digital) values (?,?,?,?,?,?)");
+        $stmt->bind_param(
+            "iiiisi",
+            $data['orderID'],
+            $data['pid'],
+            $data['amount'],
+            $data['price'],
+            $data['code'],
+            $data['is_Digital']
+        );
+        return $stmt->execute();
     }
 }

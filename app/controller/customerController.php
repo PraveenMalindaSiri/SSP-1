@@ -169,7 +169,7 @@ class CustomerController
 
             if (!empty($errors)) {
                 $_SESSION['errors'] = $errors;
-                header("Location: /cb008920/public/wishlist");
+                header("Location: /cb008920/public/cart");
                 exit;
             }
 
@@ -182,6 +182,114 @@ class CustomerController
             } else {
                 $_SESSION['errors'] = ['delete' => 'Product did not delete from Cart successfully. Please try again'];
             }
+        }
+    }
+
+    public function checkout()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $session = new Session();
+        if (!$session->isCustomer()) {
+            header("Location: /cb008920/public/home");
+            exit;
+        }
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_POST = Validator::sanitize($_POST);
+            Validator::$inputs = $_POST;
+            $errors = Validator::validateCartCheckout();
+
+            if (!empty($errors)) {
+                $_SESSION['errors'] = $errors;
+                header("Location: /cb008920/public/cart");
+                exit;
+            }
+
+            $customer = new Customer();
+
+            $result = $customer->checkout($_POST['totalprice'], $_SESSION['user']['username']);
+
+            if ($result) {
+                header("Location: /cb008920/public/checkout");
+            } else {
+                $_SESSION['errors'] = ['checkout' => 'Checking Out is unsuccessful. Please try again'];
+            }
+        } else {
+            require_once APP_PATH . 'views/customer/cart.php';
+        }
+    }
+
+    public function payment()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $session = new Session();
+        if (!$session->isCustomer()) {
+            header("Location: /cb008920/public/home");
+            exit;
+        }
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_POST = Validator::sanitize($_POST);
+            Validator::$inputs = $_POST;
+            $errors = Validator::validateCheckoutForm();
+
+            if (!empty($errors)) {
+                $_SESSION['errors'] = $errors;
+                $_SESSION['old'] = $_POST;
+                header("Location: /cb008920/public/checkout");
+                exit;
+            }
+
+            $username = $_SESSION['user']['username'];
+
+            $customer = new Customer();
+            $result = $customer->payment($username, $_SESSION['cart_total'][$username]);
+
+            if ($result) {
+                header("Location: /cb008920/public/thank");
+            } else {
+                $_SESSION['errors'] = ['payment' => 'Payment failed. Please try again.'];
+                header("Location: /cb008920/public/cart");
+                exit;
+            }
+        } else {
+            require_once APP_PATH . 'views/customer/checkouts.php';
+        }
+    }
+
+    public function thank()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $session = new Session();
+        if (!$session->isCustomer()) {
+            header("Location: /cb008920/public/home");
+            exit;
+        }
+
+        $_POST = Validator::sanitize($_POST);
+        Validator::$inputs = $_POST;
+
+        if (!empty($errors)) {
+            $_SESSION['errors'] = $errors;
+            header("Location: /cb008920/public/cart");
+            exit;
+        }
+
+        $customer = new Customer();
+
+        $result = 0;
+
+        if ($result) {
+            header("Location: /cb008920/public/checkout");
+        } else {
+            $_SESSION['errors'] = ['delete' => 'Product did not delete from Cart successfully. Please try again'];
         }
     }
 }
