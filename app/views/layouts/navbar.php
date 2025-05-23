@@ -43,7 +43,31 @@ $session->start();
                 </ul>
             </div>
             <div class="flex items-center gap-10">
-                <a href="/cb008920/manageprofile"><img src="/cb008920/public/assets/images/main/avatar-white.png" alt="profile" class="w-10 h-10 hover:-translate-y-1 transition ease-in-out delay-75"></a>
+                <?php
+                $baseWebPath = "/cb008920/public/assets/images/users/";
+                $baseDiskPath = $_SERVER['DOCUMENT_ROOT'] . "/cb008920/public/assets/images/users/";
+                $username = $_SESSION['user']['username'] ?? null;
+                $jpegPath = $baseDiskPath . $username . ".jpeg";
+                $jpgPath = $baseDiskPath . $username . ".jpg";
+                $pngPath = $baseDiskPath . $username . ".png";
+                ?>
+                <?php if (file_exists($jpegPath)): ?>
+                    <a href="/cb008920/manageprofile">
+                        <img src="<?= $baseWebPath . $username . '.jpeg' ?>" alt="profile" class="w-10 h-10 hover:-translate-y-1 transition ease-in-out delay-75">
+                    </a>
+                <?php elseif (file_exists($pngPath)): ?>
+                    <a href="/cb008920/manageprofile">
+                        <img src="<?= $baseWebPath . $username . '.png' ?>" alt="profile" class="w-10 h-10 hover:-translate-y-1 transition ease-in-out delay-75">
+                    </a>
+                <?php elseif (file_exists($jpgPath)): ?>
+                    <a href="/cb008920/manageprofile">
+                        <img src="<?= $baseWebPath . $username . '.jpg' ?>" alt="profile" class="w-10 h-10 hover:-translate-y-1 transition ease-in-out delay-75">
+                    </a>
+                <?php else: ?>
+                    <a href="/cb008920/manageprofile">
+                        <img src="/cb008920/public/assets/images/main/avatar-white.png" alt="profile" class="w-10 h-10 hover:-translate-y-1 transition ease-in-out delay-75">
+                    </a>
+                <?php endif; ?>
                 <button class="text-3xl cursor-pointer md:hidden w-7 h-7" id="menu-toggle" name="menu"><img id="menu-img" src="/cb008920/public/assets/images/main/menu.png" alt="menu"></button>
             </div>
         </nav>

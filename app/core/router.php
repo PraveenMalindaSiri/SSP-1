@@ -27,7 +27,7 @@ $routes = [
         'controller' => 'UserController',
         'method' => 'updatePassword'
     ],
-    '/upload-picture' => [
+    '/update-picture' => [
         'controller' => 'UserController',
         'method' => 'uploadPicture'
     ],

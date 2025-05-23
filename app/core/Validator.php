@@ -322,8 +322,8 @@ class Validator
 
         $type = explode('/', $pic['type'])[1];
 
-        if ($type != 'jpeg' && $type != 'png') {
-            $errors['productImage'] = "Invalid file type. Only JPEG and PNG are allowed.";
+        if ($type != 'jpeg' && $type != 'png' && $type != 'jpg') {
+            $errors['productImage'] = "Invalid file type. Only JPEG,JPG and PNG are allowed.";
         }
         if ($pic['size'] > 5000000) {
             $errors['productImage'] = "File size exceeds 5MB.";
@@ -341,7 +341,7 @@ class Validator
         $errors = [];
 
         if (self::$inputs['platform']) {
-            if (self::$inputs['platform'] != 'PC' && self::$inputs['platform'] != 'PS4' && self::$inputs['platform'] != 'PS5' && self::$inputs['platform'] != 'XBOX' && self::$inputs['platform'] != 'SWITCH') {
+            if (strtolower(self::$inputs['platform']) != 'pc' && strtolower(self::$inputs['platform']) != 'ps4' && strtolower(self::$inputs['platform']) != 'ps4' && strtolower(self::$inputs['platform']) != 'xbox' && strtolower(self::$inputs['platform']) != 'switch') {
                 $errors['platform'] = "Invalid platform. Select either PC, PS4, PS5, XBOX or SWITCH.";
             }
         }
@@ -353,8 +353,21 @@ class Validator
         $errors = [];
 
         if (self::$inputs['edition']) {
-            if (self::$inputs['edition'] != 'Physical' && self::$inputs['edition'] != 'Digital') {
+            if (strtolower(self::$inputs['edition']) != 'physical' && strtolower(self::$inputs['edition']) != 'digital') {
                 $errors['edition'] = "Invalid edition. Select either Physical or Digital.";
+            }
+        }
+
+        return $errors;
+    }
+
+    public static function validGenre()
+    {
+        $errors = [];
+
+        if (self::$inputs['genre']) {
+            if (strtolower(self::$inputs['genre']) != 'rpg' && strtolower(self::$inputs['genre']) != 'shooter' && strtolower(self::$inputs['genre']) != 'car') {
+                $errors['genre'] = "Invalid genre. Select RPG, SHOOTER or CAR.";
             }
         }
 
@@ -433,7 +446,8 @@ class Validator
             self::validNumbers(),
             self::validPdctDetails(),
             self::validPlatform(),
-            self::validEdition()
+            self::validEdition(),
+            self::validGenre()
         );
     }
 
@@ -632,17 +646,19 @@ class Validator
         return $errors;
     }
 
-    public static function isTheOrderOwner($username){
+    public static function isTheOrderOwner($username)
+    {
         $errors = [];
         $db = new Database();
         $order = $db->getOrderByID(self::$inputs['id'], $username);
-        if($order['username'] !== $username){
+        if ($order['username'] !== $username) {
             $errors["id"] = 'This is not your order.';
         }
         return $errors;
     }
 
-    public static function validateOrderDetailsView() {
+    public static function validateOrderDetailsView()
+    {
         $errors = [];
         $session = new Session();
         if ($session->isCustomer()) {
