@@ -13,7 +13,7 @@
         <div class="overflow-x-auto whitespace-nowrap px-4 py-6 pl-10 pr-10">
             <div class="flex justify-between">
                 <?php foreach ($products as $product): ?>
-                    <?php if ($product['type'] === 'Physical' && $product['genre'] === "rpg"): ?>
+                    <?php if (strtolower($product['type']) === 'physical' && strtolower($product['genre']) === "rpg"): ?>
                         <a href="/cb008920/productview?pid=<?= $product['pid'] ?>">
                             <div class="inline-block w-60 mr-4 bg-gray-800 text-white rounded-xl shadow-lg p-4">
                                 <img src="/cb008920/public/<?= $product['img_path'] ?>" alt="Game 1" class="w-full h-40 object-cover rounded-lg mb-3">
@@ -35,7 +35,7 @@
         <div class="overflow-x-auto whitespace-nowrap px-4 py-6 pl-10 pr-10">
             <div class="flex justify-between">
                 <?php foreach ($products as $product): ?>
-                    <?php if ($product['type'] === 'Physical' && $product['genre'] === "shooter"): ?>
+                    <?php if (strtolower($product['type']) === 'physical' && strtolower($product['genre']) === "shooter"): ?>
                         <a href="/cb008920/productview?pid=<?= $product['pid'] ?>">
                             <div class="inline-block w-60 mr-4 bg-gray-800 text-white rounded-xl shadow-lg p-4">
                                 <img src="/cb008920/public/<?= $product['img_path'] ?>" alt="Game 1" class="w-full h-40 object-cover rounded-lg mb-3">

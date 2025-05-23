@@ -28,16 +28,16 @@ unset($_SESSION['errors']);
                 </div>
                 <div class="flex md:flex-row flex-col gap-10 text-xl items-center justify-center">
                     <div class="flex flex-col">
-                        <p class="pt-2">Edition: <?= $product['type'] ?></p>
+                        <p class="pt-2">Edition: <?= ucfirst($product['type']) ?></p>
                         <p class="pt-2">Released Date: <?= $product['released_date'] ?></p>
                         <p class="pt-2">Age Rating: <?= $product['age_rating'] ?></p>
                         <p class="pt-2">Size: <?= $product['size'] ?></p>
                     </div>
                     <div class="flex flex-col">
-                        <p class="pt-2">Platform: <?= $product['platform'] ?></p>
+                        <p class="pt-2">Platform: <?= strtoupper($product['platform']) ?></p>
                         <p class="pt-2">Company: <?= $product['company'] ?></p>
                         <p class="pt-2">Duration: <?= $product['duration'] ?></p>
-                        <p class="pt-2">Genre: <?= $product['genre'] ?></p>
+                        <p class="pt-2">Genre: <?= ucfirst($product['genre']) ?></p>
                     </div>
                 </div>
                 <div class="flex md:flex-row flex-col gap-4">
