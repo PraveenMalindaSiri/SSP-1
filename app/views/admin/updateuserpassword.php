@@ -17,7 +17,7 @@ $username = $_GET['username'];
 <div class="flex flex-col items-center justify-center">
     <div class="my_form_div">
         <h1 class="text-2xl mb-5">Update User Password</h1>
-        <form action="/cb008920/public/updateuserpassword" method="post">
+        <form action="/cb008920/updateuserpassword" method="post">
             <div>
                 <label for="username">Username</label><br>
                 <input class="my_input" type="text" id="username" name="username" value="<?= $username ?>">

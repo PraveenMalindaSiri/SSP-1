@@ -14,7 +14,7 @@ unset($_SESSION['errors'], $_SESSION['old']);
 
 <div class="flex flex-col items-center justify-center">
     <div class="my_form_div">
-        <form action="/cb008920/public/login" method="post">
+        <form action="/cb008920/login" method="post">
             <div>
                 <label for="username">Username</label><br>
                 <input class="my_input" type="text" id="username" name="username" value="<?= htmlspecialchars($old['username'] ?? '') ?>">
@@ -29,7 +29,7 @@ unset($_SESSION['errors'], $_SESSION['old']);
             <p class="text-red"><?= $errors['login'] ?? ''  ?></p>
         </form>
     </div>
-    <a href="cb008920/public/register" class="text-2xl font-semibold hover:text-skyblue p-4">Click To Register...</a>
+    <a href="cb008920/register" class="text-2xl font-semibold hover:text-skyblue p-4">Click To Register...</a>
 </div>
 
 

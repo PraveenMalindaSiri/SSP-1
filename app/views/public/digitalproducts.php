@@ -13,9 +13,9 @@
             <div class="flex justify-between">
                 <?php foreach ($products as $product): ?>
                     <?php if ($product['type'] === 'Digital' && $product['genre'] === "rpg"): ?>
-                        <a href="/cb008920/public/productview?pid=<?= $product['pid'] ?>">
+                        <a href="/cb008920/productview?pid=<?= $product['pid'] ?>">
                             <div class="inline-block w-60 mr-4 bg-gray-800 text-white rounded-xl shadow-lg p-4">
-                                <img src="/cb008920/public/<?= $product['img_path'] ?>" alt="Game 1" class="w-full h-40 object-cover rounded-lg mb-3">
+                                <img src="/cb008920/<?= $product['img_path'] ?>" alt="Game 1" class="w-full h-40 object-cover rounded-lg mb-3">
                                 <h2 class="text-lg font-semibold"><?= $product['name'] ?></h2>
                                 <p class="text-sm text-gray-300"><?= $product['type'] ?></p>
                                 <p class="text-yellow-400 font-bold mt-2"><?= $product['price'] ?></p>
@@ -35,9 +35,9 @@
             <div class="flex justify-between">
                 <?php foreach ($products as $product): ?>
                     <?php if ($product['type'] === 'Digital' && $product['genre'] === "shooter"): ?>
-                        <a href="/cb008920/public/productview?pid=<?= $product['pid'] ?>">
+                        <a href="/cb008920/productview?pid=<?= $product['pid'] ?>">
                             <div class="inline-block w-60 mr-4 bg-gray-800 text-white rounded-xl shadow-lg p-4">
-                                <img src="/cb008920/public/<?= $product['img_path'] ?>" alt="Game 1" class="w-full h-40 object-cover rounded-lg mb-3">
+                                <img src="/cb008920/<?= $product['img_path'] ?>" alt="Game 1" class="w-full h-40 object-cover rounded-lg mb-3">
                                 <h2 class="text-lg font-semibold"><?= $product['name'] ?></h2>
                                 <p class="text-sm text-gray-300"><?= $product['type'] ?></p>
                                 <p class="text-yellow-400 font-bold mt-2"><?= $product['price'] ?></p>

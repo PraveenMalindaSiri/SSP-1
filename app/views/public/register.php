@@ -13,7 +13,7 @@ unset($_SESSION['errors'], $_SESSION['old']);
 <div class="flex flex-col items-center justify-center">
     <div class="my_form_div">
         <h1 class="text-2xl mb-5">Register</h1>
-        <form action="/cb008920/public/register" method="post">
+        <form action="/cb008920/register" method="post">
             <div>
                 <label for="username">Username</label><br>
                 <input class="my_input" type="text" id="username" name="username"  value="<?= htmlspecialchars($old['username'] ?? '') ?>">

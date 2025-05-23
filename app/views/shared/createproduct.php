@@ -17,7 +17,7 @@ unset($_SESSION['errors'], $_SESSION['old'], $_SESSION['success']);
 <div class="flex flex-col items-center justify-center">
     <div class="my_form_div">
         <h1 class="text-2xl mb-5">Create</h1>
-        <form action="/cb008920/public/createproduct" enctype="multipart/form-data" method="POST">
+        <form action="/cb008920/createproduct" enctype="multipart/form-data" method="POST">
             <div>
                 <label for="name">Name</label><br>
                 <input class="my_input" type="text" id="name" name="name" value="<?= htmlspecialchars($old['name'] ?? '') ?>">

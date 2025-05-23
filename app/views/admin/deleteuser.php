@@ -15,7 +15,7 @@ $username = $_GET['username'];
 <div class="flex flex-col items-center justify-center">
     <div class="my_form_div">
         <h1 class="text-2xl mb-5">Delete User</h1>
-        <form action="/cb008920/public/deleteuser" method="post">
+        <form action="/cb008920/deleteuser" method="post">
             <div>
                 <label for="username">Username</label><br>
                 <input class="my_input" type="text" id="username" name="username" required value="<?= htmlspecialchars($username ?? $old['username'] ?? '') ?>">

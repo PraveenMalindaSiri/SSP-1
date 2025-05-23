@@ -1,7 +1,7 @@
 <?php
 
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
-$uri = str_replace('/cb008920/public', '', $uri);
+$uri = str_replace('/cb008920', '', $uri);
 $uri = rtrim($uri, '/');
 
 $routes = [

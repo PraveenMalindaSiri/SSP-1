@@ -1,6 +1,6 @@
 RewriteEngine On
 
-RewriteBase /cb008920/public/
+RewriteBase /cb008920/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 

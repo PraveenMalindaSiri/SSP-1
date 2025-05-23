@@ -14,7 +14,7 @@ class CustomerController
 
         $session = new Session();
         if (!$session->isCustomer()) {
-            header("Location: /cb008920/public/home");
+            header("Location: /cb008920/");
             exit;
         }
 
@@ -37,7 +37,7 @@ class CustomerController
 
             if (!empty($errors)) {
                 $_SESSION['errors'] = $errors;
-                header("Location: /cb008920/public/productview?pid=" . $_POST['pid']);
+                header("Location: /cb008920/productview?pid=" . $_POST['pid']);
                 exit;
             }
 
@@ -46,14 +46,14 @@ class CustomerController
             if ($action === "cart") {
                 $cartAdding = $customer->addToCart($_POST['pid'], $_POST['amount'], $_SESSION['user']['username']);
                 if ($cartAdding) {
-                    header("Location: /cb008920/public/cart");
+                    header("Location: /cb008920/cart");
                 } else {
                     $_SESSION['errors'] = ['cart' => 'Product did not add to Cart successfully. Please try again'];
                 }
             } elseif ($action === "wishlist") {
                 $wishlistAdding = $customer->addToWishlist($_POST['pid'], $_POST['amount'], $_SESSION['user']['username']);
                 if ($wishlistAdding) {
-                    header("Location: /cb008920/public/wishlist");
+                    header("Location: /cb008920/wishlist");
                 } else {
                     $_SESSION['errors'] = ['wishlist' => 'Product did not add add to Wishlist successfully. Please try again'];
                 }
@@ -68,7 +68,7 @@ class CustomerController
         }
         $session = new Session();
         if (!$session->isCustomer()) {
-            header("Location: /cb008920/public/home");
+            header("Location: /cb008920/home");
             exit;
         }
         $products = [];
@@ -88,7 +88,7 @@ class CustomerController
 
         $session = new Session();
         if (!$session->isCustomer()) {
-            header("Location: /cb008920/public/home");
+            header("Location: /cb008920/home");
             exit;
         }
 
@@ -109,21 +109,21 @@ class CustomerController
 
             if (!empty($errors)) {
                 $_SESSION['errors'] = $errors;
-                header("Location: /cb008920/public/wishlist");
+                header("Location: /cb008920/wishlist");
                 exit;
             }
 
             if ($action === "remove") {
                 $cartDelete = $customer->deleteWishlistItem($_SESSION['user']['username'], $_POST['pid']);
                 if ($cartDelete) {
-                    header("Location: /cb008920/public/physicalproducts");
+                    header("Location: /cb008920/physicalproducts");
                 } else {
                     $_SESSION['errors'] = ['delete' => 'Product did not delete from Wishlist successfully. Please try again'];
                 }
             } elseif ($action === "cart") {
                 $cartAdding = $customer->addToCart($_POST['pid'], $_POST['amount'], $_SESSION['user']['username']);
                 if ($cartAdding) {
-                    header("Location: /cb008920/public/cart");
+                    header("Location: /cb008920/cart");
                 } else {
                     $_SESSION['errors'] = ['cart' => 'Product did not add to Cart successfully. Please try again'];
                 }
@@ -138,7 +138,7 @@ class CustomerController
         }
         $session = new Session();
         if (!$session->isCustomer()) {
-            header("Location: /cb008920/public/home");
+            header("Location: /cb008920/home");
             exit;
         }
 
@@ -159,7 +159,7 @@ class CustomerController
 
         $session = new Session();
         if (!$session->isCustomer()) {
-            header("Location: /cb008920/public/home");
+            header("Location: /cb008920/");
             exit;
         }
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -169,7 +169,7 @@ class CustomerController
 
             if (!empty($errors)) {
                 $_SESSION['errors'] = $errors;
-                header("Location: /cb008920/public/cart");
+                header("Location: /cb008920/cart");
                 exit;
             }
 
@@ -178,7 +178,7 @@ class CustomerController
             $result = $customer->deleteCartItem($_SESSION['user']['username'], $_POST['pid']);
 
             if ($result) {
-                header("Location: /cb008920/public/physicalproducts");
+                header("Location: /cb008920/physicalproducts");
             } else {
                 $_SESSION['errors'] = ['delete' => 'Product did not delete from Cart successfully. Please try again'];
             }
@@ -193,7 +193,7 @@ class CustomerController
 
         $session = new Session();
         if (!$session->isCustomer()) {
-            header("Location: /cb008920/public/home");
+            header("Location: /cb008920/home");
             exit;
         }
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -203,7 +203,7 @@ class CustomerController
 
             if (!empty($errors)) {
                 $_SESSION['errors'] = $errors;
-                header("Location: /cb008920/public/cart");
+                header("Location: /cb008920/cart");
                 exit;
             }
 
@@ -212,7 +212,7 @@ class CustomerController
             $result = $customer->checkout($_POST['totalprice'], $_SESSION['user']['username']);
 
             if ($result) {
-                header("Location: /cb008920/public/checkout");
+                header("Location: /cb008920/checkout");
             } else {
                 $_SESSION['errors'] = ['checkout' => 'Checking Out is unsuccessful. Please try again'];
             }
@@ -229,7 +229,7 @@ class CustomerController
 
         $session = new Session();
         if (!$session->isCustomer()) {
-            header("Location: /cb008920/public/home");
+            header("Location: /cb008920/home");
             exit;
         }
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -240,7 +240,7 @@ class CustomerController
             if (!empty($errors)) {
                 $_SESSION['errors'] = $errors;
                 $_SESSION['old'] = $_POST;
-                header("Location: /cb008920/public/checkout");
+                header("Location: /cb008920/checkout");
                 exit;
             }
 
@@ -252,10 +252,10 @@ class CustomerController
             if ($result) {
                 $session->unsetCart($username);
                 $session->unsetCartTotal($username);
-                header("Location: /cb008920/public/thank");
+                header("Location: /cb008920/thank");
             } else {
                 $_SESSION['errors'] = ['payment' => 'Payment failed. Please try again.'];
-                header("Location: /cb008920/public/cart");
+                header("Location: /cb008920/cart");
                 exit;
             }
         } else {
@@ -271,7 +271,7 @@ class CustomerController
 
         $session = new Session();
         if (!$session->isCustomer()) {
-            header("Location: /cb008920/public/home");
+            header("Location: /cb008920/home");
             exit;
         }
 
@@ -280,7 +280,7 @@ class CustomerController
 
         if (!empty($errors)) {
             $_SESSION['errors'] = $errors;
-            header("Location: /cb008920/public/cart");
+            header("Location: /cb008920/cart");
             exit;
         }
 

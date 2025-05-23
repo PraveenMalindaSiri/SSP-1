@@ -16,7 +16,7 @@ class ProductController
 
         $session = new Session();
         if (!$session->isSeller()) {
-            header("Location: /cb008920/public/home");
+            header("Location: /cb008920/home");
             exit;
         }
 
@@ -29,7 +29,7 @@ class ProductController
             if (!empty($errors)) {
                 $_SESSION['errors'] = $errors;
                 $_SESSION['old'] = $_POST;
-                header("Location: /cb008920/public/createproduct");
+                header("Location: /cb008920/createproduct");
                 exit;
             }
 
@@ -42,7 +42,7 @@ class ProductController
 
             if ($edition != "physical" && $edition != "digital") {
                 $_SESSION['errors'] = ['edition' => 'Edition must be either physical or digital.'];
-                header("Location: /cb008920/public/createproduct");
+                header("Location: /cb008920/createproduct");
                 exit;
             }
 
@@ -62,7 +62,7 @@ class ProductController
 
             if (!move_uploaded_file($pic['tmp_name'], $uploadPath)) {
                 $_SESSION['errors'] = ['productImage' => 'Failed to upload image.'];
-                header("Location: /cb008920/public/createproduct");
+                header("Location: /cb008920/createproduct");
                 exit;
             }
 
@@ -72,7 +72,7 @@ class ProductController
             if ($result) {
                 // Product creation successful
                 $_SESSION['success'] = ['productcreate' => 'Product created successfully.'];
-                header("Location: /cb008920/public/manageproducts");
+                header("Location: /cb008920/manageproducts");
             } else {
                 // Product creation failed
                 $_SESSION['errors'] = ['productcreate' => 'Product creation failed. Please try again.'];
@@ -93,7 +93,7 @@ class ProductController
         $products = [];
 
         if (!$session->isAdmin() && !$session->isSeller()) {
-            header("Location: /cb008920/public");
+            header("Location: /cb008920/");
             exit;
         }
 
@@ -126,13 +126,13 @@ class ProductController
             if (!empty($errors)) {
                 $_SESSION['errors'] = $errors;
                 $_SESSION['old'] = $_POST;
-                header("Location: /cb008920/public/updateproduct?id=" . $_POST['pid']);
+                header("Location: /cb008920/updateproduct?id=" . $_POST['pid']);
                 exit;
             }
 
             $session = new Session();
             if (!$session->isAdmin() && !$session->isSeller()) {
-                header("Location: /cb008920/public");
+                header("Location: /cb008920/");
                 exit;
             }
 
@@ -149,12 +149,12 @@ class ProductController
             if ($result) {
                 // Product creation successful
                 $_SESSION['success'] = ['productupdate' => 'Product updated successfully.'];
-                header("Location: /cb008920/public/updateproduct?id=" . $_POST['pid']);
+                header("Location: /cb008920/updateproduct?id=" . $_POST['pid']);
                 exit;
             } else {
                 // Product creation failed
                 $_SESSION['errors'] = ['productupdate' => 'Product updating failed. Please try again.'];
-                header("Location: /cb008920/public/updateproduct?id=" . $_POST['pid']);
+                header("Location: /cb008920/updateproduct?id=" . $_POST['pid']);
             }
         } else {
             // If not a POST request, show the create product form
@@ -176,12 +176,12 @@ class ProductController
             if (!empty($errors)) {
                 $_SESSION['errors'] = $errors;
                 $_SESSION['old'] = $_POST;
-                header("Location: /cb008920/public/deleteproduct?id=" . $_POST['pid']);
+                header("Location: /cb008920/deleteproduct?id=" . $_POST['pid']);
                 exit;
             }
             $session = new Session();
             if (!$session->isAdmin() && !$session->isSeller()) {
-                header("Location: /cb008920/public");
+                header("Location: /cb008920/");
                 exit;
             }
 
@@ -197,12 +197,12 @@ class ProductController
 
             if ($result) {
                 // Product creation successful
-                header("Location: /cb008920/public/manageproducts");
+                header("Location: /cb008920/manageproducts");
                 exit;
             } else {
                 // Product creation failed
                 $_SESSION['errors'] = ['productdelete' => 'Product deleting failed. Please try again.'];
-                header("Location: /cb008920/public/deleteproduct?id=" . $_POST['pid']);
+                header("Location: /cb008920/deleteproduct?id=" . $_POST['pid']);
             }
         } else {
             // If not a POST request, show the create product form
@@ -246,7 +246,7 @@ class ProductController
 
         if (!empty($errors)) {
             $_SESSION['errors'] = $errors;
-            header("Location: /cb008920/public/physicalproducts");
+            header("Location: /cb008920/physicalproducts");
             exit;
         }
 

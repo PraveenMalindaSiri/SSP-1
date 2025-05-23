@@ -21,7 +21,7 @@
             <td><?= htmlspecialchars($order['orderdate']) ?></td>
             <td><?= htmlspecialchars($order['totalprice']) ?></td>
             <td>
-                <a href="/cb008920/public/vieworder?id=<?= $order['orderid'] ?>">View</a>
+                <a href="/cb008920/vieworder?id=<?= $order['orderid'] ?>">View</a>
             </td>
         </tr>
         <?php endforeach; ?>

@@ -14,7 +14,7 @@ unset($_SESSION['errors'], $_SESSION['old']);
 
 <div class="flex flex-col items-center justify-center">
     <div class="my_form_div">
-        <form action="/cb008920/public/checkout" method="post">
+        <form action="/cb008920/checkout" method="post">
             <div>
                 <label for="cname">Cardholder Name</label><br>
                 <input class="my_input" type="text" id="cname" name="cname" value="<?= htmlspecialchars($old['cname'] ?? '') ?>">

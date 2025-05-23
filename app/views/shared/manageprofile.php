@@ -15,9 +15,9 @@ unset($_SESSION['errors'], $_SESSION['old'], $_SESSION['success']);
     <button class="flex mt-5 my_btn">
         <?php
         if ($session->isLoggedIn()) {
-            echo '<a href="/cb008920/public/logout" class="flex">LOG OUT</a>';
+            echo '<a href="/cb008920/logout" class="flex">LOG OUT</a>';
         } else {
-            echo '<a href="/cb008920/public/login" class="flex">LOG IN</a>';
+            echo '<a href="/cb008920/login" class="flex">LOG IN</a>';
         }
         ?>
         <img src="/cb008920/public/assets/images/main/power-switch.png" alt="" class="w-7 h-7 pl-4">
@@ -27,7 +27,7 @@ unset($_SESSION['errors'], $_SESSION['old'], $_SESSION['success']);
 <div class="flex flex-col items-center justify-center">
     <div class="my_form_div">
         <h1 class="text-2xl mb-5">Update Profile Details</h1>
-        <form action="/cb008920/public/update-profile" method="POST">
+        <form action="/cb008920/update-profile" method="POST">
             <div>
                 <label for="fullname">Fullname</label><br>
                 <input class="my_input" type="text" id="fullname" name="fullname" value="<?= htmlspecialchars($old['fullname'] ?? '') ?>">
@@ -53,7 +53,7 @@ unset($_SESSION['errors'], $_SESSION['old'], $_SESSION['success']);
 
     <div class="my_form_div">
         <h1 class="text-2xl mb-5">Update Password</h1>
-        <form action="/cb008920/public/update-password" method="POST">
+        <form action="/cb008920/update-password" method="POST">
             <div>
                 <label for="cPassword">Current Password</label><br>
                 <input class="my_input" type="password" id="cPassword" name="cPassword" required value="<?= htmlspecialchars($old['cPassword'] ?? '') ?>">
@@ -80,7 +80,7 @@ unset($_SESSION['errors'], $_SESSION['old'], $_SESSION['success']);
 
     <div class="my_form_div">
         <h1 class="text-2xl mb-5">Update Profile Picture</h1>
-        <form action="/cb008920/public/update-picture" enctype="multipart/form-data" method="post">
+        <form action="/cb008920/update-picture" enctype="multipart/form-data" method="post">
             <div>
                 <label for="picture">Profile Picture</label><br>
                 <input type="file" id="picture" name="picture" class="my_input" required>
@@ -93,7 +93,7 @@ unset($_SESSION['errors'], $_SESSION['old'], $_SESSION['success']);
 
     <?php if ($session->isCustomer()): ?>
         <div class="my_form_div">
-            <a href="/cb008920/public/orders" class="text-xl text-center hover:text-skyblue">
+            <a href="/cb008920/orders" class="text-xl text-center hover:text-skyblue">
                 <p>My Previous Orders</p>
             </a>
         </div>

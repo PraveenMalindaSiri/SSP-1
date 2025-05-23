@@ -22,9 +22,9 @@
                     <td><?= htmlspecialchars($user['date_of_birth']) ?></td>
                     <td><?= htmlspecialchars($user['email']) ?></td>
                     <td>
-                        <a href="/cb008920/public/updateuserpassword?username=<?= $user['username'] ?>">Update password</a>
-                        <a href="/cb008920/public/updateuserdetails?username=<?= $user['username'] ?>">Update details</a>
-                        <a href="/cb008920/public/deleteuser?username=<?= $user['username'] ?>">delete</a>
+                        <a href="/cb008920/updateuserpassword?username=<?= $user['username'] ?>">Update password</a>
+                        <a href="/cb008920/updateuserdetails?username=<?= $user['username'] ?>">Update details</a>
+                        <a href="/cb008920/deleteuser?username=<?= $user['username'] ?>">delete</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -37,7 +37,7 @@
 </table>
 
 <div class="my_form_div">
-    <a href="/cb008920/public/orders" class="text-xl text-center hover:text-skyblue">
+    <a href="/cb008920/orders" class="text-xl text-center hover:text-skyblue">
         <p>All Customer Orders</p>
     </a>
 </div>

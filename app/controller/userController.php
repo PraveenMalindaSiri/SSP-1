@@ -22,7 +22,7 @@ class UserController
             if (!empty($errors)) {
                 $_SESSION['errors'] = $errors;
                 $_SESSION['old'] = $_POST;
-                header("Location: /cb008920/public/register");
+                header("Location: /cb008920/register");
                 exit('Redirecting...');
             }
 
@@ -41,7 +41,7 @@ class UserController
 
             if ($result) {
                 // Registration successful
-                header("Location: /cb008920/public/login");
+                header("Location: /cb008920/login");
                 exit;
             } else {
                 // Registration failed
@@ -66,7 +66,7 @@ class UserController
             if (!empty($errors)) {
                 $_SESSION['errors'] = $errors;
                 $_SESSION['old'] = $_POST;
-                header("Location: /cb008920/public/login");
+                header("Location: /cb008920/login");
                 exit;
             }
 
@@ -79,7 +79,7 @@ class UserController
 
             if ($result) {
                 // Login successful
-                header("Location: /cb008920/public/home");
+                header("Location: /cb008920/home");
                 exit;
             } else {
                 // Login failed
@@ -101,12 +101,12 @@ class UserController
         $user = new User();
         $result = $user->logout();
         if ($result) {
-            header("Location: /cb008920/public/login");
+            header("Location: /cb008920/login");
             exit;
         } else {
             // Logout failed
             $_SESSION['errors'] = ['logout' => 'Please log in first.'];
-            header("Location: /cb008920/public/login");
+            header("Location: /cb008920/login");
             exit;
         }
     }
@@ -119,7 +119,7 @@ class UserController
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $noInput = empty($_POST['fullname']) && empty($_POST['email']) && empty($_POST['address']);
             if ($noInput) {
-                header("Location: /cb008920/public/manageprofile");
+                header("Location: /cb008920/manageprofile");
                 exit();
             }
             $_POST = Validator::sanitize($_POST);
@@ -129,7 +129,7 @@ class UserController
             if (!empty($errors)) {
                 $_SESSION['errors'] = $errors;
                 $_SESSION['old'] = $_POST;
-                header("Location: /cb008920/public/manageprofile");
+                header("Location: /cb008920/manageprofile");
                 exit('Redirecting...');
             }
 
@@ -142,7 +142,7 @@ class UserController
             if ($result) {
                 // Update successful
                 $_SESSION['success'] = ['updateprofile' => 'Profile updated successfully.'];
-                header("Location: /cb008920/public/manageprofile");
+                header("Location: /cb008920/manageprofile");
                 exit;
             } else {
                 // Update failed
@@ -168,7 +168,7 @@ class UserController
             if (!empty($errors)) {
                 $_SESSION['errors'] = $errors;
                 $_SESSION['old'] = $_POST;
-                header("Location: /cb008920/public/manageprofile");
+                header("Location: /cb008920/manageprofile");
                 exit('Redirecting...');
             }
 
@@ -181,7 +181,7 @@ class UserController
             if ($result) {
                 // Update successful
                 $_SESSION['success'] = ['updatepassword' => 'Password updated successfully.'];
-                header("Location: /cb008920/public/manageprofile");
+                header("Location: /cb008920/manageprofile");
                 exit;
             } else {
                 // Update failed
@@ -203,7 +203,7 @@ class UserController
         $orders = [];
 
         if (!$session->isAdmin() && !$session->isCustomer()) {
-            header("Location: /cb008920/public");
+            header("Location: /cb008920/");
             exit;
         }
 
@@ -231,13 +231,13 @@ class UserController
         if (!empty($errors)) {
             $_SESSION['errors'] = $errors;
             $_SESSION['old'] = $_POST;
-            header("Location: /cb008920/public/orders");
+            header("Location: /cb008920/orders");
             exit;
         }
 
         $session = new Session();
         if (!$session->isAdmin() && !$session->isCustomer()) {
-            header("Location: /cb008920/public");
+            header("Location: /cb008920/");
             exit;
         }
 

@@ -24,7 +24,7 @@
 <div class="bg-gray-700">
     <div class="flex flex-row justify-between w-[90%] mx-auto mt-5 mb-5">
         <h1 class="text-2xl md:text-2xl font-bold text-white pt-10">Physical Editions</h1>
-        <a href="../public/physicalproducts.php" class="text-2xl md:text-2xl font-bold text-neon hover:text-white pt-10">See more...</a>
+        <a href="/cb008920/physicalproducts" class="text-2xl md:text-2xl font-bold text-neon hover:text-white pt-10">See more...</a>
     </div>
     <!-- Products -->
     <div class="overflow-x-auto whitespace-nowrap px-4 py-6 pl-10 pr-10">
@@ -62,7 +62,7 @@
 <div class="bg-gray-700 mb-5">
     <div class="flex flex-row justify-between w-[90%] mx-auto mt-5 mb-5">
         <h1 class="text-2xl md:text-2xl font-bold text-white pt-10">Digital Editions</h1>
-        <a href="../public/digitalproducts.php" class="text-2xl md:text-2xl font-bold text-neon hover:text-white pt-10">See more...</a>
+        <a href="/cb008920/digitalproducts" class="text-2xl md:text-2xl font-bold text-neon hover:text-white pt-10">See more...</a>
     </div>
     <!-- Products -->
     <div class="overflow-x-auto whitespace-nowrap px-4 py-6 pl-10 pr-10">

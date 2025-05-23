@@ -13,7 +13,7 @@ $id = $_GET['id'];
 <div class="flex flex-col items-center justify-center">
     <div class="my_form_div">
         <h1 class="text-2xl mb-5">Delete</h1>
-        <form action="/cb008920/public/deleteproduct" method="POST">
+        <form action="/cb008920/deleteproduct" method="POST">
             <div>
                 <label for="pid">Product ID</label><br>
                 <input class="my_input" type="number" id="pid" name="pid" required value="<?= $id ?>">

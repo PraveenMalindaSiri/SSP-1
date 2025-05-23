@@ -24,26 +24,26 @@ $session->start();
             </div>
             <div class="nav-links duration-500 absolute md:static md:min-h-fit md:w-auto bg-gray-800 w-full h-16 top-[-100%] left-0 min-h-[60vh] flex items-center">
                 <ul class="flex md:flex-row flex-col items-center justify-center md:items-center md:gap-[4vw] gap-10 w-full">
-                    <li><a href="/cb008920/public/home" class="hover:text-cyan-400 text-xl transition-colors duration-300">Home</a></li>
-                    <li><a href="/cb008920/public/physicalproducts" class="hover:text-cyan-400 text-xl transition-colors duration-300">Products</a></li>
-                    <li><a href="/cb008920/public/about" class="hover:text-cyan-400 text-xl transition-colors duration-300">About</a></li>
+                    <li><a href="/cb008920/home" class="hover:text-cyan-400 text-xl transition-colors duration-300">Home</a></li>
+                    <li><a href="/cb008920/physicalproducts" class="hover:text-cyan-400 text-xl transition-colors duration-300">Products</a></li>
+                    <li><a href="/cb008920/about" class="hover:text-cyan-400 text-xl transition-colors duration-300">About</a></li>
                     <?php
                     if ($session->isLoggedIn() && $session->isCustomer()) {
-                        echo '                    <li><a href="/cb008920/public/wishlist" class="hover:text-cyan-400 text-xl transition-colors duration-300">Wishlist</a></li>
-                    <li><a href="/cb008920/public/cart" class="hover:text-cyan-400 text-xl transition-colors duration-300">Cart</a></li>';
+                        echo '                    <li><a href="/cb008920/wishlist" class="hover:text-cyan-400 text-xl transition-colors duration-300">Wishlist</a></li>
+                    <li><a href="/cb008920/cart" class="hover:text-cyan-400 text-xl transition-colors duration-300">Cart</a></li>';
                     }
                     if ($session->isLoggedIn() && $session->isAdmin()) {
-                        echo '<li><a href="/cb008920/public/manageproducts" class="hover:text-cyan-400 text-xl transition-colors duration-300">Manage Products</a></li>
-                        <li><a href="/cb008920/public/manageusers" class="hover:text-cyan-400 text-xl transition-colors duration-300">Manage Users</a></li>';
+                        echo '<li><a href="/cb008920/manageproducts" class="hover:text-cyan-400 text-xl transition-colors duration-300">Manage Products</a></li>
+                        <li><a href="/cb008920/manageusers" class="hover:text-cyan-400 text-xl transition-colors duration-300">Manage Users</a></li>';
                     }
                     if ($session->isLoggedIn() && $session->isSeller()) {
-                        echo '<li><a href="/cb008920/public/manageproducts" class="hover:text-cyan-400 text-xl transition-colors duration-300">Manage Products</a></li>';
+                        echo '<li><a href="/cb008920/manageproducts" class="hover:text-cyan-400 text-xl transition-colors duration-300">Manage Products</a></li>';
                     }
                     ?>
                 </ul>
             </div>
             <div class="flex items-center gap-10">
-                <a href="/cb008920/public/manageprofile"><img src="/cb008920/public/assets/images/main/avatar-white.png" alt="profile" class="w-10 h-10 hover:-translate-y-1 transition ease-in-out delay-75"></a>
+                <a href="/cb008920/manageprofile"><img src="/cb008920/public/assets/images/main/avatar-white.png" alt="profile" class="w-10 h-10 hover:-translate-y-1 transition ease-in-out delay-75"></a>
                 <button class="text-3xl cursor-pointer md:hidden w-7 h-7" id="menu-toggle" name="menu"><img id="menu-img" src="/cb008920/public/assets/images/main/menu.png" alt="menu"></button>
             </div>
         </nav>

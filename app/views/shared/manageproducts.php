@@ -31,8 +31,8 @@ $session->start();
             <td><?= htmlspecialchars($product['type']) ?></td>
             <td><?= htmlspecialchars($product['price']) ?></td>
             <td>
-                <a href="/cb008920/public/updateproduct?id=<?= $product['pid'] ?>">Update</a> |
-                <a href="/cb008920/public/deleteproduct?id=<?= $product['pid'] ?>">Delete</a>
+                <a href="/cb008920/updateproduct?id=<?= $product['pid'] ?>">Update</a> |
+                <a href="/cb008920/deleteproduct?id=<?= $product['pid'] ?>">Delete</a>
             </td>
         </tr>
         <?php endforeach; ?>

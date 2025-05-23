@@ -29,7 +29,7 @@ class AdminController
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $noInput = empty($_POST['fullname']) && empty($_POST['email']) && empty($_POST['address']);
             if ($noInput) {
-                header("Location: /cb008920/public/manageusers");
+                header("Location: /cb008920/manageusers");
                 exit();
             }
 
@@ -40,12 +40,12 @@ class AdminController
             if (!empty($errors)) {
                 $_SESSION['errors'] = $errors;
                 $_SESSION['old'] = $_POST;
-                header("Location: /cb008920/public/updateuserdetails?username=" . $_POST['username']);
+                header("Location: /cb008920/updateuserdetails?username=" . $_POST['username']);
                 exit;
             }
             $session = new Session();
             if (!$session->isAdmin()) {
-                header("Location: /cb008920/public");
+                header("Location: /cb008920/");
                 exit;
             }
 
@@ -55,7 +55,7 @@ class AdminController
             if ($result) {
                 // Update successful
                 $_SESSION['success'] = ['updateprofile' => 'Profile updated successfully.'];
-                header("Location: /cb008920/public/manageusers");
+                header("Location: /cb008920/manageusers");
                 exit;
             } else {
                 // Update failed
@@ -81,12 +81,12 @@ class AdminController
             if (!empty($errors)) {
                 $_SESSION['errors'] = $errors;
                 $_SESSION['old'] = $_POST;
-                header("Location: /cb008920/public/updateuserpassword?username=" . $_POST['username']);
+                header("Location: /cb008920/updateuserpassword?username=" . $_POST['username']);
                 exit;
             }
             $session = new Session();
             if (!$session->isAdmin()) {
-                header("Location: /cb008920/public");
+                header("Location: /cb008920/");
                 exit;
             }
 
@@ -96,12 +96,12 @@ class AdminController
             if ($result) {
                 // Update successful
                 $_SESSION['success'] = ['updatepassword' => 'Password updated successfully.'];
-                header("Location: /cb008920/public/manageusers");
+                header("Location: /cb008920/manageusers");
                 exit;
             } else {
                 // Update failed
                 $_SESSION['errors'] = ['updatepassword' => 'Update failed. Please try again.'];
-                header("Location: /cb008920/public/updateuserpassword?username=" . $_POST['username']);
+                header("Location: /cb008920/updateuserpassword?username=" . $_POST['username']);
                 exit;
             }
         } else {
@@ -122,12 +122,12 @@ class AdminController
             if (!empty($errors)) {
                 $_SESSION['errors'] = $errors;
                 $_SESSION['old'] = $_POST;
-                header("Location: /cb008920/public/deleteuser?username=" . $_POST['username']);
+                header("Location: /cb008920/deleteuser?username=" . $_POST['username']);
                 exit;
             }
             $session = new Session();
             if (!$session->isAdmin()) {
-                header("Location: /cb008920/public");
+                header("Location: /cb008920/");
                 exit;
             }
 
@@ -136,7 +136,7 @@ class AdminController
 
             if ($result) {
                 $_SESSION['success'] = ['deleteuser' => 'Deleted User successfully.'];
-                header("Location: /cb008920/public/manageusers");
+                header("Location: /cb008920/manageusers");
                 exit;
             }
             else{
