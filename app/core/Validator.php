@@ -409,18 +409,18 @@ class Validator
 
         if (!isset(self::$inputs['pid']) || !is_numeric(self::$inputs['pid'])) {
             $errors['pid'] = 'Please provide a valid Product ID';
+        } else {
+
+            $conn = Database::getConnection();
+
+            $stmt = $conn->prepare("SELECT * FROM products WHERE pid = ?");
+            $stmt->bind_param("i", self::$inputs['pid']);
+            $stmt->execute();
+            $stmt->store_result();
+            if ($stmt->num_rows === 0) {
+                $errors['pid'] = "Product ID wrong";
+            }
         }
-
-        $conn = Database::getConnection();
-
-        $stmt = $conn->prepare("SELECT * FROM products WHERE pid = ?");
-        $stmt->bind_param("i", self::$inputs['pid']);
-        $stmt->execute();
-        $stmt->store_result();
-        if ($stmt->num_rows === 0) {
-            $errors['pid'] = "Product ID wrong";
-        }
-
         return $errors;
     }
 
@@ -667,6 +667,56 @@ class Validator
         return array_merge_recursive(
             $errors,
             self::validOrderID(),
+        );
+    }
+
+    public static function hasFeaturingPID()
+    {
+        $errors = [];
+
+        $conn = Database::getConnection();
+
+        $stmt = $conn->prepare("SELECT * FROM featured_products WHERE pid = ?");
+        $stmt->bind_param('i', self::$inputs['pid']);
+        $stmt->execute();
+        $stmt->store_result();
+        if ($stmt->num_rows === 0) {
+            $errors['pid'] = "Product is not featured.";
+        }
+
+        return $errors;
+    }
+
+    public static function isFeaturingPID()
+    {
+        $errors = [];
+
+        $conn = Database::getConnection();
+
+        $stmt = $conn->prepare("SELECT * FROM featured_products WHERE pid = ?");
+        $stmt->bind_param('i', self::$inputs['pid']);
+        $stmt->execute();
+        $stmt->store_result();
+        if ($stmt->num_rows > 0) {
+            $errors['pid'] = "Product is already featured.";
+        }
+
+        return $errors;
+    }
+
+    public static function validateFeatureAddForm()
+    {
+        return array_merge(
+            self::hasPID(),
+            self::isFeaturingPID()
+        );
+    }
+
+    public static function validateFeatureRemoveForm()
+    {
+        return array_merge(
+            self::hasPID(),
+            self::hasFeaturingPID()
         );
     }
 }

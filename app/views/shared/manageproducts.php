@@ -5,8 +5,8 @@ $session = new Session();
 $session->start();
 ?>
 
-<?php if ($session->isLoggedIn() && $session->isSeller())
-    require_once(LAYOUT_PATH . "navbar_manageproducts.php");
+<?php
+require_once(LAYOUT_PATH . "navbar_manageproducts.php");
 ?>
 
 <!-- <pre><?php print_r($products); ?></pre> -->
@@ -24,20 +24,22 @@ $session->start();
     </thead>
     <tbody>
         <?php if (isset($products) && is_array($products) && count($products) > 0): ?>
-        <?php foreach ($products as $product): ?>
-        <tr>
-            <td><?= htmlspecialchars($product['pid']) ?></td>
-            <td><?= htmlspecialchars($product['name']) ?></td>
-            <td><?= htmlspecialchars($product['type']) ?></td>
-            <td><?= htmlspecialchars($product['price']) ?></td>
-            <td>
-                <a href="/cb008920/updateproduct?id=<?= $product['pid'] ?>">Update</a> |
-                <a href="/cb008920/deleteproduct?id=<?= $product['pid'] ?>">Delete</a>
-            </td>
-        </tr>
-        <?php endforeach; ?>
+            <?php foreach ($products as $product): ?>
+                <tr>
+                    <td><?= htmlspecialchars($product['pid']) ?></td>
+                    <td><?= htmlspecialchars($product['name']) ?></td>
+                    <td><?= htmlspecialchars($product['type']) ?></td>
+                    <td><?= htmlspecialchars($product['price']) ?></td>
+                    <td>
+                        <a href="/cb008920/updateproduct?id=<?= $product['pid'] ?>">Update</a> |
+                        <a href="/cb008920/deleteproduct?id=<?= $product['pid'] ?>">Delete</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
         <?php else: ?>
-            <tr><td colspan="4">No products found.</td></tr>
+            <tr>
+                <td colspan="4">No products found.</td>
+            </tr>
         <?php endif; ?>
     </tbody>
 </table>

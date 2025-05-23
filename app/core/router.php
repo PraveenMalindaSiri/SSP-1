@@ -105,6 +105,15 @@ $routes = [
         'controller' => 'AdminController',
         'method' => 'deleteUser'
     ],
+    '/featuring' => ['view' => 'admin/featuring.php'],
+    "/feature-add" => [
+        'controller' => 'AdminController',
+        'method' => 'addFeaturing'
+    ],
+    "/feature-remove" => [
+        'controller' => 'AdminController',
+        'method' => 'removeFeaturing'
+    ],
     // customer ==========================================
     '/cart-checkout' => [
         'controller' => 'CustomerController',
