@@ -99,9 +99,9 @@ class User
         return $db->updatePassword($this->username, $newPasswordHashed);
     }
 
-    public function uploadPicture()
+    public function uploadPicture($pic, $uploadPath)
     {
-        return true;
+        return move_uploaded_file($pic['tmp_name'], $uploadPath);
     }
 
     public function viewProducts()

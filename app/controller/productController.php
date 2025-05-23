@@ -37,14 +37,7 @@ class ProductController
 
             $product = $seller->createProducts($_POST);
 
-
             $edition = strtolower($_POST['edition']);
-
-            if ($edition != "physical" && $edition != "digital") {
-                $_SESSION['errors'] = ['edition' => 'Edition must be either physical or digital.'];
-                header("Location: /cb008920/createproduct");
-                exit;
-            }
 
             $uploadDir = $_SERVER['DOCUMENT_ROOT'] . "/cb008920/public/assets/images/products/$edition/";
             $webPathPrefix = "assets/images/products/$edition/";

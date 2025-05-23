@@ -375,4 +375,18 @@ class Database
         $statement->execute();
         return $statement->get_result()->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function addFeaturingProduct($pid) {
+        $conn = self::getConnection();
+        $statement = $conn->prepare("INSERT INTO featured_products (pid) VALUES (?)");
+        $statement->bind_param('i', $pid);
+        return $statement->execute();
+    }
+
+    public function removeFeaturingProduct($pid) {
+        $conn = self::getConnection();
+        $stmt = $conn->prepare("DELETE FROM featured_products WHERE pid = ? LIMIT 1");
+        $stmt->bind_param('i', $pid);
+        return $stmt->execute() && $stmt->affected_rows > 0;
+    }
 }

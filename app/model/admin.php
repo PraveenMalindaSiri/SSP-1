@@ -66,4 +66,14 @@ class Admin extends User
         $customer = new Customer();
         return $customer->viewMyOrderDetails($orderID);
     }
+
+    public function addFeaturingProduct($pid){
+        $db = new Database();
+        return $db->addFeaturingProduct($pid);
+    }
+
+    public function removeFeaturingProduct($pid){
+        $db = new Database();
+        return $db->removeFeaturingProduct($pid);
+    }
 }

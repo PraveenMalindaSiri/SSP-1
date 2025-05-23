@@ -116,6 +116,13 @@ class UserController
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
+
+        $session = new Session();
+        if (!$session->isLoggedIn()) {
+            header("Location: /cb008920/home");
+            exit;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $noInput = empty($_POST['fullname']) && empty($_POST['email']) && empty($_POST['address']);
             if ($noInput) {
@@ -159,6 +166,11 @@ class UserController
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
+        $session = new Session();
+        if (!$session->isLoggedIn()) {
+            header("Location: /cb008920/home");
+            exit;
+        }
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST['username'] = $_SESSION['user']['username'];
             $_POST = Validator::sanitize($_POST);
@@ -189,6 +201,52 @@ class UserController
             }
         } else {
             // If not a POST request, show the update password form
+            require_once APP_PATH . 'views/shared/manageprofile.php';
+        }
+    }
+
+    public function uploadPicture()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        $session = new Session();
+        if (!$session->isLoggedIn()) {
+            header("Location: /cb008920/home");
+            exit;
+        }
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $errors =  Validator::validateProductImage($_FILES['picture']);
+
+            if (!empty($errors)) {
+                $_SESSION['errors'] = $errors;
+                header("Location: /cb008920/manageprofile");
+                exit();
+            }
+
+            $user = new User();
+
+            $uploadDir = $_SERVER['DOCUMENT_ROOT'] . "/cb008920/public/assets/images/users/";
+
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+
+            $pic = $_FILES['picture'];
+            $extension = pathinfo($pic['name'], PATHINFO_EXTENSION);
+            $picName = $_SESSION['user']['username'];
+            $filename = $picName . '.' . $extension;
+            $uploadPath = $uploadDir . $filename;
+            $result = $user->uploadPicture($pic, $uploadPath);
+
+            if ($result) {
+                header("Location: /cb008920/");
+            } else {
+                $_SESSION['errors'] = ['picture' => 'Failed to upload image.'];
+                header("Location: /cb008920/manageprofile");
+                exit;
+            }
+        } else {
             require_once APP_PATH . 'views/shared/manageprofile.php';
         }
     }

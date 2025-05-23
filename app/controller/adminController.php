@@ -138,12 +138,85 @@ class AdminController
                 $_SESSION['success'] = ['deleteuser' => 'Deleted User successfully.'];
                 header("Location: /cb008920/manageusers");
                 exit;
-            }
-            else{
+            } else {
                 $_SESSION['errors'] = ['deleteuser' => 'Delete   failed. Please try again.'];
             }
         } else {
             require_once APP_PATH . 'views/admin/deleteuser.php';
+        }
+    }
+
+    public function addFeaturing()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_POST = Validator::sanitize($_POST);
+            Validator::$inputs = $_POST;
+            $errors = Validator::validateFeatureAddForm();
+
+            if (!empty($errors)) {
+                $_SESSION['adderrors'] = $errors;
+                $_SESSION['addold'] = $_POST;
+                header("Location: /cb008920/featuring");
+                exit;
+            }
+            $session = new Session();
+            if (!$session->isAdmin()) {
+                header("Location: /cb008920/");
+                exit;
+            }
+
+            $admin = new Admin();
+            $result = $admin->addFeaturingProduct($_POST['pid']);
+
+            if ($result) {
+                $_SESSION['addsuccess'] = ['feature' => 'Featuring product Added successfully.'];
+                header("Location: /cb008920/featuring");
+                exit;
+            } else {
+                $_SESSION['adderrors'] = ['feature' => 'Adding failed. Please try again.'];
+            }
+        } else {
+            require_once APP_PATH . 'views/admin/featuring.php';
+        }
+    }
+
+    public function removeFeaturing()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_POST = Validator::sanitize($_POST);
+            Validator::$inputs = $_POST;
+            $errors = Validator::validateFeatureRemoveForm();
+
+            if (!empty($errors)) {
+                $_SESSION['errors'] = $errors;
+                $_SESSION['old'] = $_POST;
+                header("Location: /cb008920/featuring");
+                exit;
+            }
+            $session = new Session();
+            if (!$session->isAdmin()) {
+                header("Location: /cb008920/");
+                exit;
+            }
+
+            $admin = new Admin();
+            $result = $admin->removeFeaturingProduct($_POST['pid']);
+
+            if ($result) {
+                $_SESSION['success'] = ['remove' => 'Featuring product Deleted successfully.'];
+                header("Location: /cb008920/featuring");
+                exit;
+            } else {
+                $_SESSION['errors'] = ['remove' => 'Delete failed. Please try again.'];
+            }
+        } else {
+            require_once APP_PATH . 'views/admin/featuring.php';
         }
     }
 }
