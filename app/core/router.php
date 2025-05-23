@@ -118,6 +118,15 @@ $routes = [
         'controller' => 'CustomerController',
         'method' => 'thank'
     ],
+    // Orders ==========================================
+    '/orders' => [
+        'controller' => 'UserController',
+        'method' => 'orders'
+    ],
+    '/vieworder' => [
+        'controller' => 'UserController',
+        'method' => 'orderDetails'
+    ],
 ];
 
 echo "REQUEST_URI: " . $_SERVER['REQUEST_URI'] . "<br>";

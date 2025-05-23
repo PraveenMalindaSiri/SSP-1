@@ -85,11 +85,19 @@ unset($_SESSION['errors'], $_SESSION['old'], $_SESSION['success']);
                 <label for="picture">Profile Picture</label><br>
                 <input type="file" id="picture" name="picture" class="my_input" required>
             </div>
-            <?php if($session->isLoggedIn())
-            echo '<button type="submit" class="my_btn mt-5">SAVE</button>'
+            <?php if ($session->isLoggedIn())
+                echo '<button type="submit" class="my_btn mt-5">SAVE</button>'
             ?>
         </form>
     </div>
+
+    <?php if ($session->isCustomer()): ?>
+        <div class="my_form_div">
+            <a href="/cb008920/public/orders" class="text-xl text-center hover:text-skyblue">
+                <p>My Previous Orders</p>
+            </a>
+        </div>
+    <?php endif; ?>
 </div>
 
 

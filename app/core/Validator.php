@@ -562,23 +562,25 @@ class Validator
         );
     }
 
-    public static function validateCartCheckout(){
+    public static function validateCartCheckout()
+    {
         $errors = [];
 
-        if(empty(self::$inputs['totalprice']) || self::$inputs['totalprice'] == 0){
+        if (empty(self::$inputs['totalprice']) || self::$inputs['totalprice'] == 0) {
             $errors['totalprice'] = "Total Price cannot be 0";
         }
-        if(empty(self::$inputs['terms'])){
+        if (empty(self::$inputs['terms'])) {
             $errors['terms'] = "Please agree with Terms before proceed to Payments.";
         }
 
         return $errors;
     }
 
-    public static function validCard(){
+    public static function validCard()
+    {
         $errors = [];
 
-        if(self::$inputs['cname']){
+        if (self::$inputs['cname']) {
             if (strlen(self::$inputs['cname']) < 3) {
                 $errors['cname'] = "Card Name must be at least 3 characters.";
             }
@@ -589,13 +591,13 @@ class Validator
                 $errors['cname'] = "Only letters and white space allowed in Card Name.";
             }
         }
-        if(self::$inputs['cnum']){
-            if(!ctype_digit(self::$inputs['cnum']) || strlen(self::$inputs['cnum']) < 12 || strlen(self::$inputs['cnum']) > 19){
+        if (self::$inputs['cnum']) {
+            if (!ctype_digit(self::$inputs['cnum']) || strlen(self::$inputs['cnum']) < 12 || strlen(self::$inputs['cnum']) > 19) {
                 $errors['cnum'] = "Card Number is not valid.";
             }
         }
-        if(self::$inputs['secnum']){
-            if(!ctype_digit(self::$inputs['secnum']) || strlen(self::$inputs['secnum']) !== 3){
+        if (self::$inputs['secnum']) {
+            if (!ctype_digit(self::$inputs['secnum']) || strlen(self::$inputs['secnum']) !== 3) {
                 $errors['secnum'] = "Security Number is not valid.";
             }
         }
@@ -603,11 +605,52 @@ class Validator
         return $errors;
     }
 
-    public static function validateCheckoutForm(){
+    public static function validateCheckoutForm()
+    {
         return array_merge_recursive(
             self::hasValue(),
             self::validCard()
         );
     }
 
+    public static function validOrderID()
+    {
+        $errors = [];
+        $conn = Database::getConnection();
+
+        if (!empty(self::$inputs['id'])) {
+            $statment = $conn->prepare("SELECT * FROM orders WHERE orderid = ?");
+            $statment->bind_param("i", self::$inputs["id"]);
+            $statment->execute();
+            $statment->store_result();
+            if ($statment->num_rows === 0) {
+                $errors['id'] = "Invalid Order ID.";
+            }
+        } else {
+            $errors['id'] = "Order ID is required.";
+        }
+        return $errors;
+    }
+
+    public static function isTheOrderOwner($username){
+        $errors = [];
+        $db = new Database();
+        $order = $db->getOrderByID(self::$inputs['id'], $username);
+        if($order['username'] !== $username){
+            $errors["id"] = 'This is not your order.';
+        }
+        return $errors;
+    }
+
+    public static function validateOrderDetailsView() {
+        $errors = [];
+        $session = new Session();
+        if ($session->isCustomer()) {
+            $errors = array_merge_recursive($errors, self::isTheOrderOwner($_SESSION['user']['username']));
+        }
+        return array_merge_recursive(
+            $errors,
+            self::validOrderID(),
+        );
+    }
 }

@@ -36,6 +36,11 @@
     </tbody>
 </table>
 
+<div class="my_form_div">
+    <a href="/cb008920/public/orders" class="text-xl text-center hover:text-skyblue">
+        <p>All Customer Orders</p>
+    </a>
+</div>
 
 
 <?php require_once(LAYOUT_PATH . "footer.php"); ?>
