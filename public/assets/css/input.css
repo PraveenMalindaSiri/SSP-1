@@ -29,7 +29,7 @@
     }
 }
 
-:root{
+@theme{
     --color-neon: #00FFC6;
     --color-skyblue: #1F8EFD;
     --color-darkgray: #1A1C1E;

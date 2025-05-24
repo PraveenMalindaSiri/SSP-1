@@ -30,7 +30,7 @@
                                 <p>Update details</p>
                             </a>
                             <a href="/cb008920/deleteuser?username=<?= $user['username'] ?>">
-                                <p class="hover:text-neon">Delete</p>
+                                <p class="hover:text-skyblue">Delete</p>
                             </a>
                         </td>
                     </tr>

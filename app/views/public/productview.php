@@ -3,7 +3,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-
+$session = new Session();
 $errors = $_SESSION['errors'] ?? [];
 unset($_SESSION['errors']);
 ?>
@@ -17,7 +17,7 @@ unset($_SESSION['errors']);
         <div class="flex justify-center">
             <div class="flex flex-col w-[90%] items-center bg-gray-700 text-white rounded-xl shadow-lg">
                 <div class="flex md:flex-row flex-col mt-10 items-center">
-                    <h2 class="text-2xl"><?= $product['name'] ?></h2>
+                    <h2 class="text-2xl"><?= ucwords($product['name']) ?></h2>
                     <h2 class="text-2xl"><?= $product['price'] ?></h2>
                 </div>
                 <div class="pt-10">
@@ -37,7 +37,7 @@ unset($_SESSION['errors']);
                         <p class="pt-2">Platform: <?= strtoupper($product['platform']) ?></p>
                         <p class="pt-2">Company: <?= $product['company'] ?></p>
                         <p class="pt-2">Duration: <?= $product['duration'] ?></p>
-                        <p class="pt-2">Genre: <?= ucfirst($product['genre']) ?></p>
+                        <p class="pt-2">Genre: <?= strtoupper($product['genre']) ?></p>
                     </div>
                 </div>
                 <div class="flex md:flex-row flex-col gap-4">
@@ -52,10 +52,17 @@ unset($_SESSION['errors']);
                     <input type="hidden" name="pid" value="<?= htmlspecialchars($product['pid']) ?>">
                     <input type="hidden" name="type" value="<?= htmlspecialchars($product['type']) ?>">
                     <input type="hidden" name="age" value="<?= htmlspecialchars($product['age_rating']) ?>">
-                    <div class="flex flex-row items-center gap-4">
-                        <button class="my_btn" type="submit" name="action" value="wishlist">Add to Wishlist</button>
-                        <button class="my_btn" type="submit" name="action" value="cart">Add to Cart</button>
-                    </div>
+                    <?php if ($session->isCustomer()): ?>
+                        <div class="flex flex-row items-center gap-4">
+                            <button class="my_btn" type="submit" name="action" value="wishlist">Add to Wishlist</button>
+                            <button class="my_btn" type="submit" name="action" value="cart">Add to Cart</button>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($session->isAdmin() || $session->isSeller()): ?>
+                        <div class="flex flex-row items-center gap-4">
+                            <a href="/cb008920/manageproducts" class="my_btn">Manage</a>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
