@@ -24,20 +24,23 @@
                         <td><?= htmlspecialchars($user['email']) ?></td>
                         <td class="px-4 py-2 space-x-2">
                             <a href="/cb008920/updateuserpassword?username=<?= $user['username'] ?>" class="hover:text-skyblue">
-                                <p>Update password</p>
+                                <p>Update password</p><br>
                             </a>
                             <a href="/cb008920/updateuserdetails?username=<?= $user['username'] ?>" class="hover:text-skyblue">
-                                <p>Update details</p>
+                                <p>Update details</p><br>
                             </a>
                             <a href="/cb008920/deleteuser?username=<?= $user['username'] ?>">
-                                <p class="hover:text-skyblue">Delete</p>
+                                <p class="hover:text-skyblue">Delete</p><br>
                             </a>
                         </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6"><hr class="border-t border-gray-400 my-4"></td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="4">No users found.</td>
+                    <td colspan="6">No users found.</td>
                 </tr>
             <?php endif; ?>
         </tbody>

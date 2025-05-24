@@ -259,14 +259,17 @@ class Validator
         $statment = $conn->prepare("SELECT * FROM users WHERE username = ?");
         $statment->bind_param('s', self::$inputs['username']);
         $statment->execute();
-        $statment->store_result();
-        if ($statment->num_rows === 0) {
+        $result = $statment->get_result();
+        $user = $result->fetch_assoc();
+        if (!$user) {
             $errors['username'] = "Username does exists.";
+        } else {
+            if ($_SESSION['user']['username'] === $user['username']) {
+                $errors['username'] = "You can't delete yourself.";
+            } elseif (strtolower($user['role']) === "admin") {
+                $errors['username'] = "You can't delete an ADMIN.";
+            }
         }
-        if ($_SESSION['user']['username'] === self::$inputs['username']) {
-            $errors['username'] = "You can't delete yourself.";
-        }
-
 
         return $errors;
     }
