@@ -124,8 +124,8 @@ class Validator
             if (strlen(self::$inputs['address']) > 255) {
                 $errors['address'] = "Address must be less than 255 characters.";
             }
-            if (!preg_match("/^[a-zA-Z0-9, ]*$/", self::$inputs['address'])) {
-                $errors['address'] = "Only letters, numbers, commas and white space allowed in address.";
+            if (!preg_match("/^[a-zA-Z0-9, .]*$/", self::$inputs['address'])) {
+                $errors['address'] = "Only letters, numbers, commas, dots and white space allowed in address.";
             }
         }
 

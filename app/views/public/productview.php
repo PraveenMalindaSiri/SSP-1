@@ -41,7 +41,7 @@ unset($_SESSION['errors']);
                     </div>
                 </div>
                 <div class="flex md:flex-row flex-col gap-4 pb-4">
-                    <?php if ($product['type'] !== 'Digital'): ?>
+                    <?php if (strtolower($product['type']) !== 'digital'): ?>
                         <div>
                             <div class="flex flex-row items-center gap-2 pt-2">
                                 <label for="amount" class="text-xl">Amount:</label>

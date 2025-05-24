@@ -36,7 +36,7 @@ unset($_SESSION['errors'], $_SESSION['old']);
             </div>
             <div>
                 <label for="email">Email</label><br>
-                <input class="my_input" type="email" id="email" name="email"  value="<?= htmlspecialchars($old['email'] ?? '') ?>">
+                <input class="my_input" type="text" id="email" name="email"  value="<?= htmlspecialchars($old['email'] ?? '') ?>">
                 <p class="text-red"><?= $errors['email'] ?? ''  ?></p>
             </div>
             <div>
