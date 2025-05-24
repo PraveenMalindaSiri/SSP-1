@@ -13,15 +13,23 @@
     .my_input{
         @apply w-[100%] p-2 rounded-lg border bg-white text-black focus:outline-none mb-4;
     }
+
+    .my_table{
+        @apply w-[100%] border border-black text-sm text-center border-collapse;
+    }
 }
 
 @layer utilities {
     .text-color-skyblue {
         color: #1F8EFD;
     }
+
+    .text-color-neon {
+        color: #00FFC6;
+    }
 }
 
-@theme{
+:root{
     --color-neon: #00FFC6;
     --color-skyblue: #1F8EFD;
     --color-darkgray: #1A1C1E;

@@ -418,7 +418,7 @@ class Validator
             $stmt->execute();
             $stmt->store_result();
             if ($stmt->num_rows === 0) {
-                $errors['pid'] = "Product ID wrong";
+                $errors['pid'] = "Product is ID wrong";
             }
         }
         return $errors;
