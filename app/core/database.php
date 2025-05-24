@@ -389,4 +389,18 @@ class Database
         $stmt->bind_param('i', $pid);
         return $stmt->execute() && $stmt->affected_rows > 0;
     }
+
+    public function allFeaturingProducts(){
+        $conn = Database::getConnection();
+
+        $stmt = $conn->prepare("SELECT pid FROM featured_products");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $pids = [];
+        while ($row = $result->fetch_assoc()) {
+            $pids[] = $row['pid']; // only the value
+        }
+
+        return $pids;
+    }
 }

@@ -22,6 +22,21 @@ class User
             }
         }
     }
+
+    public function viewHome(){
+        $db = new Database();
+        $pids = $db->allFeaturingProducts();
+
+        $products  = [];
+
+        foreach($pids as $pid){
+            $product = $db->getProductById($pid);
+            $products[] = $product;
+        }
+
+        return $products;
+    }
+
     public function register()
     {
         require_once APP_PATH . 'core/Database.php';

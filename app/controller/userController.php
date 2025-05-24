@@ -7,6 +7,22 @@ require_once APP_PATH . 'model/seller.php';
 
 class UserController
 {
+
+    public function viewHomePage()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $products = [];
+
+        $user = new User();
+
+        $products = $user->viewHome();
+
+        require_once APP_PATH . 'views/public/home.php';
+    }
+
     public function register()
     {
         if (session_status() === PHP_SESSION_NONE) {

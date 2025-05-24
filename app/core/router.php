@@ -5,11 +5,17 @@ $uri = str_replace('/cb008920', '', $uri);
 $uri = rtrim($uri, '/');
 
 $routes = [
-    '' => ['view' => 'public/home.php'],
-    '/home' => ['view' => 'public/home.php'],
     '/about' => ['view' => 'public/about.php'],
     '/manageprofile' => ['view' => 'shared/manageprofile.php'],
 
+    '' => [
+        'controller' => 'UserController',
+        'method' => 'viewHomePage'
+    ],
+    '/home' => [
+        'controller' => 'UserController',
+        'method' => 'viewHomePage'
+    ],
     '/physicalproducts' => [
         'controller' => 'ProductController',
         'method' => 'showProducts'
