@@ -464,7 +464,8 @@ class Validator
             self::validNumbers(),
             self::isUniqueProductName(),
             self::validPdctDetails(),
-            self::validPlatform()
+            self::validPlatform(),
+            self::validGenre()
         );
     }
 

@@ -107,10 +107,6 @@ class ProductController
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-        // if (empty($_POST)) {
-        //     header("Location: /cb008920/public/manageprofile");
-        //     exit();
-        // }
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = Validator::sanitize($_POST);
             Validator::$inputs = $_POST;
