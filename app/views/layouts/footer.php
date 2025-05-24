@@ -1,5 +1,5 @@
 <footer>
-    <div class="footer-container bg-gray-800 text-white pr-10 pl-10 pt-4 pb-1">
+    <div class="footer-container bg-gray-800 text-white pr-10 pl-10 pt-4 pb-1 mt-5">
         <section>
             <h3 class="text-xl pb-2">Explore Our Products</h3>
             <p class="text-lg text-center pr-10 pl-10">GameNova is a good go-to marketplace for digital and physical games.

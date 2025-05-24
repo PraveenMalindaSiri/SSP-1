@@ -13,10 +13,6 @@
     .my_input{
         @apply w-[100%] p-2 rounded-lg border bg-white text-black focus:outline-none mb-4;
     }
-
-    .my_table{
-        @apply w-[100%] border border-black text-sm text-center border-collapse;
-    }
 }
 
 @layer utilities {

@@ -23,28 +23,28 @@ unset($_SESSION['errors']);
                 <div class="pt-10">
                     <img src="/cb008920/public/<?= $product['img_path'] ?>" alt="" width="500" height="500" class="rounded-xl">
                 </div>
-                <div class="text-justify text-xl w-[90%] pt-10">
+                <div class="text-justify text-2xl w-[90%] pt-10">
                     <p class="text-center"><?= $product['description'] ?></p>
                 </div>
                 <div class="flex md:flex-row flex-col gap-10 text-xl items-center justify-center">
-                    <div class="flex flex-col">
+                    <div class="flex flex-col items-center md:items-start">
                         <p class="pt-2">Edition: <?= ucfirst($product['type']) ?></p>
                         <p class="pt-2">Released Date: <?= $product['released_date'] ?></p>
                         <p class="pt-2">Age Rating: <?= $product['age_rating'] ?></p>
                         <p class="pt-2">Size: <?= $product['size'] ?></p>
                     </div>
-                    <div class="flex flex-col">
+                    <div class="flex flex-col items-center md:items-start">
                         <p class="pt-2">Platform: <?= strtoupper($product['platform']) ?></p>
                         <p class="pt-2">Company: <?= $product['company'] ?></p>
                         <p class="pt-2">Duration: <?= $product['duration'] ?></p>
                         <p class="pt-2">Genre: <?= strtoupper($product['genre']) ?></p>
                     </div>
                 </div>
-                <div class="flex md:flex-row flex-col gap-4">
+                <div class="flex md:flex-row flex-col gap-4 pb-4">
                     <?php if ($product['type'] !== 'Digital'): ?>
                         <div>
                             <div class="flex flex-row items-center gap-2 pt-2">
-                                <label for="amount">Amount:</label>
+                                <label for="amount" class="text-xl">Amount:</label>
                                 <input class="my_input" type="number" id="amount" name="amount" min="1" value="1">
                             </div>
                         </div>
@@ -59,7 +59,7 @@ unset($_SESSION['errors']);
                         </div>
                     <?php endif; ?>
                     <?php if ($session->isAdmin() || $session->isSeller()): ?>
-                        <div class="flex flex-row items-center gap-4">
+                        <div class="flex flex-col items-center gap-4 justify-center">
                             <a href="/cb008920/manageproducts" class="my_btn">Manage</a>
                         </div>
                     <?php endif; ?>
@@ -67,7 +67,7 @@ unset($_SESSION['errors']);
             </div>
         </div>
     </form>
-    <div class="text-center text-xl border-2">
+    <div class="text-center text-xl">
         <p class="text-red"><?= $errors['age'] ?? ''  ?></p>
         <p class="text-red"><?= $errors['amount'] ?? ''  ?></p>
         <p class="text-red"><?= $errors['pid'] ?? ''  ?></p>
