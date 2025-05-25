@@ -24,6 +24,7 @@ class ProductController
             $_POST = Validator::sanitize($_POST);
             Validator::$inputs = $_POST;
             $errors = Validator::validateCreateProductForm();
+            // adding image validator errors to errors arrays
             $errors = array_merge($errors, Validator::validateProductImage($_FILES['productImage']));
 
             if (!empty($errors)) {
@@ -43,16 +44,19 @@ class ProductController
             $webPathPrefix = "assets/images/products/$edition/";
 
             if (!is_dir($uploadDir)) {
+                // if the uploading dir is not there, create it
                 mkdir($uploadDir, 0777, true);
             }
 
             $pic = $_FILES['productImage'];
             $extension = pathinfo($pic['name'], PATHINFO_EXTENSION);
+            // adjusting the product name to be used as the img name
             $productName = strtolower(preg_replace('/[^a-zA-Z0-9]/', '_', $_POST['name']));
             $filename = $productName . '.' . $extension;
 
             $uploadPath = $uploadDir . $filename;
 
+            // moving the file to the products folder
             if (!move_uploaded_file($pic['tmp_name'], $uploadPath)) {
                 $_SESSION['errors'] = ['productImage' => 'Failed to upload image.'];
                 header("Location: /cb008920/createproduct");
@@ -98,7 +102,6 @@ class ProductController
             $products = $seller->getMyProducts();
         }
 
-
         require_once APP_PATH . 'views/shared/manageproducts.php';
     }
 
@@ -107,6 +110,12 @@ class ProductController
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
+        $session = new Session();
+        if (!$session->isAdmin() && !$session->isSeller()) {
+            header("Location: /cb008920/");
+            exit;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = Validator::sanitize($_POST);
             Validator::$inputs = $_POST;
@@ -116,12 +125,6 @@ class ProductController
                 $_SESSION['errors'] = $errors;
                 $_SESSION['old'] = $_POST;
                 header("Location: /cb008920/updateproduct?id=" . $_POST['pid']);
-                exit;
-            }
-
-            $session = new Session();
-            if (!$session->isAdmin() && !$session->isSeller()) {
-                header("Location: /cb008920/");
                 exit;
             }
 
@@ -157,6 +160,13 @@ class ProductController
             session_start();
         }
 
+        $session = new Session();
+        if (!$session->isAdmin() && !$session->isSeller()) {
+            header("Location: /cb008920/");
+            exit;
+        }
+
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = Validator::sanitize($_POST);
             Validator::$inputs = $_POST;
@@ -166,11 +176,6 @@ class ProductController
                 $_SESSION['errors'] = $errors;
                 $_SESSION['old'] = $_POST;
                 header("Location: /cb008920/deleteproduct?id=" . $_POST['pid']);
-                exit;
-            }
-            $session = new Session();
-            if (!$session->isAdmin() && !$session->isSeller()) {
-                header("Location: /cb008920/");
                 exit;
             }
 

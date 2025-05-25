@@ -162,6 +162,7 @@ class UserController
 
             require_once APP_PATH . 'model/user.php';
             $user = new User();
+            // setting User class properties
             $user->loadFromArray($_POST);
             $user->setUsername($_SESSION['user']['username']);
             $result = $user->updateProfile();
@@ -206,6 +207,7 @@ class UserController
 
             require_once APP_PATH . 'model/user.php';
             $user = new User();
+            // setting User class properties
             $user->loadFromArray($_POST);
             $user->setUsername($_SESSION['user']['username']);
             $result = $user->updatePassword($_POST['cPassword'], $_POST['nPassword']);

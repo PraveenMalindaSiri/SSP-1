@@ -13,6 +13,12 @@ class AdminController
         $users = [];
 
         $session = new Session();
+
+        if (!$session->isAdmin()) {
+            header("Location: /cb008920/");
+            exit;
+        }
+
         if ($session->isLoggedIn()) {
             $admin = new Admin();
             $users = $admin->getUsers();
@@ -26,6 +32,13 @@ class AdminController
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
+
+        $session = new Session();
+        if (!$session->isAdmin()) {
+            header("Location: /cb008920/");
+            exit;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $noInput = empty($_POST['fullname']) && empty($_POST['email']) && empty($_POST['address']);
             if ($noInput) {
@@ -41,11 +54,6 @@ class AdminController
                 $_SESSION['errors'] = $errors;
                 $_SESSION['old'] = $_POST;
                 header("Location: /cb008920/updateuserdetails?username=" . $_POST['username']);
-                exit;
-            }
-            $session = new Session();
-            if (!$session->isAdmin()) {
-                header("Location: /cb008920/");
                 exit;
             }
 
@@ -71,6 +79,12 @@ class AdminController
             session_start();
         }
 
+        $session = new Session();
+        if (!$session->isAdmin()) {
+            header("Location: /cb008920/");
+            exit;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = Validator::sanitize($_POST);
             Validator::$inputs = $_POST;
@@ -82,11 +96,6 @@ class AdminController
                 $_SESSION['errors'] = $errors;
                 $_SESSION['old'] = $_POST;
                 header("Location: /cb008920/updateuserpassword?username=" . $_POST['username']);
-                exit;
-            }
-            $session = new Session();
-            if (!$session->isAdmin()) {
-                header("Location: /cb008920/");
                 exit;
             }
 
@@ -114,6 +123,13 @@ class AdminController
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
+
+        $session = new Session();
+        if (!$session->isAdmin()) {
+            header("Location: /cb008920/");
+            exit;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = Validator::sanitize($_POST);
             Validator::$inputs = $_POST;
@@ -123,11 +139,6 @@ class AdminController
                 $_SESSION['errors'] = $errors;
                 $_SESSION['old'] = $_POST;
                 header("Location: /cb008920/deleteuser?username=" . $_POST['username']);
-                exit;
-            }
-            $session = new Session();
-            if (!$session->isAdmin()) {
-                header("Location: /cb008920/");
                 exit;
             }
 
@@ -151,6 +162,13 @@ class AdminController
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
+
+        $session = new Session();
+        if (!$session->isAdmin()) {
+            header("Location: /cb008920/");
+            exit;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = Validator::sanitize($_POST);
             Validator::$inputs = $_POST;
@@ -160,11 +178,6 @@ class AdminController
                 $_SESSION['adderrors'] = $errors;
                 $_SESSION['addold'] = $_POST;
                 header("Location: /cb008920/featuring");
-                exit;
-            }
-            $session = new Session();
-            if (!$session->isAdmin()) {
-                header("Location: /cb008920/");
                 exit;
             }
 
@@ -188,6 +201,13 @@ class AdminController
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
+        
+        $session = new Session();
+        if (!$session->isAdmin()) {
+            header("Location: /cb008920/");
+            exit;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = Validator::sanitize($_POST);
             Validator::$inputs = $_POST;
@@ -197,11 +217,6 @@ class AdminController
                 $_SESSION['errors'] = $errors;
                 $_SESSION['old'] = $_POST;
                 header("Location: /cb008920/featuring");
-                exit;
-            }
-            $session = new Session();
-            if (!$session->isAdmin()) {
-                header("Location: /cb008920/");
                 exit;
             }
 

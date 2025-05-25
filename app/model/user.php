@@ -160,38 +160,4 @@ class User
     {
         $this->address = $address;
     }
-
-    // Getters
-    public function getFullname()
-    {
-        return $this->fullname;
-    }
-
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    public function getDob()
-    {
-        return $this->dob;
-    }
-    public function getRole()
-    {
-        return $this->role;
-    }
-    public function getAddress()
-    {
-        return $this->address;
-    }
 }
