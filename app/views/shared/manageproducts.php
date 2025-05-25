@@ -65,6 +65,9 @@ require_once(LAYOUT_PATH . "navbar_manageproducts.php");
             <div>
                 <p class="font-semibold">Price</p>
             </div>
+            <div>
+                <p>Total Sales</p>
+            </div>
         </div>
         <div>
             <p>Manage</p>
@@ -90,6 +93,9 @@ require_once(LAYOUT_PATH . "navbar_manageproducts.php");
                     </div>
                     <div>
                         <p class="font-semibold">Rs.<?= htmlspecialchars($product['price']) ?></p>
+                    </div>
+                    <div>
+                        <p><?= htmlspecialchars($product['amount']) ?></p>
                     </div>
                 </div>
                 <div>

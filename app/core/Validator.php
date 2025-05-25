@@ -508,7 +508,7 @@ class Validator
         $type = strtolower(trim(self::$inputs['type'] ?? ''));
 
         // amount should be 1 or more
-        if (!is_numeric($amount) || $amount <= 0) {
+        if (!is_numeric($amount) || $amount <= 0 || !is_int($amount)) {
             $errors['amount'] = "Amount must be positive a number.";
         }
         // is the game type/edition is digital, can't be more than 1 item
