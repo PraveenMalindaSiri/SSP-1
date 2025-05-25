@@ -19,6 +19,7 @@ class Database
         return self::$connection;
     }
 
+    // regitering
     public function insertUser($data = [])
     {
         $conn = self::getConnection();
@@ -45,6 +46,7 @@ class Database
         return $stmt->get_result()->fetch_assoc();
     }
 
+    // update selected user details
     public function updateUser($data = [])
     {
         $conn = self::getConnection();
@@ -85,6 +87,7 @@ class Database
         return $stmt->execute();
     }
 
+    // update password
     public function updatePassword($username, $newPassword)
     {
         $conn = self::getConnection();
@@ -112,6 +115,7 @@ class Database
         return $statment->execute() && $statment->affected_rows > 0;
     }
 
+    // creating a product
     public function insertProduct($data = [])
     {
         $conn = self::getConnection();
@@ -163,6 +167,7 @@ class Database
         return $stmt->get_result()->fetch_assoc();
     }
 
+    // updating selected product details
     public function updateProduct($data = [])
     {
         $conn = self::getConnection();
@@ -248,6 +253,7 @@ class Database
         return $stmt->execute() && $stmt->affected_rows > 0;
     }
 
+    // adding wishlist items
     public function AddWishlistItem($pid, $UserAmount, $user)
     {
         $conn = self::getConnection();
@@ -307,6 +313,7 @@ class Database
         return $statement->execute() && $statement->affected_rows > 0;
     }
 
+    // add order
     public function addOrder($user, $totalprice)
     {
         $conn = self::getConnection();
@@ -319,6 +326,7 @@ class Database
         }
     }
 
+    // adding order details of a order
     public function addOrderProduct($data = [])
     {
         $conn = self::getConnection();
@@ -335,6 +343,7 @@ class Database
         return $stmt->execute();
     }
 
+    // get order details of a given order ID
     public function getOrderPS($orderID)
     {
         $conn = self::getConnection();
@@ -376,21 +385,26 @@ class Database
         return $statement->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function addFeaturingProduct($pid) {
+    // adding featuring products
+    public function addFeaturingProduct($pid)
+    {
         $conn = self::getConnection();
         $statement = $conn->prepare("INSERT INTO featured_products (pid) VALUES (?)");
         $statement->bind_param('i', $pid);
         return $statement->execute();
     }
 
-    public function removeFeaturingProduct($pid) {
+    // removing featuring products
+    public function removeFeaturingProduct($pid)
+    {
         $conn = self::getConnection();
         $stmt = $conn->prepare("DELETE FROM featured_products WHERE pid = ? LIMIT 1");
         $stmt->bind_param('i', $pid);
         return $stmt->execute() && $stmt->affected_rows > 0;
     }
 
-    public function allFeaturingProducts(){
+    public function allFeaturingProducts()
+    {
         $conn = Database::getConnection();
 
         $stmt = $conn->prepare("SELECT pid FROM featured_products");
@@ -402,5 +416,19 @@ class Database
         }
 
         return $pids;
+    }
+
+    // total sales of a product
+    public function getTotalProductOrders($pid)
+    {
+        $conn = Database::getConnection();
+
+        // taking the each pids total order amount as total 
+        $stmt = $conn->prepare("SELECT SUM(amount) AS total FROM orderproducts WHERE pid = ?");
+        $stmt->bind_param('i', $pid);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row ? $row['total'] : 0;
     }
 }

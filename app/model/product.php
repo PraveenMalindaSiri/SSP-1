@@ -71,13 +71,27 @@ class Product
     public function getAllProducts()
     {
         $db = new Database();
-        return $db->getProducts();
+        $products = $db->getProducts();
+
+        foreach($products as $product => $values){
+            $amount = $db->getTotalProductOrders($values['pid']);
+            $products[$product]['amount'] = $amount;
+        }
+
+        return $products;
     }
 
     public function getProductsByOwner()
     {
         $db = new Database();
-        return $db->getProductsBySeller($this->company);
+        $products = $db->getProductsBySeller($this->company);
+        
+        foreach($products as $product => $values){
+            $amount = $db->getTotalProductOrders($values['pid']);
+            $products[$product]['amount'] = $amount;
+        }
+
+        return $products;
     }
 
     public function showProducts(){
