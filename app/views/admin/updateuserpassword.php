@@ -20,7 +20,7 @@ $username = $_GET['username'];
         <form action="/cb008920/updateuserpassword" method="post">
             <div>
                 <label for="username">Username</label><br>
-                <input class="my_input" type="text" id="username" name="username" value="<?= $username ?>">
+                <input class="my_input" type="text" id="username" name="username" value="<?= htmlspecialchars($username) ?>">
                 <p class="text-red"><?= $errors['username'] ?? ''  ?></p>
             </div>
             <div>

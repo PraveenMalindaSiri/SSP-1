@@ -18,7 +18,7 @@ $username = $_GET['username'];
         <form action="/cb008920/updateuserdetails" method="post">
             <div>
                 <label for="username">Username</label><br>
-                <input class="my_input" type="text" id="username" name="username" required value="<?= $username ?>">
+                <input class="my_input" type="text" id="username" name="username" required value="<?= htmlspecialchars($username) ?>">
                 <p class="text-red"><?= $errors['username'] ?? ''  ?></p>
             </div>
             <div>

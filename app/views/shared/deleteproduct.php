@@ -16,7 +16,7 @@ $id = $_GET['id'];
         <form action="/cb008920/deleteproduct" method="POST">
             <div>
                 <label for="pid">Product ID</label><br>
-                <input class="my_input" type="number" id="pid" name="pid" value="<?= $id ?>">
+                <input class="my_input" type="number" id="pid" name="pid" value="<?= htmlspecialchars($id) ?>">
                 <p class="text-red"><?= $errors['pid'] ?? '' ?></p>
             </div>
             <p class="text-red"><?= $errors['productdelete'] ?? ''  ?></p>
