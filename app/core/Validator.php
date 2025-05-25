@@ -7,6 +7,16 @@ class Validator
 {
 
     public static $inputs = [];
+    
+    public static function sanitize($data = [])
+    {
+        $sanitizedData = [];
+        foreach ($data as $key => $value) {
+            // remove scripts from user imputs
+            $sanitizedData[$key] = htmlspecialchars(strip_tags(trim($value)));
+        }
+        return $sanitizedData;
+    }
 
     public static function hasValue()
     {
@@ -14,6 +24,7 @@ class Validator
 
         foreach (self::$inputs as $key => $value) {
             if (empty($value)) {
+                // checking if every input has a value
                 $errors[$key] = $key . " is required.";
             }
         }
@@ -25,6 +36,7 @@ class Validator
     {
         $errors = [];
 
+        // new password === confirm password to change the current password
         if (self::$inputs['nPassword'] != self::$inputs['conPassword']) {
             $errors['Passwords'] = "New and Confirm Passwords do not match.";
         }
@@ -39,6 +51,7 @@ class Validator
         if (!isset(self::$inputs['role'])) {
             $errors['role'] = "Role is required.";
         } else {
+            // user role must be these
             if (self::$inputs['role'] != 'customer' && self::$inputs['role'] != 'seller' && self::$inputs['role'] != 'admin') {
                 $errors['role'] = "Invalid role.";
             }
@@ -92,6 +105,7 @@ class Validator
 
             if (!$user || !isset($user['password'])) {
                 $errors['cPassword'] = "User not found.";
+            // get the user's password in db and check if the given currect password === db password (hashed)
             } elseif (!password_verify(self::$inputs['cPassword'], $user['password'])) {
                 $errors['cPassword'] = "Current password is incorrect.";
             }
@@ -143,6 +157,7 @@ class Validator
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $stmt->store_result();
+        // check if the given username is already aquired
         if ($stmt->num_rows > 0) {
             $errors['username'] = "Username already exists.";
         }
@@ -161,6 +176,7 @@ class Validator
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $stmt->store_result();
+        // check if the given email is already aquired
         if ($stmt->num_rows > 0) {
             $errors['email'] = "Email already exists.";
         }
@@ -179,6 +195,7 @@ class Validator
         $stmt->bind_param("s", $name);
         $stmt->execute();
         $stmt->store_result();
+        // check if the given product name is already aquired
         if ($stmt->num_rows > 0) {
             $errors['name'] = "Product name already exists.";
         }
@@ -187,7 +204,7 @@ class Validator
     }
 
 
-
+    // this will run all the required validation for the relavent form 
     public static function validateRegisterForm()
     {
         return array_merge_recursive(
@@ -204,15 +221,6 @@ class Validator
     public static function validateLoginForm()
     {
         return  self::hasValue();
-    }
-
-    public static function sanitize($data = [])
-    {
-        $sanitizedData = [];
-        foreach ($data as $key => $value) {
-            $sanitizedData[$key] = htmlspecialchars(strip_tags(trim($value)));
-        }
-        return $sanitizedData;
     }
 
     public static function validateUpdateProfileForm()
@@ -244,8 +252,9 @@ class Validator
         $statment->bind_param('s', self::$inputs['username']);
         $statment->execute();
         $statment->store_result();
+        // check if the user is in the db (used when admin try to manage other users' details)
         if ($statment->num_rows === 0) {
-            $errors['username'] = "Username does exists.";
+            $errors['username'] = "Username does not exists.";
         }
 
         return $errors;
@@ -325,16 +334,14 @@ class Validator
 
         $type = explode('/', $pic['type'])[1];
 
+        // accept only these extensions
         if ($type != 'jpeg' && $type != 'png' && $type != 'jpg') {
             $errors['productImage'] = "Invalid file type. Only JPEG,JPG and PNG are allowed.";
         }
+        // max img size is 5mb
         if ($pic['size'] > 5000000) {
             $errors['productImage'] = "File size exceeds 5MB.";
         }
-
-        // if (chmod($pic['tmp_name'], 0766)) {
-        //     $errors['productImage'] = "File permissions are not set correctly.";
-        // }
 
         return $errors;
     }
@@ -420,6 +427,7 @@ class Validator
             $stmt->bind_param("i", self::$inputs['pid']);
             $stmt->execute();
             $stmt->store_result();
+            // check if the product is in the db
             if ($stmt->num_rows === 0) {
                 $errors['pid'] = "Product is ID wrong";
             }
@@ -433,7 +441,7 @@ class Validator
 
         $db = new Database();
         $results = $db->getProductById(self::$inputs['pid']);
-
+        // check if the product owner is the same seller who id trying to update/delete the product
         if ($results['company'] != $sellerName) {
             $errors['pid'] = "You are not the owner of this product.";
         }
@@ -458,6 +466,7 @@ class Validator
     {
         $errors = [];
         $session = new Session();
+        // run isTheProductOwner validation only if the current user role is seller
         if ($session->isSeller()) {
             $errors = array_merge_recursive($errors, self::isTheProductOwner($_SESSION['user']['username']));
         }
@@ -476,6 +485,7 @@ class Validator
     {
         $errors = [];
         $session = new Session();
+        // run isTheProductOwner validation only if the current user role is seller
         if ($session->isSeller()) {
             $errors = array_merge_recursive($errors, self::isTheProductOwner($_SESSION['user']['username']));
         }
@@ -497,9 +507,11 @@ class Validator
         $amount = (int) self::$inputs['amount'];
         $type = strtolower(trim(self::$inputs['type'] ?? ''));
 
+        // amount should be 1 or more
         if (!is_numeric($amount) || $amount <= 0) {
             $errors['amount'] = "Amount must be positive a number.";
         }
+        // is the game type/edition is digital, can't be more than 1 item
         if ($type === 'digital' && $amount > 1) {
             $errors['amount'] = "Digital products amount cannot be higher than 1.";
         }
@@ -519,6 +531,7 @@ class Validator
             $stmt->bind_param("is", self::$inputs['pid'], $_SESSION['user']['username']);
             $stmt->execute();
             $stmt->store_result();
+            // checking if the digital item is already in the wishlist table
             if ($stmt->num_rows > 0) {
                 $errors['pid'] = "Item already exists in Wishlist. Can't order more than 1 Digital item at a time.";
             }
@@ -538,7 +551,7 @@ class Validator
         if ($type === 'digital') {
 
             $Currentamount = $_SESSION['cart'][$username][$pid] ?? 0;
-
+            // checking if the digital item is already in the cart session
             if ($Currentamount >= 1) {
                 $errors['pid'] = "Item already exists in Cart. Can't order more than 1 Digital item at a time.";
             }
@@ -641,6 +654,7 @@ class Validator
             $statment->bind_param("i", self::$inputs["id"]);
             $statment->execute();
             $statment->store_result();
+            // checking if the given order ID is in the db
             if ($statment->num_rows === 0) {
                 $errors['id'] = "Invalid Order ID.";
             }
@@ -655,6 +669,7 @@ class Validator
         $errors = [];
         $db = new Database();
         $order = $db->getOrderByID(self::$inputs['id'], $username);
+        // check if a customer is trying to check others orders
         if ($order['username'] !== $username) {
             $errors["id"] = 'This is not your order.';
         }
@@ -684,6 +699,7 @@ class Validator
         $stmt->bind_param('i', self::$inputs['pid']);
         $stmt->execute();
         $stmt->store_result();
+        // check if the featuring product id is in the db before deleting
         if ($stmt->num_rows === 0) {
             $errors['pid'] = "Product is not featured.";
         }
@@ -701,6 +717,7 @@ class Validator
         $stmt->bind_param('i', self::$inputs['pid']);
         $stmt->execute();
         $stmt->store_result();
+        // check if the featuring product id is in the db before adding
         if ($stmt->num_rows > 0) {
             $errors['pid'] = "Product is already featured.";
         }

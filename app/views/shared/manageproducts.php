@@ -58,7 +58,7 @@ require_once(LAYOUT_PATH . "navbar_manageproducts.php");
         <div>
             <p>Product name</p>
         </div>
-        <div class="flex md:flex-row flex-col w-[50%] justify-evenly gap-4 items-center">
+        <div class="flex md:flex-row flex-col w-[60%] justify-evenly gap-4 items-center">
             <div>
                 <p>Edition</p>
             </div>
@@ -84,7 +84,7 @@ require_once(LAYOUT_PATH . "navbar_manageproducts.php");
                         <p><?= htmlspecialchars($product['name']) ?></p>
                     </a>
                 </div>
-                <div class="flex md:flex-row flex-col w-[50%] justify-evenly gap-4 items-center">
+                <div class="flex md:flex-row flex-col w-[60%] justify-evenly gap-4 items-center">
                     <div>
                         <p><?= htmlspecialchars($product['type']) ?></p>
                     </div>
@@ -94,10 +94,12 @@ require_once(LAYOUT_PATH . "navbar_manageproducts.php");
                 </div>
                 <div>
                     <a href="/cb008920/updateproduct?id=<?= $product['pid'] ?>">
-                        <p class="hover:text-skyblue">Update</p>
-                    </a>
+                        <img src="/cb008920/public/assets/images/main/change.png" alt="editing" width="30">
+                        <!-- <p class="hover:text-skyblue">Update</p> -->
+                    </a><br>
                     <a href="/cb008920/deleteproduct?id=<?= $product['pid'] ?>">
-                        <p class="hover:text-skyblue">Delete</p>
+                        <img src="/cb008920/public/assets/images/main/trash.png" alt="deleting" width="30">
+                        <!-- <p class="hover:text-skyblue">Delete</p> -->
                     </a>
                 </div>
             </div>

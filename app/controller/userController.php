@@ -31,11 +31,15 @@ class UserController
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+            // sanitize all the post values and assign them back to the post
             $_POST = Validator::sanitize($_POST);
+            // assign all the sanitized values in the post to inputs array to use them to validate others
             Validator::$inputs = $_POST;
+            // assign errors coming from the validator to show the user 
             $errors = Validator::validateRegisterForm();
 
             if (!empty($errors)) {
+                // assign errors and submitted post values in a session to fill fileds again and show user errors
                 $_SESSION['errors'] = $errors;
                 $_SESSION['old'] = $_POST;
                 header("Location: /cb008920/register");

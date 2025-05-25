@@ -6,10 +6,10 @@
                 Gamers and game creators can use this platform to buy and sell quality games.
                 No region locks, you can easily buy any game at a better price.
             </p>
-            <a href="../public/physicalproducts.php" class="text-lg text-cyan-400 hover:text-white">See all games...</a>
+            <a href="/cb008920/physicalproducts" class="text-lg text-cyan-400 hover:text-white">See all games...</a>
         </section>
         <div class="flex justify-between flex-col md:flex-row items-center mt-4 pr-10 pl-10 gap-4">
-            <a href="../public/about.php" class="text-xl text-cyan-400 hover:text-white">About Us</a>
+            <a href="/cb008920/about" class="text-xl text-cyan-400 hover:text-white">About Us</a>
             <section class="flex md:flex-row items-center gap-10">
                 <a href="https://www.facebook.com/" target="_blank"><img
                         src="/cb008920/public/assets/images/main/facebook.png" alt="facebook" class="w-7 h-7 transition ease-in-out delay-75 hover:-translate-y-1"></a>

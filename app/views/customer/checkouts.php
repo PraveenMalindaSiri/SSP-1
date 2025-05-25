@@ -8,9 +8,10 @@ $errors = $_SESSION['errors'] ?? [];
 $old = $_SESSION['old'] ?? [];
 unset($_SESSION['errors'], $_SESSION['old']);
 ?>
-<pre><?php print_r($_SESSION['cart_total'] ?? []); ?></pre>
+
+<!-- <pre><?php print_r($_SESSION['cart_total'] ?? []); ?></pre>
 <pre><?php print_r($old ?? []); ?></pre>
-<pre><?php print_r($errors ?? []); ?></pre>
+<pre><?php print_r($errors ?? []); ?></pre> -->
 
 <div class="flex flex-col items-center justify-center">
     <div class="my_form_div">

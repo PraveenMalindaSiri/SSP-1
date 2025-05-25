@@ -8,7 +8,7 @@ $errors = $_SESSION['errors'] ?? [];
 $old = $_SESSION['old'] ?? [];
 unset($_SESSION['errors'], $_SESSION['old']);
 ?>
-<pre><?php print_r($_SESSION['cart'] ?? []); ?></pre>
+<!-- <pre><?php print_r($_SESSION['cart'] ?? []); ?></pre> -->
 
 <?php if (isset($products) && is_array($products) && count($products) > 0): ?>
     <?php foreach ($products as $product): ?>

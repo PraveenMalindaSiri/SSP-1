@@ -16,7 +16,7 @@ unset($_SESSION['errors']);
     <form action="/cb008920/productview-submit" method="post">
         <div class="flex justify-center">
             <div class="flex flex-col w-[90%] items-center bg-gray-700 text-white rounded-xl shadow-lg">
-                <div class="flex md:flex-row flex-col mt-10 items-center">
+                <div class="flex md:flex-row flex-col mt-10 items-center gap-4">
                     <h2 class="text-2xl"><?= ucwords($product['name']) ?></h2>
                     <h2 class="text-2xl"><?= $product['price'] ?></h2>
                 </div>

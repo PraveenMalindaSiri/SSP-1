@@ -2,7 +2,7 @@
 
 
 <div class="overflow-x-auto p-4">
-    <table class="w-[100%] border-4 border-solid border-black border-collapse text-sm text-center" border="4">
+    <table class="w-[100%] border-4 border-solid border-black border-collapse text-sm text-center" border="2">
         <thead class="bg-gray-100 text-xs uppercase">
             <tr>
                 <th>Username</th>

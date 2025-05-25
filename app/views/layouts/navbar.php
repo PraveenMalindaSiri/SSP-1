@@ -18,7 +18,7 @@ $session->start();
     <header class="bg-gray-800 text-white pr-10 pl-10 pt-4 pb-4">
         <nav class="flex justify-between items-center mx-auto w-[90%]">
             <div>
-                <a href="/cb008920/public/home">
+                <a href="/cb008920/home">
                     <h1 class="text-3xl text-skyblue hover:text-white">GameNova</h1>
                 </a>
             </div>

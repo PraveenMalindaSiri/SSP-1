@@ -144,8 +144,8 @@ $routes = [
     ],
 ];
 
-echo "REQUEST_URI: " . $_SERVER['REQUEST_URI'] . "<br>";
-echo "Parsed URI: " . $uri . "<br>";
+// echo "REQUEST_URI: " . $_SERVER['REQUEST_URI'] . "<br>";
+// echo "Parsed URI: " . $uri . "<br>";
 
 function loadController($uri, $routes)
 {
