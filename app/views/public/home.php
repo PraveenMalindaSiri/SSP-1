@@ -30,6 +30,10 @@
     <div><img src="/cb008920/public/assets/images/main/intro_img2.jpg" alt="Intro Image" class="rounded-lg"  width="300"></div>
 </div>
 
+<div>
+    <p class="text-center text-4xl font-bold blur-xs uppercase tracking-widest text-skyblue">Featuring Games</p>
+</div>
+
 <div class="bg-gray-700">
     <div class="flex flex-row justify-between w-[90%] mx-auto mt-5 mb-5">
         <h1 class="text-2xl md:text-2xl font-bold text-white pt-10">Physical Editions</h1>

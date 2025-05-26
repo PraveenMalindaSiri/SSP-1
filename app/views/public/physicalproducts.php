@@ -4,6 +4,10 @@
 
 <!-- <pre><?php print_r($products); ?></pre> -->
 
+<div>
+    <p class="text-center text-4xl font-bold blur-xs uppercase tracking-widest text-skyblue">Physical Editions</p>
+</div>
+
 <?php if (isset($products) && is_array($products) && count($products) > 0): ?>
     <div class="bg-gray-700 mb-5">
         <div class="flex flex-row justify-between w-[90%] mx-auto mt-5 mb-5">

@@ -20,7 +20,7 @@ unset($_SESSION['errors'], $_SESSION['old'], $_SESSION['success']);
             echo '<a href="/cb008920/login" class="flex">LOG IN</a>';
         }
         ?>
-        <img src="/cb008920/public/assets/images/main/power-switch.png" alt="" class="w-7 h-7 pl-4">
+        <img src="/cb008920/public/assets/images/main/power-switch.png" alt="" class="pl-4" width="40">
     </button>
 </div>
 

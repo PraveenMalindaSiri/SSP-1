@@ -2,6 +2,10 @@
 <?php require_once(LAYOUT_PATH . "navbar_products.php"); ?>
 
 
+<div>
+    <p class="text-center text-4xl font-bold blur-xs uppercase tracking-widest text-skyblue">Digital Editions</p>
+</div>
+
 
 <?php if (isset($products) && is_array($products) && count($products) > 0): ?>
     <div class="bg-gray-700 mb-5">

@@ -111,7 +111,10 @@ $routes = [
         'controller' => 'AdminController',
         'method' => 'deleteUser'
     ],
-    '/featuring' => ['view' => 'admin/featuring.php'],
+    '/featuring' => [
+        'controller' => 'AdminController',
+        'method' => 'pageFeaturing'
+    ],
     "/feature-add" => [
         'controller' => 'AdminController',
         'method' => 'addFeaturing'
