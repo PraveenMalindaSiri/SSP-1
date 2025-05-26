@@ -88,7 +88,7 @@
         </div>
     </div>
 <?php else: ?>
-    <p>No Products</p>
+    <p class="text-center text-2xl">No Products</p>
 <?php endif; ?>
 
 

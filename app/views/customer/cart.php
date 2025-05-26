@@ -60,7 +60,7 @@ unset($_SESSION['errors'], $_SESSION['old']);
         </form>
     </div>
 <?php else: ?>
-    <p>No Cart Items</p>
+    <p class="text-center text-2xl">No Cart Items</p>
 <?php endif; ?>
 <p class="text-white">a</p>
 <?php require_once(LAYOUT_PATH . "footer.php"); ?>

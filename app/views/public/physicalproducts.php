@@ -56,7 +56,7 @@
             </div>
 
             <?php if (!$hasProducts): ?>
-                <p class="text-white">No Shooter Games</p>
+                <p class="text-white text-center text-2xl">No Shooter Games</p>
             <?php endif; ?>
         </div>
     </div>
@@ -89,7 +89,7 @@
         </div>
     </div>
 <?php else: ?>
-    <p>No Products</p>
+    <p class="text-center text-2xl">No Products</p>
 <?php endif; ?>
 
 

@@ -45,7 +45,7 @@
             <?php endforeach; ?>
         </div>
         <?php if (!$hasProducts): ?>
-            <p class="text-white">No Physical Editions for featuring</p>
+            <p class="text-white text-center text-2xl">No Physical Editions for featuring</p>
         <?php endif; ?>
     </div>
 </div>
@@ -74,7 +74,7 @@
             <?php endforeach; ?>
         </div>
         <?php if (!$hasProducts): ?>
-            <p class="text-white">No Physical Editions for featuring</p>
+            <p class="text-white text-center text-2xl">No Digital Editions for featuring</p>
         <?php endif; ?>
     </div>
 </div>

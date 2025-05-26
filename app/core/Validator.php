@@ -293,11 +293,13 @@ class Validator
 
     public static function validateUpdatePasswordFormAdmin()
     {
+        // uncomment 'validCurrentPassword' if admin should give the current password to update user password
         return array_merge_recursive(
             self::hasValue(),
             self::validPassword('nPassword'),
             self::validPassword('conPassword'),
             self::matchingPassword(),
+            //self::validCurrentPassword(),
             self::isValidUser()
         );
     }

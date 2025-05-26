@@ -40,7 +40,7 @@ unset($_SESSION['errors']);
         </form>
     <?php endforeach; ?>
 <?php else: ?>
-    <p>No Wishlist Items</p>
+    <p class="text-center text-2xl">No Wishlist Items</p>
 <?php endif; ?>
 
 
