@@ -7,7 +7,7 @@ class Validator
 {
 
     public static $inputs = [];
-    
+
     public static function sanitize($data = [])
     {
         $sanitizedData = [];
@@ -105,7 +105,7 @@ class Validator
 
             if (!$user || !isset($user['password'])) {
                 $errors['cPassword'] = "User not found.";
-            // get the user's password in db and check if the given currect password === db password (hashed)
+                // get the user's password in db and check if the given currect password === db password (hashed)
             } elseif (!password_verify(self::$inputs['cPassword'], $user['password'])) {
                 $errors['cPassword'] = "Current password is incorrect.";
             }
@@ -294,7 +294,10 @@ class Validator
     public static function validateUpdatePasswordFormAdmin()
     {
         return array_merge_recursive(
-            self::validateUpdatePasswordForm(),
+            self::hasValue(),
+            self::validPassword('nPassword'),
+            self::validPassword('conPassword'),
+            self::matchingPassword(),
             self::isValidUser()
         );
     }

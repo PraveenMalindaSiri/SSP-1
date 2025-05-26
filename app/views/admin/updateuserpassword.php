@@ -23,11 +23,11 @@ $username = $_GET['username'];
                 <input class="my_input" type="text" id="username" name="username" value="<?= htmlspecialchars($username) ?>">
                 <p class="text-red"><?= $errors['username'] ?? ''  ?></p>
             </div>
-            <div>
+            <!-- <div>
                 <label for="cPassword">Current Password</label><br>
                 <input class="my_input" type="password" id="cPassword" name="cPassword" value="<?= htmlspecialchars($old['cPassword'] ?? '') ?>">
                 <p class="text-red"><?= $errors['cPassword'] ?? ''  ?></p>
-            </div>
+            </div> -->
             <div>
                 <label for="nPassword">New Password</label><br>
                 <input class="my_input" type="password" id="nPassword" name="nPassword" value="<?= htmlspecialchars($old['nPassword'] ?? '') ?>">

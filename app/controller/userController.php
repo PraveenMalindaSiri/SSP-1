@@ -210,7 +210,7 @@ class UserController
             // setting User class properties
             $user->loadFromArray($_POST);
             $user->setUsername($_SESSION['user']['username']);
-            $result = $user->updatePassword($_POST['cPassword'], $_POST['nPassword']);
+            $result = $user->updatePassword( $_POST['nPassword']);
 
             if ($result) {
                 // Update successful

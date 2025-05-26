@@ -1,5 +1,7 @@
 <?php
 require_once APP_PATH . 'model/Product.php';
+require_once APP_PATH . 'core/Database.php';
+require_once APP_PATH . 'core/Session.php';
 
 class User
 {
@@ -23,13 +25,14 @@ class User
         }
     }
 
-    public function viewHome(){
+    public function viewHome()
+    {
         $db = new Database();
         $pids = $db->allFeaturingProducts();
 
         $products  = [];
 
-        foreach($pids as $pid){
+        foreach ($pids as $pid) {
             $product = $db->getProductById($pid);
             $products[] = $product;
         }
@@ -39,7 +42,6 @@ class User
 
     public function register()
     {
-        require_once APP_PATH . 'core/Database.php';
         $db = new Database();
         return $db->insertUser([
             'fullname' => $this->fullname,
@@ -54,12 +56,10 @@ class User
 
     public function login($username, $password)
     {
-        require_once APP_PATH . 'core/Database.php';
         $db = new Database();
         $user = $db->getUserByUsername($username);
 
         if ($user && password_verify($password, $user['password'])) {
-            require_once APP_PATH . 'core/Session.php';
             $session = new Session();
             $session->start();
             $session->unsetUser();
@@ -80,7 +80,6 @@ class User
 
     public function logout()
     {
-        require_once APP_PATH . 'core/Session.php';
         $session = new Session();
         if ($session->isLoggedIn()) {
             $session->start();
@@ -94,7 +93,6 @@ class User
 
     public function updateProfile()
     {
-        require_once APP_PATH . 'core/Database.php';
         $db = new Database();
 
         return $db->updateUser([
@@ -105,9 +103,8 @@ class User
         ]);
     }
 
-    public function updatePassword($currentPassword, $newPassword)
+    public function updatePassword($newPassword)
     {
-        require_once APP_PATH . 'core/Database.php';
         $db = new Database();
 
         $newPasswordHashed = password_hash($newPassword, PASSWORD_BCRYPT);

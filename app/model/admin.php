@@ -28,7 +28,7 @@ class Admin extends User
         $user = new User();
         $user->loadFromArray($data);
         $user->setUsername($data['username']);
-        return $user->updatePassword($data['cPassword'], $data['nPassword']);
+        return $user->updatePassword( $data['nPassword']);
     }
     public function deleteUsers($user)
     {
