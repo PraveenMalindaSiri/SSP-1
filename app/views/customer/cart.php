@@ -1,5 +1,5 @@
 <?php require_once(LAYOUT_PATH . "navbar.php"); ?>
-<?php $totalprice = 0; 
+<?php $totalprice = 0;
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -54,9 +54,9 @@ unset($_SESSION['errors'], $_SESSION['old']);
             <div class="flex flex-col items-center">
                 <button class="my_btn" type="submit" name="action" value="checkout">Checkout</button>
             </div>
-                <p class="text-red"><?= $errors['totalprice'] ?? ''  ?></p>
-                <p class="text-red"><?= $errors['terms'] ?? ''  ?></p>
-                <p class="text-red"><?= $errors['checkout'] ?? ''  ?></p>
+            <p class="text-red text-center text-2xl"><?= $errors['totalprice'] ?? ''  ?></p>
+            <p class="text-red text-center text-2xl"><?= $errors['terms'] ?? ''  ?></p>
+            <p class="text-red text-center text-2xl"><?= $errors['checkout'] ?? ''  ?></p>
         </form>
     </div>
 <?php else: ?>

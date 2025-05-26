@@ -356,7 +356,7 @@ class Validator
         $errors = [];
 
         if (self::$inputs['platform']) {
-            if (strtolower(self::$inputs['platform']) != 'pc' && strtolower(self::$inputs['platform']) != 'ps4' && strtolower(self::$inputs['platform']) != 'ps4' && strtolower(self::$inputs['platform']) != 'xbox' && strtolower(self::$inputs['platform']) != 'switch') {
+            if (strtolower(self::$inputs['platform']) != 'pc' && strtolower(self::$inputs['platform']) != 'ps4' && strtolower(self::$inputs['platform']) != 'ps5' && strtolower(self::$inputs['platform']) != 'xbox' && strtolower(self::$inputs['platform']) != 'switch') {
                 $errors['platform'] = "Invalid platform. Select either PC, PS4, PS5, XBOX or SWITCH.";
             }
         }
