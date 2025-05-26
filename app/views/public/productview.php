@@ -8,12 +8,9 @@ $errors = $_SESSION['errors'] ?? [];
 unset($_SESSION['errors']);
 ?>
 
-<div>
-    <p class="text-white">a</p>
-</div>
 
 <?php if (isset($product) && is_array($product) && count($product) > 0): ?>
-    <form action="/cb008920/productview-submit" method="post">
+    <form action="/cb008920/productview-submit" method="post" class="mt-5">
         <div class="flex justify-center">
             <div class="flex flex-col w-[90%] items-center bg-gray-700 text-white rounded-xl shadow-lg">
                 <div class="flex md:flex-row flex-col mt-10 items-center gap-4">
@@ -77,8 +74,5 @@ unset($_SESSION['errors']);
 <?php else: ?>
     <p class="text-xl">No Item</p>
 <?php endif; ?>
-<div>
-    <p class="text-white">adc</p>
-</div>
 
 <?php require_once(LAYOUT_PATH . "footer.php"); ?>
