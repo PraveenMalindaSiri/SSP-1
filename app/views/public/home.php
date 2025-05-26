@@ -21,6 +21,15 @@
     </div>
 </div>
 
+<div class="flex flex-col md:flex-row justify-between items-center gap-4 m-5">
+    <div><img src="/cb008920/public/assets/images/main/intro_img.jpg" alt="Intro Image" class="rounded-lg" width="300"></div>
+    <div> <video autoplay muted loop class="rounded-lg">
+            <source src="/cb008920/public/assets/images/main/intro_vid.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div><img src="/cb008920/public/assets/images/main/intro_img2.jpg" alt="Intro Image" class="rounded-lg"  width="300"></div>
+</div>
+
 <div class="bg-gray-700">
     <div class="flex flex-row justify-between w-[90%] mx-auto mt-5 mb-5">
         <h1 class="text-2xl md:text-2xl font-bold text-white pt-10">Physical Editions</h1>

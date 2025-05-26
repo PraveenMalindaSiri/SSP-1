@@ -18,7 +18,7 @@ unset($_SESSION['errors']);
             <div class="flex flex-col w-[90%] items-center bg-gray-700 text-white rounded-xl shadow-lg">
                 <div class="flex md:flex-row flex-col mt-10 items-center gap-4">
                     <h2 class="text-2xl"><?= ucwords($product['name']) ?></h2>
-                    <h2 class="text-2xl"><?= $product['price'] ?></h2>
+                    <h2 class="text-2xl">Rs.<?= $product['price'] ?></h2>
                 </div>
                 <div class="pt-10">
                     <img src="/cb008920/public/<?= $product['img_path'] ?>" alt="" width="500" height="500" class="rounded-xl">
@@ -31,12 +31,12 @@ unset($_SESSION['errors']);
                         <p class="pt-2">Edition: <?= ucfirst($product['type']) ?></p>
                         <p class="pt-2">Released Date: <?= $product['released_date'] ?></p>
                         <p class="pt-2">Age Rating: <?= $product['age_rating'] ?></p>
-                        <p class="pt-2">Size: <?= $product['size'] ?></p>
+                        <p class="pt-2">Size: <?= $product['size'] ?>GB</p>
                     </div>
                     <div class="flex flex-col items-center md:items-start">
                         <p class="pt-2">Platform: <?= strtoupper($product['platform']) ?></p>
                         <p class="pt-2">Company: <?= $product['company'] ?></p>
-                        <p class="pt-2">Duration: <?= $product['duration'] ?></p>
+                        <p class="pt-2">Duration: <?= $product['duration'] ?>H</p>
                         <p class="pt-2">Genre: <?= strtoupper($product['genre']) ?></p>
                     </div>
                 </div>
