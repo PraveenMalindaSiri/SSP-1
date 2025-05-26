@@ -157,6 +157,21 @@ class AdminController
         }
     }
 
+    public function pageFeaturing()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $session = new Session();
+        if (!$session->isAdmin()) {
+            header("Location: /cb008920/");
+            exit;
+        }
+
+        require_once APP_PATH . 'views/admin/featuring.php';
+    }
+
     public function addFeaturing()
     {
         if (session_status() === PHP_SESSION_NONE) {
@@ -201,7 +216,7 @@ class AdminController
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-        
+
         $session = new Session();
         if (!$session->isAdmin()) {
             header("Location: /cb008920/");
