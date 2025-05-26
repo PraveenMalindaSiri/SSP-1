@@ -32,7 +32,7 @@ unset($_SESSION['errors'], $_SESSION['old']);
                     </div>
                 </div>
             </div>
-            <div class="text-center text-xl border-2">
+            <div class="text-center text-xl">
                 <p class="text-red"><?= $errors['delete'] ?? ''  ?></p>
                 <p class="text-red"><?= $errors['pid'] ?? ''  ?></p>
             </div>
